@@ -25,7 +25,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>ca.uwo.csd.cs2212.team18.App</mainClass>
+            <mainClass>ca.uwo.csd.cs2212.team18.FitbitApp</mainClass>
           </manifest>
         </archive>
       </configuration>
@@ -40,7 +40,7 @@
         </descriptorRefs>
         <archive>
           <manifest>
-            <mainClass>ca.uwo.csd.cs2212.team18.App</mainClass>
+            <mainClass>ca.uwo.csd.cs2212.team18.FitbitApp</mainClass>
           </manifest>
         </archive>
       </configuration>
