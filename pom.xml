@@ -1,9 +1,9 @@
 <project>
-	<modelVersion> 4.0.0 </modelVersion>
-	<groupId> ca.uwo.csd.cs2212.team18 </groupId>
-	<artifactId> team18 </artifactId>
-	<packaging> jar </packaging>
-	<version> 1.0-SNAPSHOT </version>
+    <modelVersion> 4.0.0 </modelVersion>
+    <groupId> ca.uwo.csd.cs2212.team18 </groupId>
+    <artifactId> team18 </artifactId>
+    <packaging> jar </packaging>
+    <version> 1.0-SNAPSHOT </version>
     
     <repositories>
         <repository>
@@ -13,8 +13,8 @@
         </repository>
     </repositories>
     
-
-
+    
+    
     <dependencies>
         <dependency>
             <groupId>ca.uwo.csd.cs2212</groupId>
@@ -27,13 +27,13 @@
             <version>2.2.2-CS2212</version>
         </dependency>
         <dependency>
-        	<groupId>org.json</groupId>
-        	<artifactId>json</artifactId>
-        	<version>20090211</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
         </dependency>
     </dependencies>
-
-
+    
+    
     
     <build>
         <plugins>
@@ -57,20 +57,20 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                <archive>
-                    <manifest>
-                        <mainClass>ca.uwo.csd.cs2212.team18.FitbitApp</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
+                    <archive>
+                        <manifest>
+                            <mainClass>ca.uwo.csd.cs2212.team18.FitbitApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
