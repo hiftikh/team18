@@ -4,7 +4,6 @@ public class HeartRate extends Activity{
 	
 	private int min;
 	private int max;
-	private int minutes;
 	
 	public HeartRate(String type){
 		super(type);
@@ -25,14 +24,4 @@ public class HeartRate extends Activity{
 	public void setMax(int max) {
 		this.max = max;
 	}
-
-	public int getMinutes() {
-		return minutes;
-	}
-
-	public void setMinutes(int minutes) {
-		this.minutes = minutes;
-	}
-	
-	
 }
