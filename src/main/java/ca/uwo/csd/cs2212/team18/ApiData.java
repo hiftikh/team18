@@ -19,6 +19,7 @@ import org.json.JSONArray;
 
 public class ApiData {
 
+	// make seperate test class that overrides ApiData Class
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
 	private static final double DEFAULT_DISTANCE = 7.52;
@@ -34,6 +35,7 @@ public class ApiData {
 	private static final double DEFAULT_TOTAL_DISTANCE = 202.95;
 	private static final int DEFAULT_TOTAL_FLOORS = 560;
 	private static final int DEFAULT_TOTAL_STEPS = 272799;
+	private static final int DEFAULT_RESTING_HEART_RATE = 71;
 
 
 	private static String CALL_BACK_URL="http://localhost:8080";
@@ -44,12 +46,15 @@ public class ApiData {
 	private Response response;
 
 
+	// Make these into a linked list so that you will not need to manually name them(?)
+	//make them in the constructor
 	private Activity caloriesOut = new Activity("Calories Out");
 	private Activity floors = new Activity("Floors");
 	private Activity steps = new Activity("Steps");
 	private Activity actMin = new Activity("Active Minutes");
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
+	private Activity restingHeartRate = new Activity("Resting Heart Rate");
 
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
@@ -58,6 +63,11 @@ public class ApiData {
 	private Activity totalDistance = new Activity("Distance");
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
+	
+	private HeartRate outOfRange = new HeartRate("Out of Range");
+	private HeartRate fatBurn = new HeartRate("Fat Burn");
+	private HeartRate cardio = new HeartRate("Cardio");
+	private HeartRate peak = new HeartRate("Peak");
 
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;

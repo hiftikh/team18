@@ -4,7 +4,8 @@ public class HeartRate extends Activity{
 	
 	private int min;
 	private int max;
-	
+	private String description;
+
 	public HeartRate(String type){
 		super(type);
 	}
@@ -23,5 +24,13 @@ public class HeartRate extends Activity{
 
 	public void setMax(int max) {
 		this.max = max;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
