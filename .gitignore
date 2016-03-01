@@ -3,4 +3,6 @@ target/
 .DS_Store
 .settings
 .project
-.classpath
+.classpat
+Team18Credentials.txt
+Team18Tokens.txt
