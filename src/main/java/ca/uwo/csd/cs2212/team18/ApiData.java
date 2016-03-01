@@ -281,9 +281,8 @@ public class ApiData {
 	private void setHeartRate(){
 		try {
 			jsonObj = new JSONObject(response.getBody());
-			jsonArray = jsonObj.getJSONArray("value");
+			jsonArray = jsonObj.getJSONArray("activities-heart");
 			System.out.println(jsonArray.toString());
-			//jsonObj = jsonObj.getJSONObject("heartRateZones");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
