@@ -39,6 +39,18 @@ public class APIData {
 	private static final int DEFAULT_TOTAL_FLOORS = 560;
 	private static final int DEFAULT_TOTAL_STEPS = 272799;
 	private static final int DEFAULT_RESTING_HEART_RATE = 71;
+	private static final int DEFAULT_OUT_OF_RANGE_VALUE = 422;
+	private static final int DEFAULT_OUT_OF_RANGE_MIN = 30;
+	private static final int DEFAULT_OUT_OF_RANGE_MAX = 94;
+	private static final int DEFAULT_FAT_BURN_VALUE = 230;
+	private static final int DEFAULT_FAT_BURN_MIN = 94;
+	private static final int DEFAULT_FAT_BURN_MAX = 131;
+	private static final int DEFAULT_CARDIO_VALUE = 12;
+	private static final int DEFAULT_CARDIO_MIN = 131;
+	private static final int DEFAULT_CARDIO_MAX = 159;
+	private static final int DEFAULT_PEAK_VALUE = 12;
+	private static final int DEFAULT_PEAK_MIN = 159;
+	private static final int DEFAULT_PEAK_MAX = 220;
 
 
 	private String requestUrlActivities;
@@ -84,6 +96,8 @@ public class APIData {
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
+	//Create seperate private methods to better categorize this(?) is it
+	//even useful since i am going to be splitting this anyways
 	public APIData(){
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
@@ -100,6 +114,21 @@ public class APIData {
 		totalDistance.setValue(DEFAULT_TOTAL_DISTANCE);
 		totalFloors.setValue(DEFAULT_TOTAL_FLOORS);
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
+		restingHeartRate.setValue(DEFAULT_RESTING_HEART_RATE);
+		outOfRange.setValue(DEFAULT_OUT_OF_RANGE_VALUE);
+		outOfRange.setMin(DEFAULT_OUT_OF_RANGE_MIN);
+		outOfRange.setMax(DEFAULT_OUT_OF_RANGE_MAX);
+		fatBurn.setValue(DEFAULT_FAT_BURN_VALUE);
+		fatBurn.setMin(DEFAULT_FAT_BURN_MIN);
+		fatBurn.setMax(DEFAULT_FAT_BURN_MAX);
+		cardio.setValue(DEFAULT_CARDIO_VALUE);
+		cardio.setMin(DEFAULT_CARDIO_MIN);
+		cardio.setMax(DEFAULT_CARDIO_MAX);
+		peak.setValue(DEFAULT_PEAK_VALUE);
+		peak.setMin(DEFAULT_PEAK_MIN);
+		peak.setMax(DEFAULT_PEAK_MAX);
+		setHRDescriptions();
+		
 	}
 
 
@@ -317,6 +346,7 @@ public class APIData {
 			setHRObject(cardio, jsonCardio);
 			jsonPeak = jsonArray.getJSONObject(3);
 			setHRObject(peak, jsonPeak);
+			setHRDescriptions();
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -335,6 +365,22 @@ public class APIData {
 		}
 	}
 
+	private void setHRDescriptions() {
+		outOfRange.setDescription("When you’re out of zone, which means your heart rate"
+				+ "is below 50% of maximum, your heart rate may still be elevated but not "
+				+ "enough to be considered exercise.");
+		fatBurn.setDescription("Fat burn zone, which means your heart rate is 50 to 69% "
+				+ "of maximum, is the low-to-medium intensity exercise zone and may be a good"
+				+ " place to start for those new to exercise. It’s called the fat burn zone "
+				+ "because a higher percentage of calories are burned from fat, but the total "
+				+ "calorie burn rate is lower.");
+		cardio.setDescription("Cardio zone, which means your heart rate is 70 to 84% of maximum, "
+				+ "is the medium-to-high intensity exercise zone. In this zone, you're pushing"
+				+ " yourself but not straining. For most people, this is the exercise zone to target. ");
+		peak.setDescription("Peak zone, which means your heart rate is greater than 85% of "
+				+ "maximum, is the high-intensity exercise zone. The peak zone is for short "
+				+ "intense sessions that improve performance and speed. ");
+	}
 	
 	public String refresh(String date){
 		api(requestUrlActivities);
