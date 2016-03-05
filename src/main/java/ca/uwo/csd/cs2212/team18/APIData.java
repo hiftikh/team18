@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-public class ApiData {
+public class APIData {
 
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
@@ -37,7 +37,11 @@ public class ApiData {
 	private static final int DEFAULT_TOTAL_FLOORS = 560;
 	private static final int DEFAULT_TOTAL_STEPS = 272799;
 
+	private String requestUrlActivities;
+	private String requestUrlHeartRate;
+	private String requestUrlBestLife;
 
+	private static String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
 	private static String CALL_BACK_URL="http://localhost:8080";
 	private static int CALL_BACK_PORT=8080;
 
@@ -64,7 +68,7 @@ public class ApiData {
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
-	public ApiData(){
+	public APIData(){
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -82,7 +86,7 @@ public class ApiData {
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
 	}
 
-	public ApiData(String date){
+	public APIData(String date){
 
 		BufferedReader bR = null;
 		String line = null;
@@ -156,17 +160,15 @@ public class ApiData {
 				expiresIn,
 				rawResponse);
 
-		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-		String requestUrlActivities = requestUrlPrefix + "activities/date/" + date + ".json";
-		String requestUrlHeartRate = requestUrlPrefix + "activities/heart/date/" + date + "/1d.json";
-		String requestUrlBestLife = requestUrlPrefix + "activities.json";
+		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
 
 		api(requestUrlActivities);
 		setActivities();
 		api(requestUrlBestLife);
 		setBestLife();
 		api(requestUrlHeartRate);
-
 
 		BufferedWriter bW = null;
 		try {
@@ -284,11 +286,16 @@ public class ApiData {
 
 	}
 
-	public String refresh(String date, ApiData api){
-		api = new ApiData(date);
+	public String refresh(String date){
+		api(requestUrlActivities);
+		setActivities();
+		api(requestUrlBestLife);
+		setBestLife();
+		api(requestUrlHeartRate);
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		return sdf.format(cal.getTime());
+
 	}
 
 	public Activity getCaloriesOut() {
@@ -332,10 +339,10 @@ public class ApiData {
 	public Activity getTotalSteps() {
 		return totalSteps;
 	}
-	
+
 	public static void main(String args[]){
-		ApiData api = new ApiData("2016-01-01");
-		api.refresh("2016-01-02",api);
+		APIData api = new APIData("2016-01-01");
+
 	}
 }
 
