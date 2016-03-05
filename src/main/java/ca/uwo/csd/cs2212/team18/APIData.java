@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
@@ -17,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-public class ApiData {
+public class APIData {
 
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
@@ -34,35 +36,39 @@ public class ApiData {
 	private static final double DEFAULT_TOTAL_DISTANCE = 202.95;
 	private static final int DEFAULT_TOTAL_FLOORS = 560;
 	private static final int DEFAULT_TOTAL_STEPS = 272799;
-	
 
+	private String requestUrlActivities;
+	private String requestUrlHeartRate;
+	private String requestUrlBestLife;
+
+	private static String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
 	private static String CALL_BACK_URL="http://localhost:8080";
 	private static int CALL_BACK_PORT=8080;
 
 	private OAuth2AccessToken accessToken;
 	private FitbitOAuth20ServiceImpl service;
 	private Response response;
-	
-	
+
+
 	private Activity caloriesOut = new Activity("Calories Out");
 	private Activity floors = new Activity("Floors");
 	private Activity steps = new Activity("Steps");
 	private Activity actMin = new Activity("Active Minutes");
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
-	
+
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
 	private BestActivity bestSteps = new BestActivity("Steps");
-	
+
 	private Activity totalDistance = new Activity("Distance");
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
-	
+
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
-	public ApiData(){
+	public APIData(){
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -79,8 +85,8 @@ public class ApiData {
 		totalFloors.setValue(DEFAULT_TOTAL_FLOORS);
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
 	}
-	
-	public ApiData(String date){
+
+	public APIData(String date){
 
 		BufferedReader bR = null;
 		String line = null;
@@ -154,17 +160,15 @@ public class ApiData {
 				expiresIn,
 				rawResponse);
 
-		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-		String requestUrlActivities = requestUrlPrefix + "activities/date/" + date + ".json";
-		String requestUrlHeartRate = requestUrlPrefix + "activities/heart/date/" + date + "/1d.json";
-		String requestUrlBestLife = requestUrlPrefix + "activities.json";
+		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
 
 		api(requestUrlActivities);
 		setActivities();
 		api(requestUrlBestLife);
 		setBestLife();
 		api(requestUrlHeartRate);
-		
 
 		BufferedWriter bW = null;
 		try {
@@ -282,6 +286,17 @@ public class ApiData {
 
 	}
 
+	public String refresh(String date){
+		api(requestUrlActivities);
+		setActivities();
+		api(requestUrlBestLife);
+		setBestLife();
+		api(requestUrlHeartRate);
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(cal.getTime());
+
+	}
 
 	public Activity getCaloriesOut() {
 		return caloriesOut;
@@ -325,6 +340,9 @@ public class ApiData {
 		return totalSteps;
 	}
 
+	public static void main(String args[]){
+		APIData api = new APIData("2016-01-01");
 
+	}
 }
 
