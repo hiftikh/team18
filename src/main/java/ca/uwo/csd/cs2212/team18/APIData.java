@@ -409,6 +409,8 @@ public class APIData {
 	public HeartRateZone getPeak() {
 		return peak;
 	}
-	
+	public static void main(String args[]){
+		APIData api = new APIData("2016-01-07");
+	}
 }
 
