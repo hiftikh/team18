@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 
 import com.github.scribejava.apis.FitbitApi20;
@@ -18,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-public class ApiData {
+public class APIData {
 
 	// make seperate test class that overrides ApiData Class
 	private static final int DEFAULT_STEPS = 10042;
@@ -39,6 +41,11 @@ public class ApiData {
 	private static final int DEFAULT_RESTING_HEART_RATE = 71;
 
 
+	private String requestUrlActivities;
+	private String requestUrlHeartRate;
+	private String requestUrlBestLife;
+
+	private static String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
 	private static String CALL_BACK_URL="http://localhost:8080";
 	private static int CALL_BACK_PORT=8080;
 
@@ -55,8 +62,9 @@ public class ApiData {
 	private Activity actMin = new Activity("Active Minutes");
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
+	
 	private Activity restingHeartRate = new Activity("Resting Heart Rate");
-
+	
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
 	private BestActivity bestSteps = new BestActivity("Steps");
@@ -64,18 +72,19 @@ public class ApiData {
 	private Activity totalDistance = new Activity("Distance");
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
+
 	
 	private HeartRateZone outOfRange = new HeartRateZone("Out of Range");
 	private HeartRateZone fatBurn = new HeartRateZone("Fat Burn");
 	private HeartRateZone cardio = new HeartRateZone("Cardio");
 	private HeartRateZone peak = new HeartRateZone("Peak");
 	
-	private Activity restingRate = new Activity("Resting Heart Rate");
+
 
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
-	public ApiData(){
+	public APIData(){
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -93,7 +102,8 @@ public class ApiData {
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
 	}
 
-	public ApiData(String date){
+
+	public APIData(String date){
 
 		BufferedReader bR = null;
 		String line = null;
@@ -167,10 +177,9 @@ public class ApiData {
 				expiresIn,
 				rawResponse);
 
-		String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-		String requestUrlActivities = requestUrlPrefix + "activities/date/" + date + ".json";
-		String requestUrlHeartRate = requestUrlPrefix + "activities/heart/date/" + date + "/1d.json";
-		String requestUrlBestLife = requestUrlPrefix + "activities.json";
+		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
 
 		api(requestUrlActivities);
 		setActivities();
@@ -298,7 +307,7 @@ public class ApiData {
 			jsonArray = jsonObj.getJSONArray("activities-heart");
 			jsonObj = jsonArray.getJSONObject(0);
 			jsonObj = jsonObj.getJSONObject("value");
-			restingRate.setValue(jsonObj.getInt("restingHeartRate"));
+			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
 			jsonArray = jsonObj.getJSONArray("heartRateZones");
 			jsonOutOfRange = jsonArray.getJSONObject(0);
 			setHRObject(outOfRange, jsonOutOfRange);
@@ -327,6 +336,18 @@ public class ApiData {
 	}
 
 	
+	public String refresh(String date){
+		api(requestUrlActivities);
+		setActivities();
+		api(requestUrlBestLife);
+		setBestLife();
+		api(requestUrlHeartRate);
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(cal.getTime());
+
+	}
+
 	public Activity getCaloriesOut() {
 		return caloriesOut;
 	}
@@ -389,11 +410,5 @@ public class ApiData {
 		return peak;
 	}
 	
-	public static void main (String[] args) {
-		System.out.println("Hello");
-		ApiData api = new ApiData("2016-01-07");
-
-	}
-
 }
 
