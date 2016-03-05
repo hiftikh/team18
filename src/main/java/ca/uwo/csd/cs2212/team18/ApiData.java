@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
+
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -64,10 +65,12 @@ public class ApiData {
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
 	
-	private HeartRate outOfRange = new HeartRate("Out of Range");
-	private HeartRate fatBurn = new HeartRate("Fat Burn");
-	private HeartRate cardio = new HeartRate("Cardio");
-	private HeartRate peak = new HeartRate("Peak");
+	private HeartRateZone outOfRange = new HeartRateZone("Out of Range");
+	private HeartRateZone fatBurn = new HeartRateZone("Fat Burn");
+	private HeartRateZone cardio = new HeartRateZone("Cardio");
+	private HeartRateZone peak = new HeartRateZone("Peak");
+	
+	private Activity restingRate = new Activity("Resting Heart Rate");
 
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
@@ -291,16 +294,39 @@ public class ApiData {
 	private void setHeartRate(){
 		try {
 			jsonObj = new JSONObject(response.getBody());
+			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
 			jsonArray = jsonObj.getJSONArray("activities-heart");
-			System.out.println(jsonArray.toString());
+			jsonObj = jsonArray.getJSONObject(0);
+			jsonObj = jsonObj.getJSONObject("value");
+			restingRate.setValue(jsonObj.getInt("restingHeartRate"));
+			jsonArray = jsonObj.getJSONArray("heartRateZones");
+			jsonOutOfRange = jsonArray.getJSONObject(0);
+			setHRObject(outOfRange, jsonOutOfRange);
+			jsonFatBurn = jsonArray.getJSONObject(1);
+			setHRObject(fatBurn, jsonFatBurn);
+			jsonCardio = jsonArray.getJSONObject(2);
+			setHRObject(cardio, jsonCardio);
+			jsonPeak = jsonArray.getJSONObject(3);
+			setHRObject(peak, jsonPeak);
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void setHRObject(HeartRateZone obj, JSONObject jsonObj) {
+		try {
+			obj.setMin(jsonObj.getInt("min"));
+			obj.setMax(jsonObj.getInt("max"));
+			obj.setValue(jsonObj.getInt("minutes"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-
+	
 	public Activity getCaloriesOut() {
 		return caloriesOut;
 	}
@@ -343,9 +369,31 @@ public class ApiData {
 		return totalSteps;
 	}
 
+	public Activity getRestingHeartRate() {
+		return restingHeartRate;
+	}
+
+	public HeartRateZone getOutOfRange() {
+		return outOfRange;
+	}
+
+	public HeartRateZone getFatBurn() {
+		return fatBurn;
+	}
+
+	public HeartRateZone getCardio() {
+		return cardio;
+	}
+
+	public HeartRateZone getPeak() {
+		return peak;
+	}
+	
 	public static void main (String[] args) {
 		System.out.println("Hello");
 		ApiData api = new ApiData("2016-01-07");
+
 	}
+
 }
 

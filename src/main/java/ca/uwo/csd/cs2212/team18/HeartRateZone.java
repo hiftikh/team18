@@ -1,12 +1,12 @@
 package ca.uwo.csd.cs2212.team18;
 
-public class HeartRate extends Activity{
+public class HeartRateZone extends Activity{
 	
 	private int min;
 	private int max;
 	private String description;
 
-	public HeartRate(String type){
+	public HeartRateZone(String type){
 		super(type);
 	}
 
