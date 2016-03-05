@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
+
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -21,6 +22,7 @@ import org.json.JSONArray;
 
 public class APIData {
 
+	// make seperate test class that overrides ApiData Class
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
 	private static final double DEFAULT_DISTANCE = 7.52;
@@ -36,6 +38,8 @@ public class APIData {
 	private static final double DEFAULT_TOTAL_DISTANCE = 202.95;
 	private static final int DEFAULT_TOTAL_FLOORS = 560;
 	private static final int DEFAULT_TOTAL_STEPS = 272799;
+	private static final int DEFAULT_RESTING_HEART_RATE = 71;
+
 
 	private String requestUrlActivities;
 	private String requestUrlHeartRate;
@@ -50,13 +54,17 @@ public class APIData {
 	private Response response;
 
 
+	// Make these into a linked list so that you will not need to manually name them(?)
+	//make them in the constructor
 	private Activity caloriesOut = new Activity("Calories Out");
 	private Activity floors = new Activity("Floors");
 	private Activity steps = new Activity("Steps");
 	private Activity actMin = new Activity("Active Minutes");
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
-
+	
+	private Activity restingHeartRate = new Activity("Resting Heart Rate");
+	
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
 	private BestActivity bestSteps = new BestActivity("Steps");
@@ -64,6 +72,14 @@ public class APIData {
 	private Activity totalDistance = new Activity("Distance");
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
+
+	
+	private HeartRateZone outOfRange = new HeartRateZone("Out of Range");
+	private HeartRateZone fatBurn = new HeartRateZone("Fat Burn");
+	private HeartRateZone cardio = new HeartRateZone("Cardio");
+	private HeartRateZone peak = new HeartRateZone("Peak");
+	
+
 
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
@@ -85,6 +101,7 @@ public class APIData {
 		totalFloors.setValue(DEFAULT_TOTAL_FLOORS);
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
 	}
+
 
 	public APIData(String date){
 
@@ -169,6 +186,7 @@ public class APIData {
 		api(requestUrlBestLife);
 		setBestLife();
 		api(requestUrlHeartRate);
+		setHeartRate();
 
 		BufferedWriter bW = null;
 		try {
@@ -283,9 +301,41 @@ public class APIData {
 	}
 
 	private void setHeartRate(){
-
+		try {
+			jsonObj = new JSONObject(response.getBody());
+			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
+			jsonArray = jsonObj.getJSONArray("activities-heart");
+			jsonObj = jsonArray.getJSONObject(0);
+			jsonObj = jsonObj.getJSONObject("value");
+			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
+			jsonArray = jsonObj.getJSONArray("heartRateZones");
+			jsonOutOfRange = jsonArray.getJSONObject(0);
+			setHRObject(outOfRange, jsonOutOfRange);
+			jsonFatBurn = jsonArray.getJSONObject(1);
+			setHRObject(fatBurn, jsonFatBurn);
+			jsonCardio = jsonArray.getJSONObject(2);
+			setHRObject(cardio, jsonCardio);
+			jsonPeak = jsonArray.getJSONObject(3);
+			setHRObject(peak, jsonPeak);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void setHRObject(HeartRateZone obj, JSONObject jsonObj) {
+		try {
+			obj.setMin(jsonObj.getInt("min"));
+			obj.setMax(jsonObj.getInt("max"));
+			obj.setValue(jsonObj.getInt("minutes"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	
 	public String refresh(String date){
 		api(requestUrlActivities);
 		setActivities();
@@ -340,9 +390,25 @@ public class APIData {
 		return totalSteps;
 	}
 
-	public static void main(String args[]){
-		APIData api = new APIData("2016-01-01");
-
+	public Activity getRestingHeartRate() {
+		return restingHeartRate;
 	}
+
+	public HeartRateZone getOutOfRange() {
+		return outOfRange;
+	}
+
+	public HeartRateZone getFatBurn() {
+		return fatBurn;
+	}
+
+	public HeartRateZone getCardio() {
+		return cardio;
+	}
+
+	public HeartRateZone getPeak() {
+		return peak;
+	}
+	
 }
 
