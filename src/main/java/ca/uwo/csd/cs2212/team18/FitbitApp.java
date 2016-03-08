@@ -1,12 +1,21 @@
+package ca.uwo.csd.cs2212.team18;
+
+
 import javax.swing.SwingUtilities;
 
-public class App {
-	public static void main(String[] args) {
+public class FitbitApp {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-			@Override
 			public void run() {
-				BaseDashBoardUI window = new BaseDashBoardUI();
-				window.setVisible(true);
+
+				if (args[0].equals("test")) {
+					BaseDashBoardUI window = new BaseDashBoardUI(true);
+					window.setVisible(true);
+				} else {
+					BaseDashBoardUI window = new BaseDashBoardUI(false);
+					window.setVisible(true);
+				}
 			}
-		}); }
+		});
+	}
 }
