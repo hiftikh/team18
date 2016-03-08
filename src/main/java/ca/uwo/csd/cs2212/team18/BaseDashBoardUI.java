@@ -50,7 +50,8 @@ import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 
 /**
- * 
+ * BaseDashBoardUI class.
+ * This class creates an instance of the BaseDashBoard UI
  * @author Team18
  *
  */
