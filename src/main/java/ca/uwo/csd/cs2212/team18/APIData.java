@@ -34,9 +34,9 @@ public class APIData {
 	 * 	make them in the constructor
 	 * - //Create separate private methods to better categorize this(?) is it
 	 * 	even useful since i am going to be splitting this anyways
-	*/
-	
-	
+	 */
+
+
 	// Initializes constants used to store for default APIData constructor
 	// This will be used if the program is using test values
 	private static final int DEFAULT_STEPS = 10042;
@@ -93,10 +93,10 @@ public class APIData {
 	private Activity actMin = new Activity("Active Minutes");
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
-	
+
 	// Initializes Activity object that stores the resting heart rate
 	private Activity restingHeartRate = new Activity("Resting Heart Rate");
-	
+
 	// Initializes BestActivity objects that will store that best activities
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
@@ -112,18 +112,21 @@ public class APIData {
 	private HeartRateZone fatBurn = new HeartRateZone("Fat Burn");
 	private HeartRateZone cardio = new HeartRateZone("Cardio");
 	private HeartRateZone peak = new HeartRateZone("Peak");
-	
+
 	// Initializes JSON objects to store JSON text
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
-	
+	// Variable that will store whether the api is in testmode or not
+	private boolean isTest;
+
 	/**
 	 * Default constructor that creates an APIData object
 	 * that has test attributes
 	 */
 	public APIData(){
 		// Sets default values to the object's attributes
+		isTest = true;
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -153,7 +156,7 @@ public class APIData {
 		peak.setMin(DEFAULT_PEAK_MIN);
 		peak.setMax(DEFAULT_PEAK_MAX);
 		setHRDescriptions();
-		
+
 	}
 
 
@@ -166,6 +169,7 @@ public class APIData {
 	public APIData(String date){
 
 		// Initializes various variables
+		isTest = false;
 		BufferedReader bR = null;
 		String line = null;
 		String apiKey = null;
@@ -364,7 +368,7 @@ public class APIData {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * The setBestLife method is a private helper method that will parse through the
 	 * current response body that contains the JSON information for the APIData object's
@@ -430,13 +434,13 @@ public class APIData {
 			jsonPeak = jsonArray.getJSONObject(3);
 			setHRObject(peak, jsonPeak);
 			setHRDescriptions();
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * The setHRObject method is a private helper method that will pass in a Heart Rate Zone object to be
 	 * filled as well as a JSONObject that will be used to extract the values that will fill
@@ -478,7 +482,7 @@ public class APIData {
 				+ "maximum, is the high-intensity exercise zone. The peak zone is for short "
 				+ "intense sessions that improve performance and speed. ");
 	}
-	
+
 	/**
 	 * The refresh method will refresh the attributes of the APIData object with 
 	 * information and values from a different date
@@ -490,11 +494,13 @@ public class APIData {
 	public String refresh(String date){
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
-		api(requestUrlActivities);
-		setActivities();
-		api(requestUrlBestLife);
-		setBestLife();
-		api(requestUrlHeartRate);
+		if (isTest){
+			api(requestUrlActivities);
+			setActivities();
+			api(requestUrlBestLife);
+			setBestLife();
+			api(requestUrlHeartRate);
+		}
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		return sdf.format(cal.getTime());
@@ -548,7 +554,7 @@ public class APIData {
 	public Activity getDistance() {
 		return distance;
 	}
-	
+
 	/**
 	 * Method that will return the best distance
 	 * @return The APIData's attribute best distance; which is a BestActivity type
@@ -556,7 +562,7 @@ public class APIData {
 	public BestActivity getBestDistance() {
 		return bestDistance;
 	}
-	
+
 	/**
 	 * Method that will return the best floors
 	 * @return The APIData's attribute best floors; which is a BestActivity type
@@ -564,7 +570,7 @@ public class APIData {
 	public BestActivity getBestFloors() {
 		return bestFloors;
 	}
-	
+
 	/**
 	 * Method that will return the best steps
 	 * @return The APIData's attribute best steps; which is a BestActivity type
@@ -572,7 +578,7 @@ public class APIData {
 	public BestActivity getBestSteps() {
 		return bestSteps;
 	}
-	
+
 	/**
 	 * Method that will return the total distance
 	 * @return The APIData's attribute total distance; which is an Activity type
@@ -580,7 +586,7 @@ public class APIData {
 	public Activity getTotalDistance() {
 		return totalDistance;
 	}
-	
+
 	/**
 	 * Method that will return the total floors
 	 * @return The APIData's attribute total floors; which is an Activity type
@@ -588,7 +594,7 @@ public class APIData {
 	public Activity getTotalFloors() {
 		return totalFloors;
 	}
-	
+
 	/**
 	 * Method that will return the total steps
 	 * @return The APIData's attribute total steps; which is an Activity type
