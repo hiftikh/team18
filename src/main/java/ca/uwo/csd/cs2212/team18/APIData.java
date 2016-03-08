@@ -23,7 +23,7 @@ import org.json.JSONArray;
  * The purpose of this class is to create objects that will access the
  * Fitbit's API servers via Oauthentication 2 and will parse through the resulting
  * JSON texts and store the various values for each of the object's attributes
- * @author Sam Ali-mirsalari
+ * @author team 18
  *
  */
 public class APIData {

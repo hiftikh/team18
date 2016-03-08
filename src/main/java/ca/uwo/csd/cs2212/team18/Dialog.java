@@ -31,7 +31,14 @@ import javax.swing.BoxLayout;
 
 public class Dialog extends JFrame {
 
+	/**
+	 * JPanel that stores the content
+	 */
 	private JPanel contentPane;
+
+	/**
+	 * JFrame to store/display content
+	 */
 	private JFrame theFrame;
 
 	/**
@@ -47,7 +54,7 @@ public class Dialog extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("OK");
 
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -63,7 +70,7 @@ public class Dialog extends JFrame {
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Calories burned", "Total distance", "Floors climbed", "Steps", "Active minutes", "Sedentary minutes"}));
 
-		
+
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedItem().toString() == "Calories burned") {

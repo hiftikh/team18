@@ -24,6 +24,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 //Create SingleBox Class
+/**
+ * SingleBox class that creates an instance of a single box. 
+ * To be used in the BaseDashBoardUI class
+ * @author team 18
+ *
+ */
 public class SingleBox{
 
 	// Initialize fonts and color
@@ -66,7 +72,7 @@ public class SingleBox{
 	JLabel stepDailyString = new JLabel();
 	JLabel stepBestString = new JLabel();
 	JLabel stepTotalString = new JLabel();
-	
+
 	public static boolean testBool;
 
 	// Constructor
@@ -179,12 +185,12 @@ public class SingleBox{
 			modifyString();
 		}
 	}
-	
+
 	/**
 	 *  Method used to produce API Data
 	 */
 	private void modifyString() {
-		
+
 		int caloriesOut = (int) apiData.getCaloriesOut().getValue();
 		calString.setText(String.valueOf(caloriesOut));
 
@@ -220,8 +226,8 @@ public class SingleBox{
 
 		int distanceTotalOut = (int) apiData.getTotalDistance().getValue();
 		distanceTotalString.setText(String.valueOf(distanceTotalOut));
-		}
-		
+	}
+
 	/**
 	 * Method will create a box with Calories information
 	 * @return JPanel with Calories
