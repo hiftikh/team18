@@ -19,10 +19,26 @@ import com.github.scribejava.core.model.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
+/**
+ * The purpose of this class is to create objects that will access the
+ * Fitbit's API servers via Oauthentication 2 and will parse through the resulting
+ * JSON texts and store the various values for each of the object's attributes
+ * @author Sam Ali-mirsalari
+ *
+ */
 public class APIData {
 
-	// make seperate test class that overrides ApiData Class
+	/* Notes:
+	 * - make separate test class that overrides ApiData Class
+	 * - Make these into a linked list so that you will not need to manually name them(?)
+	 * 	make them in the constructor
+	 * - //Create separate private methods to better categorize this(?) is it
+	 * 	even useful since i am going to be splitting this anyways
+	*/
+	
+	
+	// Initializes constants used to store for default APIData constructor
+	// This will be used if the program is using test values
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
 	private static final double DEFAULT_DISTANCE = 7.52;
@@ -53,21 +69,24 @@ public class APIData {
 	private static final int DEFAULT_PEAK_MAX = 220;
 
 
+	// String variables that will store the different urls that will access the information
+	// from the APIData
 	private String requestUrlActivities;
 	private String requestUrlHeartRate;
 	private String requestUrlBestLife;
 
+	// Constants that store important user and authentication information
 	private static String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
 	private static String CALL_BACK_URL="http://localhost:8080";
 	private static int CALL_BACK_PORT=8080;
 
+	// Variables used to store authentication information
 	private OAuth2AccessToken accessToken;
 	private FitbitOAuth20ServiceImpl service;
 	private Response response;
 
 
-	// Make these into a linked list so that you will not need to manually name them(?)
-	//make them in the constructor
+	// Initializes activity variables to store the Activity information
 	private Activity caloriesOut = new Activity("Calories Out");
 	private Activity floors = new Activity("Floors");
 	private Activity steps = new Activity("Steps");
@@ -75,30 +94,36 @@ public class APIData {
 	private Activity sedMin = new Activity("Sedentary Minutes");
 	private Activity distance = new Activity("Distance");
 	
+	// Initializes Activity object that stores the resting heart rate
 	private Activity restingHeartRate = new Activity("Resting Heart Rate");
 	
+	// Initializes BestActivity objects that will store that best activities
 	private BestActivity bestDistance = new BestActivity("Distance");
 	private BestActivity bestFloors = new BestActivity("Floors");
 	private BestActivity bestSteps = new BestActivity("Steps");
 
+	// Initializes Activity objects that will store the total activities
 	private Activity totalDistance = new Activity("Distance");
 	private Activity totalFloors = new Activity("Floors");
 	private Activity totalSteps = new Activity("Steps");
 
-	
+	// Initializes the HeartRateZone objects that will store the various heart rate zones
 	private HeartRateZone outOfRange = new HeartRateZone("Out of Range");
 	private HeartRateZone fatBurn = new HeartRateZone("Fat Burn");
 	private HeartRateZone cardio = new HeartRateZone("Cardio");
 	private HeartRateZone peak = new HeartRateZone("Peak");
 	
-
-
+	// Initializes JSON objects to store JSON text
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
 
-	//Create seperate private methods to better categorize this(?) is it
-	//even useful since i am going to be splitting this anyways
+	
+	/**
+	 * Default constructor that creates an APIData object
+	 * that has test attributes
+	 */
 	public APIData(){
+		// Sets default values to the object's attributes
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -132,8 +157,15 @@ public class APIData {
 	}
 
 
+	/**
+	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
+	 * API for a specific date
+	 * @param date The String parameter date is used to choose the date that the APIData class will
+	 * access from Fitbit API servers in order to fill the object's attributes
+	 */
 	public APIData(String date){
 
+		// Initializes various variables
 		BufferedReader bR = null;
 		String line = null;
 		String apiKey = null;
@@ -148,6 +180,8 @@ public class APIData {
 
 		try {
 
+			// Stores various user authentication information variables from
+			// the Team18Credentials.txt and Team18Tokens.txt files
 			FileReader fileReader =
 					new FileReader("src/main/resources/Team18Credentials.txt");   
 			bR = new BufferedReader(fileReader);
@@ -165,11 +199,13 @@ public class APIData {
 			rawResponse = bR.readLine();
 
 		}
+		// Handles exception if the file is not found
 		catch(FileNotFoundException ex) {
 			System.out.println(
 					"Unable to open file\n"+ex.getMessage());
 			System.exit(1);
 		}
+		// Handles exception if the file's text formating is incorrect
 		catch(IOException ex) {
 			System.out.println(
 					"Error reading/write file\n"+ex.getMessage());  
@@ -206,10 +242,13 @@ public class APIData {
 				expiresIn,
 				rawResponse);
 
+		// Builds the strings to request for specific information from the API
 		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
 		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
 		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
 
+		// Calls methods that will pull information from the API and store them
+		// in the appropriate attributes
 		api(requestUrlActivities);
 		setActivities();
 		api(requestUrlBestLife);
@@ -219,6 +258,8 @@ public class APIData {
 
 		BufferedWriter bW = null;
 		try {
+			// Will store the new access/refresh tokens in the 
+			// appropriate file
 			FileWriter fileWriter = 
 					new FileWriter("src/main/resources/Team18Tokens.txt");
 			bW = new BufferedWriter(fileWriter);
@@ -251,8 +292,15 @@ public class APIData {
 	}
 
 
-
+	/**
+	 * The api method is a private helper method that will access the Fitbit's API
+	 * via OAuthentication and will store the JSON objects that are returned
+	 * @param requestUrl The String parameter that stores the specific URL that the 
+	 * api method should access in order to store the JSON object that will contain the APIData's
+	 * attributes
+	 */
 	private void api(String requestUrl) {
+		// Initializes OAuthRequest object specific to the passed in URL
 		OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
 
 		service.signRequest(accessToken, request);
@@ -262,6 +310,13 @@ public class APIData {
 		System.out.println("HTTP response code: " + response.getCode());
 		int statusCode = response.getCode();
 
+		/*
+		 * 200: Authentication successful
+		 * 400: Invalid URL request
+		 * 401: Possibly expired tokens, will attempt to gain new 
+		 * 		pair by using refresh token
+		 * 429: Too many API requests have been issued
+		 */
 		switch(statusCode){
 		case 200:
 			System.out.println("Success");
@@ -283,7 +338,16 @@ public class APIData {
 
 	}
 
+	/**
+	 * The setActivites method is a private helper method that will parse through
+	 * the current response body that contains the JSON information for the APIData object's
+	 * Activity attributes.
+	 * This includes the attributes Calories Out, Floors, Steps, Active Minutes, Sedentary
+	 * Minutes, and Distance 
+	 */
 	private void setActivities(){
+		// Parses through the JSON text and save the values in the
+		// appropriate attributes
 		try {
 			jsonObj = new JSONObject(response.getBody());
 			jsonObj = jsonObj.getJSONObject("summary");
@@ -300,7 +364,17 @@ public class APIData {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * The setBestLife method is a private helper method that will parse through the
+	 * current response body that contains the JSON information for the APIData object's
+	 * Best Dates and Total Life activities.
+	 * This includes the attributes Best Distance, Best Steps, Best Floors, Total Distance,
+	 * Total Steps, and Total Floors
+	 */
 	private void setBestLife(){
+		// Parses through the JSON text and save the values in the
+		// appropriate attributes
 		try {
 			JSONObject jsonBest, jsonLife, jsonDistance, jsonSteps, jsonFloors;
 			jsonObj = new JSONObject(response.getBody());
@@ -329,7 +403,16 @@ public class APIData {
 		}
 	}
 
+	/**
+	 * The setHeartRate method is a private helper method that will parse through the
+	 * current response body that contains the JSON information for the APIData object's
+	 * Heart Rate information.
+	 * This includes the attributes Resting Heart Rate, Out of Range Zone, Fat Burn Zone,
+	 * Cardio Zone, and Peak Zone
+	 */
 	private void setHeartRate(){
+		// Parses through the JSON text and save the values in the
+		// appropriate attributes
 		try {
 			jsonObj = new JSONObject(response.getBody());
 			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
@@ -354,8 +437,18 @@ public class APIData {
 		}
 	}
 	
+	/**
+	 * The setHRObject method is a private helper method that will pass in a Heart Rate Zone object to be
+	 * filled as well as a JSONObject that will be used to extract the values that will fill
+	 * the attributes.
+	 * @param obj This parameter will be the HeartRateZone object to be filled with the values
+	 * from the JSONObject
+	 * @param jsonObj This parameter will be the JSONObject that contains the JSON text that contains
+	 * the appropriate values to be stored in the HeartRateZone object that is passed in
+	 */
 	private void setHRObject(HeartRateZone obj, JSONObject jsonObj) {
 		try {
+			// Sets the attributes of the heart rate zone object using the JSON object
 			obj.setMin(jsonObj.getInt("min"));
 			obj.setMax(jsonObj.getInt("max"));
 			obj.setValue(jsonObj.getInt("minutes"));
@@ -365,6 +458,10 @@ public class APIData {
 		}
 	}
 
+	/**
+	 * The setHRDescritptions method is a private helper method that will store the
+	 * various Heart Rate Zone descriptions in the appropriate HeartRateZone objects.
+	 */
 	private void setHRDescriptions() {
 		outOfRange.setDescription("When you’re out of zone, which means your heart rate"
 				+ "is below 50% of maximum, your heart rate may still be elevated but not "
@@ -382,7 +479,17 @@ public class APIData {
 				+ "intense sessions that improve performance and speed. ");
 	}
 	
+	/**
+	 * The refresh method will refresh the attributes of the APIData object with 
+	 * information and values from a different date
+	 * @param date This parameter is a String which indicates the new date which 
+	 * should be now pulled from the Fitbit's API server
+	 * @return The current time in the format of HH:mm:ss in order to indicate
+	 * the time that a refresh for new information was requested
+	 */
 	public String refresh(String date){
+		// Calls the methods that will pull information and store them in the
+		// appropriate attributes
 		api(requestUrlActivities);
 		setActivities();
 		api(requestUrlBestLife);
@@ -394,69 +501,140 @@ public class APIData {
 
 	}
 
+	/**
+	 * Method that will return the calories out
+	 * @return The APIData's attribute Calories Out; which is an Activity type
+	 */
 	public Activity getCaloriesOut() {
 		return caloriesOut;
 	}
 
+	/**
+	 * Method that will return the floors
+	 * @return The APIData's attribute floors; which is an Activity type
+	 */
 	public Activity getFloors() {
 		return floors;
 	}
 
+	/**
+	 * Method that will return the steps
+	 * @return The APIData's attribute steps; which is an Activity type
+	 */
 	public Activity getSteps() {
 		return steps;
 	}
 
+	/**
+	 * Method that will return the active minutes
+	 * @return The APIData's attribute active minutes; which is an Activity type
+	 */
 	public Activity getActMin() {
 		return actMin;
 	}
 
+	/**
+	 * Method that will return sedentary minutes
+	 * @return The APIData's attribute sedentary minutes; which is an Activity type
+	 */
 	public Activity getSedMin() {
 		return sedMin;
 	}
 
+	/**
+	 * Method that will return distance
+	 * @return The APIData's attribute distance; which is an Activity type
+	 */
 	public Activity getDistance() {
 		return distance;
 	}
+	
+	/**
+	 * Method that will return the best distance
+	 * @return The APIData's attribute best distance; which is a BestActivity type
+	 */
 	public BestActivity getBestDistance() {
 		return bestDistance;
 	}
+	
+	/**
+	 * Method that will return the best floors
+	 * @return The APIData's attribute best floors; which is a BestActivity type
+	 */
 	public BestActivity getBestFloors() {
 		return bestFloors;
 	}
+	
+	/**
+	 * Method that will return the best steps
+	 * @return The APIData's attribute best steps; which is a BestActivity type
+	 */
 	public BestActivity getBestSteps() {
 		return bestSteps;
 	}
+	
+	/**
+	 * Method that will return the total distance
+	 * @return The APIData's attribute total distance; which is an Activity type
+	 */
 	public Activity getTotalDistance() {
 		return totalDistance;
 	}
+	
+	/**
+	 * Method that will return the total floors
+	 * @return The APIData's attribute total floors; which is an Activity type
+	 */
 	public Activity getTotalFloors() {
 		return totalFloors;
 	}
+	
+	/**
+	 * Method that will return the total steps
+	 * @return The APIData's attribute total steps; which is an Activity type
+	 */
 	public Activity getTotalSteps() {
 		return totalSteps;
 	}
 
+	/**
+	 * Method that will return the resting heart rate
+	 * @return The APIData's attribute resting heart rate; which is an Activity type
+	 */
 	public Activity getRestingHeartRate() {
 		return restingHeartRate;
 	}
 
+	/**
+	 * Method that will return the out of range zone
+	 * @return The APIData's attribute out of range zone; which is a HeartRateZone type
+	 */
 	public HeartRateZone getOutOfRange() {
 		return outOfRange;
 	}
 
+	/**
+	 * Method that will return the fat burn zone
+	 * @return The APIData's attribute fat burn zone; which is a HeartRateZone type
+	 */
 	public HeartRateZone getFatBurn() {
 		return fatBurn;
 	}
 
+	/**
+	 * Method that will return the cardio zone
+	 * @return The APIData's attribute cardio; which is a HeartRateZone type
+	 */
 	public HeartRateZone getCardio() {
 		return cardio;
 	}
 
+	/**
+	 * Method that will return the peak zone
+	 * @return The APIData's attribute peak; which is a HeartRateZone type
+	 */
 	public HeartRateZone getPeak() {
 		return peak;
-	}
-	public static void main(String args[]){
-		APIData api = new APIData("2016-01-07");
 	}
 }
 
