@@ -424,6 +424,7 @@ public class APIData {
 			jsonObj = jsonArray.getJSONObject(0);
 			jsonObj = jsonObj.getJSONObject("value");
 			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
+			restingHeartRate.setValue(0);
 			jsonArray = jsonObj.getJSONArray("heartRateZones");
 			jsonOutOfRange = jsonArray.getJSONObject(0);
 			setHRObject(outOfRange, jsonOutOfRange);
@@ -436,8 +437,20 @@ public class APIData {
 			setHRDescriptions();
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			restingHeartRate.setValue(0);
+			outOfRange.setValue(0);
+			outOfRange.setMin(DEFAULT_OUT_OF_RANGE_MIN);
+			outOfRange.setMax(DEFAULT_OUT_OF_RANGE_MAX);
+			fatBurn.setValue(0);
+			fatBurn.setMin(DEFAULT_FAT_BURN_MIN);
+			fatBurn.setMax(DEFAULT_FAT_BURN_MAX);
+			cardio.setValue(0);
+			cardio.setMin(DEFAULT_CARDIO_MIN);
+			cardio.setMax(DEFAULT_CARDIO_MAX);
+			peak.setValue(0);
+			peak.setMin(DEFAULT_PEAK_MIN);
+			peak.setMax(DEFAULT_PEAK_MAX);
+			
 		}
 	}
 
@@ -641,6 +654,9 @@ public class APIData {
 	 */
 	public HeartRateZone getPeak() {
 		return peak;
+	}
+	public static void main(String args[]){
+		APIData api = new APIData("2016-02-26");
 	}
 }
 
