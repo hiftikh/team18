@@ -1,5 +1,4 @@
 package ca.uwo.csd.cs2212.team18;
-
 //Import needed files
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,11 +24,11 @@ import javax.swing.border.EmptyBorder;
 
 //Create SingleBox Class
 /**
- * SingleBox class that creates an instance of a single box. 
- * To be used in the BaseDashBoardUI class
- * @author team 18
- *
- */
+* SingleBox class that creates an instance of a single box. 
+* To be used in the BaseDashBoardUI class
+* @author team 18
+*
+*/
 public class SingleBox{
 
 	// Initialize fonts and color
@@ -74,101 +73,12 @@ public class SingleBox{
 	JLabel stepTotalString = new JLabel();
 
 	public static boolean testBool;
+	private BaseDashBoard basedashboard = new BaseDashBoard();
 
 	// Constructor
 	public SingleBox(){
 	} 
 
-
-	/**
-	 * Method will emptyBox with plus sign to add more panels
-	 * @return JPanel with plus sign
-	 */
-	public JPanel createEmptyBox() {
-
-		// Initial variables 
-		final JButton plusSignButton = new JButton("+");
-		final JPanel emptyBox = new JPanel();
-		final JPanel paneName = new JPanel();
-
-		// Set how the plus button looks
-		plusSignButton.setForeground(Color.WHITE);
-		plusSignButton.setFont(plusFont);
-		plusSignButton.setBorder(null);
-
-		// Set how the empty box looks
-		emptyBox.setBorder(BorderFactory.createDashedBorder(Color.WHITE, 2, 1, 1, false));
-		emptyBox.setPreferredSize(new Dimension (170,160));
-		emptyBox.setVisible(true);
-		emptyBox.setBackground(null);
-		emptyBox.setLayout(new BorderLayout());
-
-		// Create action listener when user presses plus button
-		plusSignButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Initial variables
-				JPanel contentPane;
-				JDialog plusButton = new JDialog();
-				JButton btnNewButton = new JButton("OK");
-				JLayeredPane layeredPane = new JLayeredPane();
-				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
-				// Setup how JDialog looks like
-				plusButton.setVisible(true);
-				plusButton.setTitle("Additional Features");
-				plusButton.setBounds(100, 100, 276, 217);
-				contentPane = new JPanel();
-				contentPane.setToolTipText("hello");
-				contentPane.setBackground(new Color(69, 194, 197));
-				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				plusButton.setContentPane(contentPane);
-				contentPane.setLayout(null);
-				layeredPane.setBounds(5, 5, 265, 184);
-				layeredPane.setToolTipText("");
-				contentPane.add(layeredPane);
-				layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
-				lblSelectTheFeatures.setAlignmentX(0.5f);
-				layeredPane.add(lblSelectTheFeatures);
-
-				// Create panel options for user to select 
-				final JComboBox comboBox = new JComboBox();
-				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Calories Burned", "Total distance", "Floors climbed", "Steps", "Active minutes", "Sedentary minutes"}));
-
-				// Decide what happens when 'OK" is pressed
-				btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						// If Calories Burned is selected
-						if (comboBox.getSelectedItem().toString().equals("Calories Burned")) {
-							SingleBox singleFirstBox = new SingleBox();
-							JPanel firstBox = singleFirstBox.createCaloriesBox();
-							// Remove emptyBox, then add Calories Box, and add back the emptyBox
-							BaseDashBoardUI.getFrame().remove(paneName);
-							BaseDashBoardUI.getFrame().add(firstBox);
-							BaseDashBoardUI.getFrame().add(paneName);
-							paneName.repaint();
-							SwingUtilities.updateComponentTreeUI(paneName);
-							plusSignButton.setBackground(null);		
-							plusSignButton.setBorder(null);
-						} 
-					}
-				});
-				// Add comboBox and "OK" button to pane
-				btnNewButton.setAlignmentX(0.5f);
-				layeredPane.add(comboBox);
-				layeredPane.add(btnNewButton);
-
-			}
-		});
-
-		// Set values for paneName
-		paneName.setBackground(null);
-		paneName.setVisible(true);
-
-		// Add plus sign to emptyBox and emptyBox to paneName
-		emptyBox.add(plusSignButton, SwingConstants.CENTER);
-		paneName.add(emptyBox);
-
-		return paneName;
-	}
 
 	/**
 	 * Set new string for activities
@@ -270,7 +180,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				basedashboard.addClosedTile("Calories");
 			}
 		});
 		paneName.add(xSignButton);
@@ -325,7 +235,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				basedashboard.addClosedTile("Active Minutes");
 			}
 		});
 		// Add labels and button to the pane
@@ -407,7 +317,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				basedashboard.addClosedTile("Distance");
 			}
 		});
 		paneName.add(xSignButton);
@@ -483,7 +393,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				basedashboard.addClosedTile("Floors");
 			}
 		});
 		paneName.add(xSignButton);
@@ -560,7 +470,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				basedashboard.addClosedTile("Steps");
 			}
 		});
 		paneName.add(xSignButton);
