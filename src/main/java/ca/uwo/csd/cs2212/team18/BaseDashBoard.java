@@ -1,5 +1,6 @@
 package ca.uwo.csd.cs2212.team18;
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -193,7 +194,8 @@ public class BaseDashBoard implements Serializable{
 	public void readdedSelectedTile(String selectedTile) {			
 		//String selected = closedTileNames.getSelectedIndex();
 		for (int i = 0; i < closedTileNames.size(); i++) {
-			if (closedTileNames.get(i) == selectedTile) {
+			if (closedTileNames.get(i).equals(selectedTile)) {
+				System.out.println("Removed");
 				closedTileNames.remove(i);
 			}
 		}

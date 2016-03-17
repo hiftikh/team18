@@ -1,19 +1,24 @@
 package ca.uwo.csd.cs2212.team18;
 
-// Import 
+
+//Import 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.swing.JFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -22,6 +27,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -38,23 +44,28 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JOptionPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 
+
 /**
- * BaseDashBoardUI class.
- * This class creates an instance of the BaseDashBoard UI
- * @author Team18
- *
- */
+* BaseDashBoardUI class.
+* This class creates an instance of the BaseDashBoard UI
+* @author Team18
+*
+*/
 public class BaseDashBoardUI extends JFrame{
 
 	// Initialize Variables
@@ -85,14 +96,15 @@ public class BaseDashBoardUI extends JFrame{
 	SingleBox singleThirdBox = new SingleBox();
 	SingleBox singleFourthBox = new SingleBox();
 	SingleBox singleFifthBox = new SingleBox();
-	SingleBox emptybox = new SingleBox();
 
 	JPanel firstBox = singleFirstBox.createCaloriesBox();
 	JPanel secondBox = singleSecondBox.createActiveSedentaryBox();
 	JPanel thirdBox = singleThirdBox.createDistanceBox();
 	JPanel fourthBox = singleFourthBox.createFloorBox();
 	JPanel fifthBox = singleFifthBox.createStepBox();
-	JPanel emptyBox = emptybox.createEmptyBox();
+	
+	JPanel emptyBox = new JPanel();
+	JButton plusSign = new JButton("+");
 
 	private JFrame itself = new JFrame();
 
@@ -268,10 +280,6 @@ public class BaseDashBoardUI extends JFrame{
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
 							singleFirstBox.setString(basedashboard.getSelectedDate());
-							singleSecondBox.setString(basedashboard.getSelectedDate());
-							singleThirdBox.setString(basedashboard.getSelectedDate());
-							singleFourthBox.setString(basedashboard.getSelectedDate());
-							singleFifthBox.setString(basedashboard.getSelectedDate());
 							dateDialog.dispose();
 						}
 						else {
@@ -282,6 +290,124 @@ public class BaseDashBoardUI extends JFrame{
 			}});
 
 		///////////////////////////////////////////////////////////////////////
+		
+		emptyBox.setBorder(BorderFactory.createDashedBorder(Color.WHITE, 2, 1, 1, false));
+		emptyBox.setVisible(true);
+		emptyBox.setBackground(null);
+
+		plusSign.setForeground(Color.WHITE);
+		plusSign.setFont(font2);
+
+		plusSign.setFont(font2);
+		plusSign.setLayout(null);
+		plusSign.setForeground(Color.WHITE);
+		plusSign.setBorder(null);
+
+		plusSign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel contentPane;
+				final JDialog plusButton = new JDialog();
+				plusButton.setVisible(true);
+				plusButton.setTitle("Additional Features");
+				plusButton.setBounds(100, 100, 276, 217);
+				contentPane = new JPanel();
+				contentPane.setToolTipText("hello");
+				contentPane.setBackground(new Color(69, 194, 197));
+				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+				plusButton.setContentPane(contentPane);
+				contentPane.setLayout(null);
+
+				JButton btnNewButton = new JButton("OK");
+
+				JLayeredPane layeredPane = new JLayeredPane();
+				layeredPane.setBounds(5, 5, 265, 184);
+				layeredPane.setToolTipText("");
+				contentPane.add(layeredPane);
+				layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
+
+				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
+				lblSelectTheFeatures.setAlignmentX(0.5f);
+				layeredPane.add(lblSelectTheFeatures);
+
+				final JComboBox<String[]> comboBox = new JComboBox<String[]>();
+				comboBox.setModel(new DefaultComboBoxModel(basedashboard.getStringArrayList()));
+
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (comboBox.getSelectedItem().toString().equals("Calories")) {
+							
+							SingleBox singleFirstBox = new SingleBox();
+							JPanel firstBox = singleFirstBox.createCaloriesBox();
+							BaseDashBoardUI.getFrame().remove(emptyBox);
+							BaseDashBoardUI.getFrame().add(firstBox);
+							BaseDashBoardUI.getFrame().add(emptyBox);
+							
+							boxes.repaint();
+							SwingUtilities.updateComponentTreeUI(boxes);
+							basedashboard.readdedSelectedTile("Calories");
+						}
+						if (comboBox.getSelectedItem().toString().equals("Active Minutes")) {
+							
+							SingleBox singleSecondBox = new SingleBox();
+							JPanel secondBox = singleSecondBox.createActiveSedentaryBox(); 
+							BaseDashBoardUI.getFrame().remove(emptyBox);
+							BaseDashBoardUI.getFrame().add(secondBox);
+							BaseDashBoardUI.getFrame().add(emptyBox);
+							
+							boxes.repaint();
+							SwingUtilities.updateComponentTreeUI(boxes);
+							basedashboard.readdedSelectedTile("Active Minutes");
+						}
+						if (comboBox.getSelectedItem().toString().equals("Distance")) {
+							
+							SingleBox singleThirdBox = new SingleBox();
+							JPanel thirdBox = singleThirdBox.createDistanceBox();
+							BaseDashBoardUI.getFrame().remove(emptyBox);
+							BaseDashBoardUI.getFrame().add(thirdBox);
+							BaseDashBoardUI.getFrame().add(emptyBox);
+							
+							boxes.repaint();
+							SwingUtilities.updateComponentTreeUI(boxes);
+							basedashboard.readdedSelectedTile("Distance");
+						}
+						if (comboBox.getSelectedItem().toString().equals("Floors")) {
+							
+							SingleBox singleFourthBox = new SingleBox();
+							JPanel fourthBox = singleFourthBox.createFloorBox();
+							BaseDashBoardUI.getFrame().remove(emptyBox);
+							BaseDashBoardUI.getFrame().add(fourthBox);
+							BaseDashBoardUI.getFrame().add(emptyBox);
+							
+							boxes.repaint();
+							SwingUtilities.updateComponentTreeUI(boxes);
+
+							basedashboard.readdedSelectedTile("Floors");
+						}
+						if (comboBox.getSelectedItem().toString().equals("Steps")) {
+							
+							SingleBox singleFifthBox = new SingleBox();
+							JPanel fifthBox = singleFifthBox.createStepBox();
+							BaseDashBoardUI.getFrame().remove(emptyBox);
+							BaseDashBoardUI.getFrame().add(fifthBox);
+							BaseDashBoardUI.getFrame().add(emptyBox);
+							
+							boxes.repaint();
+							SwingUtilities.updateComponentTreeUI(boxes);
+
+							basedashboard.readdedSelectedTile("Steps");
+						}
+						plusButton.dispose();
+					}
+				});
+				btnNewButton.setAlignmentX(0.5f);
+				layeredPane.add(comboBox);
+				layeredPane.add(btnNewButton);
+
+			}
+		});
+		emptyBox.setLayout(new BorderLayout());
+		emptyBox.add(plusSign);
+
 
 		boxes.setBounds(45,75,550,350);
 		boxes.setVisible(true);
@@ -310,19 +436,19 @@ public class BaseDashBoardUI extends JFrame{
 
 			for (int i = 0; i < tileList.size(); i++) {
 				if (tileList.get(i).toString().equals("Calories")) {
-					boxes.remove(firstBox);
+					BaseDashBoardUI.getFrame().remove(firstBox);
 				}
 				if (tileList.get(i).toString().equals("Active Minutes")){
-					boxes.remove(secondBox);
+					BaseDashBoardUI.getFrame().remove(secondBox);
 				}
 				if (tileList.get(i).toString().equals("Distance")) {
-					boxes.remove(thirdBox);
+					BaseDashBoardUI.getFrame().remove(thirdBox);
 				}
 				if (tileList.get(i).toString().equals("Floors")){
-					boxes.remove(fourthBox);
+					BaseDashBoardUI.getFrame().remove(fourthBox);
 				}
 				if (tileList.get(i).toString().equals("Steps")) {
-					boxes.remove(fifthBox);
+					BaseDashBoardUI.getFrame().remove(fifthBox);
 				}
 			}
 		}
