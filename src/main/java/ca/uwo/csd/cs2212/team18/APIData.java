@@ -469,12 +469,9 @@ public class APIData {
 			final String REQUEST_URL_RECENT_ACTIVITY_PREFIX = "https://api.fitbit.com/1/activities/";
 			String requestUrlRecentActivity;
 			jsonArray = new JSONArray(response.getBody());
-
-				for (int i = 0; i < recentActivities.length; i++){
-					jsonObj = jsonArray.getJSONObject(i);
-					recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
-				}
 			for (int i = 0; i < recentActivities.length; i++){
+				jsonObj = jsonArray.getJSONObject(i);
+				recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
 				requestUrlRecentActivity = REQUEST_URL_RECENT_ACTIVITY_PREFIX + recentActivities[i].getValue() + ".json";
 				api(requestUrlRecentActivity);
 				try {
@@ -483,14 +480,9 @@ public class APIData {
 					jsonArray = jsonObj.getJSONArray("activityLevels");
 					jsonObj = jsonArray.getJSONObject(0);
 					recentActivities[i].setMets(jsonObj.getDouble("mets"));
-					
-					
 				}catch (JSONException e){
 					recentActivities[i].setMets(jsonObj.getDouble("mets"));
 				}
-			}
-			for (int i = 0; i < recentActivities.length; i++){
-				System.out.println(recentActivities[i].getType() + " " + recentActivities[i].getValue() + " " + recentActivities[i].getMets());
 			}
 		}catch (JSONException e){
 			e.printStackTrace();
@@ -701,7 +693,7 @@ public class APIData {
 	public HeartRateZone getPeak() {
 		return peak;
 	}
-	
+
 	public FitCalcActivity[] getRecentActivities() {
 		return recentActivities;
 	}
