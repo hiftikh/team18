@@ -68,8 +68,10 @@ public class APIData {
 	private static final int DEFAULT_PEAK_VALUE = 12;
 	private static final int DEFAULT_PEAK_MIN = 159;
 	private static final int DEFAULT_PEAK_MAX = 220;
-	
+
 	private boolean isTest= false;
+
+	private FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
 
 	// String variables that will store the different urls that will access the information
@@ -77,6 +79,7 @@ public class APIData {
 	private String requestUrlActivities;
 	private String requestUrlHeartRate;
 	private String requestUrlBestLife;
+	private String requestUrlRecentActivities;
 
 	// Constants that store important user and authentication information
 	private static String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
@@ -119,7 +122,7 @@ public class APIData {
 	// Initializes JSON objects to store JSON text
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
-	
+
 	private String apiKey = null;
 	private String apiSecret = null;
 	private String clientID = null;
@@ -141,14 +144,14 @@ public class APIData {
 		steps.setValue(DEFAULT_STEPS);
 		actMin.setValue(DEFAULT_ACTIVE_MINUTES);
 		sedMin.setValue(DEFAULT_SEDENTARY_MINUTES);
-		distance.setValue(DEFAULT_DISTANCE);
-		bestDistance.setValue(DEFAULT_BEST_DISTANCE);
+		distance.setValue((int)DEFAULT_DISTANCE);
+		bestDistance.setValue((int)DEFAULT_BEST_DISTANCE);
 		bestDistance.setDate(DEFAULT_BEST_DISTANCE_DATE);
 		bestFloors.setValue(DEFAULT_BEST_FlOORS);
 		bestFloors.setDate(DEFAULT_BEST_FLOORS_DATE);
 		bestSteps.setValue(DEFAULT_BEST_STEPS);
 		bestSteps.setDate(DEFAULT_BEST_STEPS_DATE);
-		totalDistance.setValue(DEFAULT_TOTAL_DISTANCE);
+		totalDistance.setValue((int)DEFAULT_TOTAL_DISTANCE);
 		totalFloors.setValue(DEFAULT_TOTAL_FLOORS);
 		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
 		restingHeartRate.setValue(DEFAULT_RESTING_HEART_RATE);
@@ -178,7 +181,7 @@ public class APIData {
 	 */
 	public APIData(String date){
 		readFiles();
-		
+
 		//  Create the Fitbit service - you will ask this to ask for access/refresh pairs
 		//     and to add authorization information to the requests to the API
 		service = (FitbitOAuth20ServiceImpl) new ServiceBuilder()
@@ -203,6 +206,8 @@ public class APIData {
 		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
 		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
 		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
+		requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
+
 
 		// Calls methods that will pull information from the API and store them
 		// in the appropriate attributes
@@ -212,8 +217,10 @@ public class APIData {
 		setBestLife();
 		api(requestUrlHeartRate);
 		setHeartRate();
+		api(requestUrlRecentActivities);
+		setRecentActivity();
 
-		
+
 	}
 
 	private void readFiles(){
@@ -365,7 +372,7 @@ public class APIData {
 			sedMin.setValue(jsonObj.getInt("sedentaryMinutes"));
 			jsonArray = jsonObj.getJSONArray("distances");
 			jsonObj = jsonArray.getJSONObject(0);
-			distance.setValue(jsonObj.getDouble("distance"));
+			distance.setValue((int)jsonObj.getDouble("distance"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -391,18 +398,18 @@ public class APIData {
 			jsonDistance = jsonBest.getJSONObject("distance");
 			jsonSteps = jsonBest.getJSONObject("steps");
 			jsonFloors = jsonBest.getJSONObject("floors");
-			bestDistance.setValue(jsonDistance.getDouble("value"));
+			bestDistance.setValue(jsonDistance.getInt("value"));
 			bestDistance.setDate(jsonDistance.getString("date"));
 			bestSteps.setValue(jsonSteps.getInt("value"));
 			bestSteps.setDate(jsonSteps.getString("date"));
-			bestFloors.setValue(jsonFloors.getDouble("value"));
+			bestFloors.setValue(jsonFloors.getInt("value"));
 			bestFloors.setDate(jsonFloors.getString("date"));
 			jsonLife = jsonObj;
 			jsonLife = jsonLife.getJSONObject("lifetime");
 			jsonLife = jsonLife.getJSONObject("total");
-			totalDistance.setValue(jsonLife.getDouble("distance"));
+			totalDistance.setValue(jsonLife.getInt("distance"));
 			totalSteps.setValue(jsonLife.getInt("steps"));
-			totalFloors.setValue(jsonLife.getDouble("floors"));
+			totalFloors.setValue(jsonLife.getInt("floors"));
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -453,7 +460,47 @@ public class APIData {
 			peak.setValue(0);
 			peak.setMin(DEFAULT_PEAK_MIN);
 			peak.setMax(DEFAULT_PEAK_MAX);
-			
+
+		}
+	}
+
+	private void setRecentActivity() {
+		try{
+			final String REQUEST_URL_RECENT_ACTIVITY_PREFIX = "https://api.fitbit.com/1/activities/";
+			String requestUrlRecentActivity;
+			jsonArray = new JSONArray(response.getBody());
+			if (jsonArray.length() >= 3){
+				for (int i = 0; i < recentActivities.length; i++){
+					jsonObj = jsonArray.getJSONObject(i);
+					recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
+				}
+			}
+			else{
+				for (int i = 0; i < jsonArray.length(); i++){
+					jsonObj = jsonArray.getJSONObject(i);
+					recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
+				}
+			}
+			for (int i = 0; i < recentActivities.length; i++){
+				requestUrlRecentActivity = REQUEST_URL_RECENT_ACTIVITY_PREFIX + recentActivities[i].getValue() + ".json";
+				api(requestUrlRecentActivity);
+				try {
+					jsonObj = new JSONObject(response.getBody());
+					jsonObj = jsonObj.getJSONObject("activity");
+					jsonArray = jsonObj.getJSONArray("activityLevels");
+					jsonObj = jsonArray.getJSONObject(0);
+					recentActivities[i].setMets(jsonObj.getDouble("mets"));
+					
+					
+				}catch (JSONException e){
+					recentActivities[i].setMets(jsonObj.getDouble("mets"));
+				}
+			}
+			for (int i = 0; i < recentActivities.length; i++){
+				System.out.println(recentActivities[i].getType() + " " + recentActivities[i].getValue() + " " + recentActivities[i].getMets());
+			}
+		}catch (JSONException e){
+			e.printStackTrace();
 		}
 	}
 
@@ -517,6 +564,8 @@ public class APIData {
 			setBestLife();
 			api(requestUrlHeartRate);
 			setHeartRate();
+			api(requestUrlRecentActivities);
+			setRecentActivity();
 		}
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -659,8 +708,9 @@ public class APIData {
 	public HeartRateZone getPeak() {
 		return peak;
 	}
-	public static void main(String args[]){
-		APIData api = new APIData("2016-02-02");
+	
+	public FitCalcActivity[] getRecentActivities() {
+		return recentActivities;
 	}
 }
 
