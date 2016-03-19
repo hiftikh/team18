@@ -469,18 +469,11 @@ public class APIData {
 			final String REQUEST_URL_RECENT_ACTIVITY_PREFIX = "https://api.fitbit.com/1/activities/";
 			String requestUrlRecentActivity;
 			jsonArray = new JSONArray(response.getBody());
-			if (jsonArray.length() >= 3){
+
 				for (int i = 0; i < recentActivities.length; i++){
 					jsonObj = jsonArray.getJSONObject(i);
 					recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
 				}
-			}
-			else{
-				for (int i = 0; i < jsonArray.length(); i++){
-					jsonObj = jsonArray.getJSONObject(i);
-					recentActivities[i] = new FitCalcActivity(jsonObj.getString("name"),jsonObj.getInt("activityId"));
-				}
-			}
 			for (int i = 0; i < recentActivities.length; i++){
 				requestUrlRecentActivity = REQUEST_URL_RECENT_ACTIVITY_PREFIX + recentActivities[i].getValue() + ".json";
 				api(requestUrlRecentActivity);
