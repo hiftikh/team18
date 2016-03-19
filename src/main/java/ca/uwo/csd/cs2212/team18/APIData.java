@@ -68,6 +68,8 @@ public class APIData {
 	private static final int DEFAULT_PEAK_VALUE = 12;
 	private static final int DEFAULT_PEAK_MIN = 159;
 	private static final int DEFAULT_PEAK_MAX = 220;
+	
+	private boolean isTest= false;
 
 
 	// String variables that will store the different urls that will access the information
@@ -117,9 +119,16 @@ public class APIData {
 	// Initializes JSON objects to store JSON text
 	private JSONObject jsonObj;
 	private JSONArray jsonArray;
-
-	// Variable that will store whether the api is in testmode or not
-	private boolean isTest;
+	
+	private String apiKey = null;
+	private String apiSecret = null;
+	private String clientID = null;
+	private String accessTokenItself = null;
+	private String tokenType = null;
+	private String refreshToken = null;
+	private Long expiresIn = null;
+	private String rawResponse = null;
+	private String scope = "activity%20heartrate";
 
 	/**
 	 * Default constructor that creates an APIData object
@@ -127,7 +136,6 @@ public class APIData {
 	 */
 	public APIData(){
 		// Sets default values to the object's attributes
-		isTest = true;
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
 		steps.setValue(DEFAULT_STEPS);
@@ -156,6 +164,7 @@ public class APIData {
 		peak.setValue(DEFAULT_PEAK_VALUE);
 		peak.setMin(DEFAULT_PEAK_MIN);
 		peak.setMax(DEFAULT_PEAK_MAX);
+		isTest = true;
 		setHRDescriptions();
 
 	}
@@ -168,65 +177,8 @@ public class APIData {
 	 * access from Fitbit API servers in order to fill the object's attributes
 	 */
 	public APIData(String date){
-
-		// Initializes various variables
-		isTest = false;
-		BufferedReader bR = null;
-		String line = null;
-		String apiKey = null;
-		String apiSecret = null;
-		String clientID = null;
-		String accessTokenItself = null;
-		String tokenType = null;
-		String refreshToken = null;
-		Long expiresIn = null;
-		String rawResponse = null;
-		String scope = "activity%20heartrate";
-
-		try {
-
-			// Stores various user authentication information variables from
-			// the Team18Credentials.txt and Team18Tokens.txt files
-			FileReader fileReader =
-					new FileReader("src/main/resources/Team18Credentials.txt");   
-			bR = new BufferedReader(fileReader);
-			clientID = bR.readLine();
-			apiKey= bR.readLine();
-			apiSecret = bR.readLine();
-			bR.close();
-			fileReader = new FileReader("src/main/resources/Team18Tokens.txt");
-			bR = new BufferedReader(fileReader);
-
-			accessTokenItself = bR.readLine();
-			tokenType = bR.readLine();
-			refreshToken = bR.readLine();
-			expiresIn = Long.parseLong(bR.readLine());
-			rawResponse = bR.readLine();
-
-		}
-		// Handles exception if the file is not found
-		catch(FileNotFoundException ex) {
-			System.out.println(
-					"Unable to open file\n"+ex.getMessage());
-			System.exit(1);
-		}
-		// Handles exception if the file's text formating is incorrect
-		catch(IOException ex) {
-			System.out.println(
-					"Error reading/write file\n"+ex.getMessage());  
-			System.exit(1);
-		}
-		finally{
-			try{
-				if (bR!=null)
-					// Always close files.
-					bR.close(); 
-			}
-			catch(Exception e){
-				System.out.println(
-						"Error closing file\n"+e.getMessage()); 
-			}
-		}
+		readFiles();
+		
 		//  Create the Fitbit service - you will ask this to ask for access/refresh pairs
 		//     and to add authorization information to the requests to the API
 		service = (FitbitOAuth20ServiceImpl) new ServiceBuilder()
@@ -261,12 +213,64 @@ public class APIData {
 		api(requestUrlHeartRate);
 		setHeartRate();
 
+		
+	}
+
+	private void readFiles(){
+		BufferedReader bR = null;
+		try {
+
+			// Stores various user authentication information variables from
+			// the Team18Credentials.txt and Team18Tokens.txt files
+			FileReader fileReader =
+					new FileReader("/Users/Sam/Desktop/Team18Credentials.txt");   
+			bR = new BufferedReader(fileReader);
+			clientID = bR.readLine();
+			apiKey= bR.readLine();
+			apiSecret = bR.readLine();
+			bR.close();
+			fileReader = new FileReader("/Users/Sam/Desktop/Team18Tokens.txt");
+			bR = new BufferedReader(fileReader);
+
+			accessTokenItself = bR.readLine();
+			tokenType = bR.readLine();
+			refreshToken = bR.readLine();
+			expiresIn = Long.parseLong(bR.readLine());
+			rawResponse = bR.readLine();
+
+		}
+		// Handles exception if the file is not found
+		catch(FileNotFoundException ex) {
+			System.out.println(
+					"Unable to open file\n"+ex.getMessage());
+			System.exit(1);
+		}
+		// Handles exception if the file's text formating is incorrect
+		catch(IOException ex) {
+			System.out.println(
+					"Error reading/write file\n"+ex.getMessage());  
+			System.exit(1);
+		}
+		finally{
+			try{
+				if (bR!=null)
+					// Always close files.
+					bR.close(); 
+			}
+			catch(Exception e){
+				System.out.println(
+						"Error closing file\n"+e.getMessage()); 
+			}
+		}
+	}
+
+	private void writeFiles() {
 		BufferedWriter bW = null;
 		try {
 			// Will store the new access/refresh tokens in the 
 			// appropriate file
 			FileWriter fileWriter = 
-					new FileWriter("src/main/resources/Team18Tokens.txt");
+					new FileWriter("/Users/Sam/Desktop/Team18Tokens.txt");
 			bW = new BufferedWriter(fileWriter);
 			bW.write(accessToken.getToken());
 			bW.newLine();
@@ -295,8 +299,6 @@ public class APIData {
 			}
 		}
 	}
-
-
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
@@ -335,12 +337,12 @@ public class APIData {
 			request = new OAuthRequest(Verb.GET, requestUrl, service);
 			service.signRequest(accessToken, request);
 			response = request.send();
+			writeFiles();
 			break;
 		case 429:
 			System.out.println("Rate limit exceeded");
 			break;
 		}
-
 	}
 
 	/**
@@ -508,12 +510,13 @@ public class APIData {
 	public String refresh(String date){
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
-		if (isTest){
+		if (!isTest){
 			api(requestUrlActivities);
 			setActivities();
 			api(requestUrlBestLife);
 			setBestLife();
 			api(requestUrlHeartRate);
+			setHeartRate();
 		}
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -655,6 +658,9 @@ public class APIData {
 	 */
 	public HeartRateZone getPeak() {
 		return peak;
+	}
+	public static void main(String args[]){
+		APIData api = new APIData("2016-02-02");
 	}
 }
 
