@@ -56,7 +56,7 @@ public class FitCalcUI extends JDialog {
 	 */
 	public void initFitCalcUI() {
 		setBackground(Color.RED);
-		FitCalc fitCalc = new FitCalc();
+		final FitCalc fitCalc = new FitCalc();
 		setTitle("FitCalc");
 		setResizable(false);
 		setBounds(100, 100, 450, 340);

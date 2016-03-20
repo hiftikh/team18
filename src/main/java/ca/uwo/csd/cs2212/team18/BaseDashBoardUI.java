@@ -111,8 +111,8 @@ public class BaseDashBoardUI extends JFrame{
 	// Check for args == 0
 	private boolean testOrNot;
 	public BaseDashBoardUI(boolean testorNot) {
-		this.initUI();
 		testOrNot = testorNot;
+		this.initUI();
 		SingleBox.testBool = testOrNot;
 		try {
 			this.loadCustomConfiguration();
@@ -214,7 +214,7 @@ public class BaseDashBoardUI extends JFrame{
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
 		heartRateButton.setVisible(true);
-		fitCalcButton.addActionListener(new ActionListener(){
+		heartRateButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 
 				heartRate heart = new heartRate();

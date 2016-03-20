@@ -178,7 +178,7 @@ public class GoalList implements Serializable{
 	 * @param api API object to pull data from
 	 * @return The contents of the goal list on that specified date
 	 */
-	public String toString(String year, String month, String day, APIData api){
+	public String toString(String year, String month, String day){//, APIData api){
 		// Create an empty string
 		String alt = "";
 
@@ -207,92 +207,92 @@ public class GoalList implements Serializable{
 							alt = alt.concat(this.bigList.get(i).get(j).toString());
 
 							// Save the type of the goal into a variable for comparison
-							String typ = this.bigList.get(i).get(j).getType();
+							//String typ = this.bigList.get(i).get(j).getType();
 
 							// If the type is equal to steps
-							if(typ.equals("Steps")){
+							//if(typ.equals("Steps")){
 
 								// Get the value of steps from the api
-								int stepC = api.getSteps().getValue();
+								//int stepC = api.getSteps().getValue();
 
 								// If the user met the step goal add (complete) to the string
-								if(stepC >= this.bigList.get(i).get(j).getMeasure()){
-									alt = alt.concat(" (Complete)");
-								}
+								//if(stepC >= this.bigList.get(i).get(j).getMeasure()){
+									//alt = alt.concat(" (Complete)");
+								//}
 
 								// If the user has not met the goal then add (incomplete) to the string
-								else{
-									alt = alt.concat(" (Incomplete)");
-								}
-							}
+								//else{
+									//alt = alt.concat(" (Incomplete)");
+								//}
+							//}
 
 							// If the type is equal to distance
-							else if(typ.equals("Distance")){
+							//else if(typ.equals("Distance")){
 
 								// Get the value of distance from the api
-								int distC  = api.getDistance().getValue();
+								//int distC  = api.getDistance().getValue();
 
 								// If the user met their goal for distance add (complete) to the string
-								if(distC >= this.bigList.get(i).get(j).getMeasure()){
-									alt = alt.concat(" (Complete)");
-								}
+								//if(distC >= this.bigList.get(i).get(j).getMeasure()){
+									//alt = alt.concat(" (Complete)");
+								//}
 
 								// Else add (incomplete) to the string
-								else{
-									alt = alt.concat(" (Incomplete)");
-								}
-							}
+								//else{
+									//alt = alt.concat(" (Incomplete)");
+								//}
+							//}
 
 							// If the type is equal to floors
-							else if(typ.equals("Floors")){
+							//else if(typ.equals("Floors")){
 
 								// Get the value of floors climbed from the api
-								int floorC = api.getFloors().getValue();
+								//int floorC = api.getFloors().getValue();
 
 								// If the user met there goal then add (complete) to the string
-								if(floorC >= this.bigList.get(i).get(j).getMeasure()){
-									alt = alt.concat(" (Complete)");
-								}
+								//if(floorC >= this.bigList.get(i).get(j).getMeasure()){
+									//alt = alt.concat(" (Complete)");
+								//}
 
 								// Else add (incomplete) to the string
-								else{
-									alt = alt.concat(" (Incomplete)");
-								}
-							}
+								//else{
+									//alt = alt.concat(" (Incomplete)");
+								//}
+							//}
 
 							// If the type is equal to Active minutes
-							else if(typ.equals("Active minutes")){
+							//else if(typ.equals("Active minutes")){
 
 								// Get the value for Active minutes from the api
-								int actC = api.getActMin().getValue();
+								//int actC = api.getActMin().getValue();
 
 								// See if the user met their goal, if so then add (complete) to the string
-								if(actC >= this.bigList.get(i).get(j).getMeasure()){
-									alt = alt.concat(" (Complete)");
-								}
+								//if(actC >= this.bigList.get(i).get(j).getMeasure()){
+									//alt = alt.concat(" (Complete)");
+								//}
 
 								// Else add (incomplete) to the string
-								else{
-									alt = alt.concat(" (Incomplete)");
-								}
-							}
+								//else{
+									//alt = alt.concat(" (Incomplete)");
+								//}
+							//}
 
 							// If the type is equal to calories
-							else if(typ.equals("Calories")){
+							//else if(typ.equals("Calories")){
 
 								// Get the value for calories from the api
-								int calC = api.getCaloriesOut().getValue();
+								//int calC = api.getCaloriesOut().getValue();
 
 								// If the user met their goal. then add (complete) to the string
-								if(calC >= this.bigList.get(i).get(j).getMeasure()){
-									alt = alt.concat(" (Complete)");
-								}
+								//if(calC >= this.bigList.get(i).get(j).getMeasure()){
+									//alt = alt.concat(" (Complete)");
+								//}
 
 								// Else add (incomplete) to the string
-								else{
-									alt = alt.concat(" (Incomplete)");
-								}
-							}
+								//else{
+									//alt = alt.concat(" (Incomplete)");
+								//}
+							//}
 
 							// Add a new line to the string
 							alt = alt.concat("\n");

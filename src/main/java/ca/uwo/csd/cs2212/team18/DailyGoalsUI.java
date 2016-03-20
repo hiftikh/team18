@@ -79,9 +79,9 @@ public class DailyGoalsUI extends JDialog {
 	 * the user is also able to view the goals they set on a particular day
 	 * @param test Boolean used to determine whether to use test data
 	 */
-	public void initDailyGoalsUI(Boolean test){
+	public void initDailyGoalsUI(final Boolean test){
 
-		GoalList goalll = DailyGoals.load();
+		final GoalList goalll = DailyGoals.load();
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent wind) {
@@ -112,26 +112,26 @@ public class DailyGoalsUI extends JDialog {
 		label.setBounds(0, 0, 403, 203);
 		layeredPane.add(label);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		APIData api;
-		if(test == true){
-			api = new APIData(date);
-		}
-		else{
-			api = new APIData();
-		}
+		//final APIData api;
+		//if(test == true){
+			//api = new APIData(date);
+		//}
+		//else{
+		//	api = new APIData();
+		//}
 
 		year = new SimpleDateFormat("yyyy").format(new Date());
 		month = new SimpleDateFormat("MM").format(new Date());
 		day = new SimpleDateFormat("dd").format(new Date());
-		JLabel l = new JLabel(date);
+		final JLabel l = new JLabel(date);
 		l.setBounds(200, 10, 146, 16);
 
-		JTextArea text = new JTextArea();
+		final JTextArea text = new JTextArea();
 		text.setBounds(2, 2, 342, 96);
 		text.setWrapStyleWord(true);
 		text.enable(false); 
 		layeredPane.add(text);
-		text.setText(goalll.toString(year, month, day,api));
+		text.setText(goalll.toString(year, month, day));//,api));
 		text.repaint();
 		JLabel lblGoalsFor = new JLabel("Goal(s) for: ");
 		lblGoalsFor.setBounds(124, 10, 87, 16);
@@ -147,7 +147,7 @@ public class DailyGoalsUI extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent evt){
 
-				JDialog goals = new JDialog();
+				final JDialog goals = new JDialog();
 				goals.setVisible(true);
 				goals.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				goals.setBounds(100, 100, 350, 286);
@@ -172,23 +172,23 @@ public class DailyGoalsUI extends JDialog {
 				{
 					ButtonGroup group = new ButtonGroup();
 					layeredPane_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 8));
-					JRadioButton btn1 = new JRadioButton("Steps");
+					final JRadioButton btn1 = new JRadioButton("Steps");
 					layeredPane_1.add(btn1);
 					group.add(btn1);
 
-					JRadioButton btn3 = new JRadioButton("Distance");
+					final JRadioButton btn3 = new JRadioButton("Distance");
 					layeredPane_1.add(btn3);
 					group.add(btn3);
 
-					JRadioButton btn4 = new JRadioButton("Calories");
+					final JRadioButton btn4 = new JRadioButton("Calories");
 					layeredPane_1.add(btn4);
 					group.add(btn4);
 
-					JRadioButton btn5 = new JRadioButton("Active minutes");
+					final JRadioButton btn5 = new JRadioButton("Active minutes");
 					layeredPane_1.add(btn5);
 					group.add(btn5);
 
-					JRadioButton btn2 = new JRadioButton("Floors");
+					final JRadioButton btn2 = new JRadioButton("Floors");
 					layeredPane_1.add(btn2);
 					group.add(btn2);
 					{
@@ -227,7 +227,7 @@ public class DailyGoalsUI extends JDialog {
 
 							okButton.setVisible(true);
 							okButton.addActionListener(new ActionListener(){
-								Goal goal = new Goal("", 0, year, month, day);
+								final Goal goal = new Goal("", 0, year, month, day);
 								@Override
 								public void actionPerformed(ActionEvent evt){
 									String userMessage = DailyGoals.checkMeasureInput(txtReps.getText());
@@ -262,7 +262,7 @@ public class DailyGoalsUI extends JDialog {
 											userMessage = goalll.add(goal);
 
 
-											text.setText(goalll.toString(year,month,day, api));
+											text.setText(goalll.toString(year,month,day));//, api));
 											text.revalidate();
 											text.repaint();
 
@@ -318,7 +318,7 @@ public class DailyGoalsUI extends JDialog {
 		btnSwitchDate.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent evt){
-				JFrame goals2 = new JFrame();
+				final JFrame goals2 = new JFrame();
 				goals2.setVisible(true);
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				goals2.setBounds(100, 100, 442, 237);
@@ -359,19 +359,19 @@ public class DailyGoalsUI extends JDialog {
 				contentPanel.add(layeredPane_2);
 				layeredPane_2.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 5));
 
-				JTextField textField = new JTextField();
+				final JTextField textField = new JTextField();
 				layeredPane_2.add(textField);
 				textField.setColumns(7);
 
-				JTextField textField_1 = new JTextField();
+				final JTextField textField_1 = new JTextField();
 				layeredPane_2.add(textField_1);
 				textField_1.setColumns(7);
 
-				JTextField textField_2 = new JTextField();
+				final JTextField textField_2 = new JTextField();
 				layeredPane_2.add(textField_2);
 				textField_2.setColumns(7);
 
-				JLayeredPane layeredPane_3 = new JLayeredPane();
+				final JLayeredPane layeredPane_3 = new JLayeredPane();
 				layeredPane_3.setBounds(0, 160, 444, 39);
 				contentPanel.add(layeredPane_3);
 				layeredPane_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -388,9 +388,9 @@ public class DailyGoalsUI extends JDialog {
 						month = textField_1.getText();
 						day = textField_2.getText();
 						newDate = year + "-" + month + "-" + day;
-						if(test == true){
-							api.refresh(newDate);
-						}
+						//if(test == true){
+							//api.refresh(newDate);
+						//}
 						l.setText(newDate);
 						l.repaint();
 
@@ -409,7 +409,7 @@ public class DailyGoalsUI extends JDialog {
 
 							JOptionPane.showMessageDialog(goals2,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 						}
-						text.setText(goalll.toString(year,month,day,api));
+						text.setText(goalll.toString(year,month,day));//,api));
 						text.revalidate();
 						text.repaint();
 					}
@@ -424,7 +424,7 @@ public class DailyGoalsUI extends JDialog {
 		btnRemoveGoal.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent evt){
-				JDialog goals3 = new JDialog();
+				final JDialog goals3 = new JDialog();
 				goals3.setVisible(true);
 				goals3.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				goals3.setBounds(100, 100, 199, 179);
@@ -443,7 +443,7 @@ public class DailyGoalsUI extends JDialog {
 				lblSelectAGoal.setHorizontalAlignment(SwingConstants.RIGHT);
 				lblSelectAGoal.setBounds(18, 18, 154, 16);
 				contentPanel.add(lblSelectAGoal);
-				JComboBox comboBox = new JComboBox();
+				final JComboBox comboBox = new JComboBox();
 				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Total distance", "Floors", "Steps", "Calories burned", "Active Minutes"}));
 				comboBox.setBounds(18, 62, 154, 27);
 				contentPanel.add(comboBox);
@@ -485,7 +485,7 @@ public class DailyGoalsUI extends JDialog {
 									JOptionPane.showMessageDialog(goals3,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 								}
 
-								text.setText(goalll.toString(year,month,day,api));
+								text.setText(goalll.toString(year,month,day));//,api));
 								text.revalidate();
 								text.repaint();
 
