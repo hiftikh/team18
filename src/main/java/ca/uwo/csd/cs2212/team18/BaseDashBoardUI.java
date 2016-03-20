@@ -139,7 +139,7 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
 		setLayout(null);
-
+		System.out.println("HI");
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
 		 * at the time they exit the app
