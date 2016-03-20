@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team18;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -27,20 +29,15 @@ public class heartRate extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			heartRate dialog = new heartRate();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public heartRate(){
+		initHeartRate();
 	}
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public heartRate() {
+	public void initHeartRate() {
 		setTitle("Heart Rate Zone");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
