@@ -139,7 +139,7 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
 		setLayout(null);
-		System.out.println("HI");
+
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
 		 * at the time they exit the app
@@ -185,10 +185,27 @@ public class BaseDashBoardUI extends JFrame{
 		fitCalcButton.setFont(font);
 		fitCalcButton.setForeground(blueColour);
 		fitCalcButton.setVisible(true);
+		fitCalcButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+
+				FitCalcUI calc = new FitCalcUI();
+				calc.setVisible(true);
+
+			}
+		});
 
 		dailyGoalsButton.setFont(font);
 		dailyGoalsButton.setForeground(blueColour);
 		dailyGoalsButton.setVisible(true);
+		dailyGoalsButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+
+				DailyGoalsUI daily = new DailyGoalsUI(testOrNot);
+				daily.setVisible(true);
+
+			}
+		});
+
 
 		friendZoneButton.setFont(font);
 		friendZoneButton.setForeground(blueColour);
@@ -197,6 +214,14 @@ public class BaseDashBoardUI extends JFrame{
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
 		heartRateButton.setVisible(true);
+		fitCalcButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+
+				heartRate heart = new heartRate();
+				heart.setVisible(true);
+
+			}
+		});
 
 		buttonPanel.setVisible(true);
 		buttonPanel.setBounds(0,0,this.getWidth()-250,40);
