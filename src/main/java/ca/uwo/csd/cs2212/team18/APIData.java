@@ -211,13 +211,10 @@ public class APIData {
 
 		// Calls methods that will pull information from the API and store them
 		// in the appropriate attributes
-		api(requestUrlActivities);
+		
 		setActivities();
-		api(requestUrlBestLife);
 		setBestLife();
-		api(requestUrlHeartRate);
 		setHeartRate();
-		api(requestUrlRecentActivities);
 		setRecentActivity();
 
 
@@ -363,6 +360,7 @@ public class APIData {
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
+			api(requestUrlActivities);
 			jsonObj = new JSONObject(response.getBody());
 			jsonObj = jsonObj.getJSONObject("summary");
 			caloriesOut.setValue(jsonObj.getInt("caloriesOut"));
@@ -390,6 +388,7 @@ public class APIData {
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
+			api(requestUrlBestLife);
 			JSONObject jsonBest, jsonLife, jsonDistance, jsonSteps, jsonFloors;
 			jsonObj = new JSONObject(response.getBody());
 			jsonBest = jsonObj;
@@ -428,6 +427,7 @@ public class APIData {
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
+			api(requestUrlHeartRate);
 			jsonObj = new JSONObject(response.getBody());
 			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
 			jsonArray = jsonObj.getJSONArray("activities-heart");
@@ -466,6 +466,7 @@ public class APIData {
 
 	private void setRecentActivity() {
 		try{
+			api(requestUrlRecentActivities);
 			final String REQUEST_URL_RECENT_ACTIVITY_PREFIX = "https://api.fitbit.com/1/activities/";
 			String requestUrlRecentActivity;
 			JSONArray jsonArray2 = new JSONArray(response.getBody());
@@ -543,13 +544,9 @@ public class APIData {
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
 		if (!isTest){
-			api(requestUrlActivities);
 			setActivities();
-			api(requestUrlBestLife);
 			setBestLife();
-			api(requestUrlHeartRate);
 			setHeartRate();
-			api(requestUrlRecentActivities);
 			setRecentActivity();
 		}
 		Calendar cal = Calendar.getInstance();
