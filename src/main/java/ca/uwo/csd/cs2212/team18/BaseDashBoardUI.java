@@ -1,4 +1,3 @@
-package ca.uwo.csd.cs2212.team18;
 
 
 //Import 
@@ -25,6 +24,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -61,11 +62,11 @@ import javax.swing.JInternalFrame;
 
 
 /**
-* BaseDashBoardUI class.
-* This class creates an instance of the BaseDashBoard UI
-* @author Team18
-*
-*/
+ * BaseDashBoardUI class.
+ * This class creates an instance of the BaseDashBoard UI
+ * @author Team18
+ *
+ */
 public class BaseDashBoardUI extends JFrame{
 
 	// Initialize Variables
@@ -73,7 +74,10 @@ public class BaseDashBoardUI extends JFrame{
 	Font font = new Font("Arial", Font.PLAIN, 18);
 	Font font2 = new Font("Arial", Font.BOLD, 48);
 	Color blueColour = Color.decode("#45C2C5");
-	JLabel logoImage = new JLabel(new ImageIcon("src/FitByte Logo.png"));
+
+	JLabel logoImage = new JLabel(new ImageIcon("src/images/FitByte Logo.png"));
+	JLabel awardIcon[] = new JLabel[20];
+	//xawardIcon[1] = new JLabel(new ImageIcon("src/images/FitByte Logo.png"));
 
 	JPanel sidePanelLogo = new JPanel();
 	JPanel sidePanelUser = new JPanel();
@@ -81,11 +85,10 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
-	JPanel[] awardBox = new JPanel[20];
+	JPanel awardBox = new JPanel(new GridLayout());
 
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
-	JButton friendZoneButton = new JButton("Friend Zone");
 	JButton heartRateButton = new JButton("Heart Rate");
 	JButton dateButton = new JButton("Date");
 	JPanel buttonPanel = new JPanel();
@@ -102,7 +105,7 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel thirdBox = singleThirdBox.createDistanceBox();
 	JPanel fourthBox = singleFourthBox.createFloorBox();
 	JPanel fifthBox = singleFifthBox.createStepBox();
-	
+
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
@@ -111,8 +114,8 @@ public class BaseDashBoardUI extends JFrame{
 	// Check for args == 0
 	private boolean testOrNot;
 	public BaseDashBoardUI(boolean testorNot) {
-		testOrNot = testorNot;
 		this.initUI();
+		testOrNot = testorNot;
 		SingleBox.testBool = testOrNot;
 		try {
 			this.loadCustomConfiguration();
@@ -168,60 +171,44 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelUserText.setFont(font);
 		sidePanelUserText.setForeground(blueColour);
 		sidePanelUser.add(sidePanelUserText);
-		sidePanelUser.setBounds(this.getWidth()-250, 80, 250, 300);
+		sidePanelUser.setBounds(this.getWidth()-250, 81, 250, 210);
 		sidePanelUser.setBackground(Color.WHITE);
 		sidePanelUser.setVisible(true);
+
+		/////////////////////////////////////////////////////////////////
 
 		// Set up award panel
 		sidePanelAwardText.setFont(font);
 		sidePanelAwardText.setForeground(blueColour);
 
 		sidePanelAward.add(sidePanelAwardText);
-		sidePanelAward.setBounds(this.getWidth()-250, 385, 250, 300);
+		sidePanelAward.setBounds(this.getWidth()-250, 300, 250, 179);
 		sidePanelAward.setBackground(Color.WHITE);
-		sidePanelAward.setVisible(true);
+
+		awardBox.setBackground(Color.white);
+		awardBox.setLayout(new GridLayout(1,1,10,10));
+
+			//award[i] = new String("src/images/awards/"+".png");
+			//awardIcon[i] = new JLabel(new ImageIcon(award[i]));
+		
+
+		awardBox.add(awardIcon[1]);
+		sidePanelAward.add(awardBox);
+
+		/////////////////////////////////////////////////////////////////
 
 		// Setup how the buttons look like
 		fitCalcButton.setFont(font);
 		fitCalcButton.setForeground(blueColour);
 		fitCalcButton.setVisible(true);
-		fitCalcButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-
-				FitCalcUI calc = new FitCalcUI();
-				calc.setVisible(true);
-
-			}
-		});
 
 		dailyGoalsButton.setFont(font);
 		dailyGoalsButton.setForeground(blueColour);
 		dailyGoalsButton.setVisible(true);
-		dailyGoalsButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-
-				DailyGoalsUI daily = new DailyGoalsUI(testOrNot);
-				daily.setVisible(true);
-
-			}
-		});
-
-
-		friendZoneButton.setFont(font);
-		friendZoneButton.setForeground(blueColour);
-		friendZoneButton.setVisible(true);
 
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
 		heartRateButton.setVisible(true);
-		heartRateButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-
-				heartRate heart = new heartRate();
-				heart.setVisible(true);
-
-			}
-		});
 
 		buttonPanel.setVisible(true);
 		buttonPanel.setBounds(0,0,this.getWidth()-250,40);
@@ -229,7 +216,6 @@ public class BaseDashBoardUI extends JFrame{
 
 		buttonPanel.add(fitCalcButton);
 		buttonPanel.add(dailyGoalsButton);
-		buttonPanel.add(friendZoneButton);
 		buttonPanel.add(heartRateButton);
 
 		dateButton.setFont(font);
@@ -305,6 +291,10 @@ public class BaseDashBoardUI extends JFrame{
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
 							singleFirstBox.setString(basedashboard.getSelectedDate());
+							singleSecondBox.setString(basedashboard.getSelectedDate());
+							singleThirdBox.setString(basedashboard.getSelectedDate());
+							singleFourthBox.setString(basedashboard.getSelectedDate());
+							singleFifthBox.setString(basedashboard.getSelectedDate());
 							dateDialog.dispose();
 						}
 						else {
@@ -315,7 +305,7 @@ public class BaseDashBoardUI extends JFrame{
 			}});
 
 		///////////////////////////////////////////////////////////////////////
-		
+
 		emptyBox.setBorder(BorderFactory.createDashedBorder(Color.WHITE, 2, 1, 1, false));
 		emptyBox.setVisible(true);
 		emptyBox.setBackground(null);
@@ -330,27 +320,26 @@ public class BaseDashBoardUI extends JFrame{
 
 		plusSign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel contentPane;
+				JPanel contentPane = new JPanel();
 				final JDialog plusButton = new JDialog();
+				JButton btnNewButton = new JButton("OK");
+				JLayeredPane layeredPane = new JLayeredPane();
+				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
+
 				plusButton.setVisible(true);
 				plusButton.setTitle("Additional Features");
 				plusButton.setBounds(100, 100, 276, 217);
-				contentPane = new JPanel();
 				contentPane.setToolTipText("hello");
 				contentPane.setBackground(new Color(69, 194, 197));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				plusButton.setContentPane(contentPane);
 				contentPane.setLayout(null);
 
-				JButton btnNewButton = new JButton("OK");
-
-				JLayeredPane layeredPane = new JLayeredPane();
 				layeredPane.setBounds(5, 5, 265, 184);
 				layeredPane.setToolTipText("");
 				contentPane.add(layeredPane);
 				layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
 
-				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
 				lblSelectTheFeatures.setAlignmentX(0.5f);
 				layeredPane.add(lblSelectTheFeatures);
 
@@ -360,62 +349,52 @@ public class BaseDashBoardUI extends JFrame{
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (comboBox.getSelectedItem().toString().equals("Calories")) {
-							
-							SingleBox singleFirstBox = new SingleBox();
-							JPanel firstBox = singleFirstBox.createCaloriesBox();
+
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(firstBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-							
+
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Calories");
 						}
 						if (comboBox.getSelectedItem().toString().equals("Active Minutes")) {
-							
-							SingleBox singleSecondBox = new SingleBox();
-							JPanel secondBox = singleSecondBox.createActiveSedentaryBox(); 
+
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(secondBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-							
+
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Active Minutes");
 						}
 						if (comboBox.getSelectedItem().toString().equals("Distance")) {
-							
-							SingleBox singleThirdBox = new SingleBox();
-							JPanel thirdBox = singleThirdBox.createDistanceBox();
+
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(thirdBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-							
+
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Distance");
 						}
 						if (comboBox.getSelectedItem().toString().equals("Floors")) {
-							
-							SingleBox singleFourthBox = new SingleBox();
-							JPanel fourthBox = singleFourthBox.createFloorBox();
+
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fourthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-							
+
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 
 							basedashboard.readdedSelectedTile("Floors");
 						}
 						if (comboBox.getSelectedItem().toString().equals("Steps")) {
-							
-							SingleBox singleFifthBox = new SingleBox();
-							JPanel fifthBox = singleFifthBox.createStepBox();
+
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fifthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-							
+
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 
@@ -427,12 +406,11 @@ public class BaseDashBoardUI extends JFrame{
 				btnNewButton.setAlignmentX(0.5f);
 				layeredPane.add(comboBox);
 				layeredPane.add(btnNewButton);
-
 			}
 		});
+
 		emptyBox.setLayout(new BorderLayout());
 		emptyBox.add(plusSign);
-
 
 		boxes.setBounds(45,75,550,350);
 		boxes.setVisible(true);

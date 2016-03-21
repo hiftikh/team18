@@ -1,8 +1,5 @@
-package ca.uwo.csd.cs2212.team18;
-//Import needed files
-import java.awt.BorderLayout;
+// Import needed files
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,13 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-//Create SingleBox Class
-/**
-* SingleBox class that creates an instance of a single box. 
-* To be used in the BaseDashBoardUI class
-* @author team 18
-*
-*/
+// Create SingleBox Class
 public class SingleBox{
 
 	// Initialize fonts and color
@@ -56,7 +47,6 @@ public class SingleBox{
 		apiInput = apiInput.concat("-");
 		apiInput = apiInput.concat(curDay);
 	}
-	//APIData currentDataAPI = new APIData(apiInput);
 
 	// Create JLabel with updated information
 	JLabel calString = new JLabel();
@@ -73,12 +63,10 @@ public class SingleBox{
 	JLabel stepTotalString = new JLabel();
 
 	public static boolean testBool;
-	private BaseDashBoard basedashboard = new BaseDashBoard();
 
 	// Constructor
 	public SingleBox(){
 	} 
-
 
 	/**
 	 * Set new string for activities
@@ -164,7 +152,7 @@ public class SingleBox{
 		// Setup how calString will look like
 		calString.setFont(apiFont);
 		calString.setForeground(blueColour);
-		calString.setBounds(30,50,500,50);
+		calString.setBounds(10,50,500,50);
 
 		// Setup how pane box will look like
 		paneName.setLayout(null);
@@ -180,7 +168,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				basedashboard.addClosedTile("Calories");
+				//BaseDashBoardUI.addClosedTile(name);
 			}
 		});
 		paneName.add(xSignButton);
@@ -194,8 +182,9 @@ public class SingleBox{
 	public JPanel createActiveSedentaryBox() {
 
 		// Initialize Variables
-		JLabel nameLabelA = new JLabel("Daily Active Minutes");
-		JLabel nameLabelS = new JLabel("Daily Sedentary Minutes");
+		JLabel nameLabel = new JLabel("Daily Minutes");
+		JLabel nameLabelA = new JLabel("ACTIVE");
+		JLabel nameLabelS = new JLabel("SEDENTARY");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
 
@@ -206,25 +195,29 @@ public class SingleBox{
 		xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,30,30);
 
+		nameLabel.setFont(font2);
+		nameLabel.setForeground(blueColour);
+		nameLabel.setBounds(30,-8,500,50);
+
 		// Setup how Active label looks like
-		nameLabelA.setFont(font2);
+		nameLabelA.setFont(font3);
 		nameLabelA.setForeground(blueColour);
-		nameLabelA.setBounds(30,-8,500,50);
+		nameLabelA.setBounds(10,30,500,50);
 
 		// Setup how activeString will look like
 		activeString.setFont(apiFont);
 		activeString.setForeground(blueColour);
-		activeString.setBounds(30,50,500,50);
+		activeString.setBounds(10,52,500,50);
 
 		// Setup how Sedentary looks like
-		nameLabelS.setFont(font2);
+		nameLabelS.setFont(font3);
 		nameLabelS.setForeground(blueColour);
-		nameLabelS.setBounds(15,60,500,50);
+		nameLabelS.setBounds(10,72,500,50);
 
 		// Setup how sedString will look like
 		sedString.setFont(apiFont);
 		sedString.setForeground(blueColour);
-		sedString.setBounds(30,50,500,50);
+		sedString.setBounds(10,94,500,50);
 
 		// Setup how pane looks like
 		paneName.setLayout(null);
@@ -235,12 +228,13 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				basedashboard.addClosedTile("Active Minutes");
+				//BaseDashBoardUI.addClosedTile(name);
 			}
 		});
 		// Add labels and button to the pane
 		paneName.add(nameLabelA, SwingConstants.CENTER);
 		paneName.add(nameLabelS, SwingConstants.CENTER);
+		paneName.add(nameLabel, SwingConstants.CENTER);
 		paneName.add(activeString, SwingConstants.CENTER);
 		paneName.add(sedString, SwingConstants.CENTER);
 		paneName.add(xSignButton);
@@ -257,9 +251,9 @@ public class SingleBox{
 		JLabel nameLabel = new JLabel("Distance");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
-		JLabel bestDay = new JLabel("Best Day: ");
-		JLabel lifeTime = new JLabel("Life Time: ");
-		JLabel daily = new JLabel("Daily: ");
+		JLabel bestDay = new JLabel("BEST DAY:");
+		JLabel lifeTime = new JLabel("LIFE TIME:");
+		JLabel daily = new JLabel("DAILY:");
 
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
@@ -271,35 +265,35 @@ public class SingleBox{
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(30,-8,500,50);
 
-		bestDay.setFont(font3);
-		bestDay.setLayout(null);
-		bestDay.setForeground(blueColour);
-		bestDay.setBounds(10,30,100,50);
-
-		// Setup how Best distanceString will look like
-		distanceBestString.setFont(apiFont);
-		distanceBestString.setForeground(blueColour);
-		distanceBestString.setBounds(30,50,500,50);
-
-		lifeTime.setFont(font3);
-		lifeTime.setLayout(null);
-		lifeTime.setForeground(blueColour);
-		lifeTime.setBounds(10,50,100,50);
-
-		// Setup how Total distanceString will look like
-		distanceTotalString.setFont(apiFont);
-		distanceTotalString.setForeground(blueColour);
-		distanceTotalString.setBounds(30,50,500,50);
-
 		daily.setFont(font3);
 		daily.setLayout(null);
 		daily.setForeground(blueColour);
-		daily.setBounds(10,70,100,50);
+		daily.setBounds(10,13,100,50);
 
 		// Setup how Daily distanceString will look like
 		distanceDailyString.setFont(apiFont);
 		distanceDailyString.setForeground(blueColour);
-		distanceDailyString.setBounds(30,50,500,50);
+		distanceDailyString.setBounds(10,33,500,50);
+
+		bestDay.setFont(font3);
+		bestDay.setLayout(null);
+		bestDay.setForeground(blueColour);
+		bestDay.setBounds(10,55,100,50);
+
+		// Setup how best distanceString will look like
+		distanceBestString.setFont(apiFont);
+		distanceBestString.setForeground(blueColour);
+		distanceBestString.setBounds(10,75,500,50);
+
+		lifeTime.setFont(font3);
+		lifeTime.setLayout(null);
+		lifeTime.setForeground(blueColour);
+		lifeTime.setBounds(10,97,100,50);
+
+		// Setup how total distanceString will look like
+		distanceTotalString.setFont(apiFont);
+		distanceTotalString.setForeground(blueColour);
+		distanceTotalString.setBounds(10,117,500,50);
 
 		paneName.setLayout(null);
 		paneName.setBackground(Color.WHITE);
@@ -317,7 +311,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				basedashboard.addClosedTile("Distance");
+				//BaseDashBoardUI.addClosedTile(name);
 			}
 		});
 		paneName.add(xSignButton);
@@ -333,9 +327,9 @@ public class SingleBox{
 		JLabel nameLabel = new JLabel("Floors");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
-		JLabel bestDay = new JLabel("Best Day: ");
-		JLabel lifeTime = new JLabel("Life Time: ");
-		JLabel daily = new JLabel("Daily: ");
+		JLabel bestDay = new JLabel("BEST DAY:");
+		JLabel lifeTime = new JLabel("LIFE TIME:");
+		JLabel daily = new JLabel("DAILY:");
 
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
@@ -347,35 +341,35 @@ public class SingleBox{
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(30,-8,500,50);
 
+		daily.setFont(font3);
+		daily.setLayout(null);
+		daily.setForeground(blueColour);
+		daily.setBounds(10,13,100,50);
+
+		// Setup how Daily floorString will look like
+		floorDailyString.setFont(apiFont);
+		floorDailyString.setForeground(blueColour);
+		floorDailyString.setBounds(10,33,500,50);
+
 		bestDay.setFont(font3);
 		bestDay.setLayout(null);
 		bestDay.setForeground(blueColour);
-		bestDay.setBounds(10,30,100,50);
+		bestDay.setBounds(10,55,100,50);
 
-		// Setup how Best distanceString will look like
+		// Setup how best floorString will look like
 		floorBestString.setFont(apiFont);
 		floorBestString.setForeground(blueColour);
-		floorBestString.setBounds(30,50,500,50);
+		floorBestString.setBounds(10,75,500,50);
 
 		lifeTime.setFont(font3);
 		lifeTime.setLayout(null);
 		lifeTime.setForeground(blueColour);
-		lifeTime.setBounds(10,50,100,50);
+		lifeTime.setBounds(10,97,100,50);
 
-		// Setup how Total distanceString will look like
+		// Setup how total floorString will look like
 		floorTotalString.setFont(apiFont);
 		floorTotalString.setForeground(blueColour);
-		floorTotalString.setBounds(30,50,500,50);
-
-		daily.setFont(font3);
-		daily.setLayout(null);
-		daily.setForeground(blueColour);
-		daily.setBounds(10,70,100,50);
-
-		// Setup how Daily distanceString will look like
-		floorDailyString.setFont(apiFont);
-		floorDailyString.setForeground(blueColour);
-		floorDailyString.setBounds(30,50,500,50);
+		floorTotalString.setBounds(10,117,500,50);
 
 		paneName.setLayout(null);
 		paneName.setBackground(Color.WHITE);
@@ -393,7 +387,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				basedashboard.addClosedTile("Floors");
+				//BaseDashBoardUI.addClosedTile(name);
 			}
 		});
 		paneName.add(xSignButton);
@@ -409,9 +403,9 @@ public class SingleBox{
 		JLabel nameLabel = new JLabel("Steps");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
-		JLabel bestDay = new JLabel("Best Day: ");
-		JLabel lifeTime = new JLabel("Life Time: ");
-		JLabel daily = new JLabel("Daily: ");
+		JLabel bestDay = new JLabel("BEST DAY:");
+		JLabel lifeTime = new JLabel("LIFE TIME:");
+		JLabel daily = new JLabel("DAILY:");
 
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
@@ -423,35 +417,35 @@ public class SingleBox{
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(30,-8,500,50);
 
+		daily.setFont(font3);
+		daily.setLayout(null);
+		daily.setForeground(blueColour);
+		daily.setBounds(10,13,100,50);
+
+		// Setup how Daily stepString will look like
+		stepDailyString.setFont(apiFont);
+		stepDailyString.setForeground(blueColour);
+		stepDailyString.setBounds(10,33,500,50);
+
 		bestDay.setFont(font3);
 		bestDay.setLayout(null);
 		bestDay.setForeground(blueColour);
-		bestDay.setBounds(10,20,100,50);
+		bestDay.setBounds(10,55,100,50);
 
-		// Setup how Best distanceString will look like
+		// Setup how best stepString will look like
 		stepBestString.setFont(apiFont);
 		stepBestString.setForeground(blueColour);
-		stepBestString.setBounds(1,40,500,50);
+		stepBestString.setBounds(10,75,500,50);
 
 		lifeTime.setFont(font3);
 		lifeTime.setLayout(null);
 		lifeTime.setForeground(blueColour);
-		lifeTime.setBounds(10,60,100,50);
+		lifeTime.setBounds(10,97,100,50);
 
-		// Setup how Total distanceString will look like
+		// Setup how total stepString will look like
 		stepTotalString.setFont(apiFont);
 		stepTotalString.setForeground(blueColour);
-		stepTotalString.setBounds(1,80,500,50);
-
-		daily.setFont(font3);
-		daily.setLayout(null);
-		daily.setForeground(blueColour);
-		daily.setBounds(10,100,100,50);
-
-		// Setup how Daily distanceString will look like
-		stepDailyString.setFont(apiFont);
-		stepDailyString.setForeground(blueColour);
-		stepDailyString.setBounds(1,120,500,50);
+		stepTotalString.setBounds(10,117,500,50);
 
 		paneName.setLayout(null);
 		paneName.setBackground(Color.WHITE);
@@ -470,7 +464,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				basedashboard.addClosedTile("Steps");
+				//BaseDashBoardUI.addClosedTile(name);
 			}
 		});
 		paneName.add(xSignButton);
