@@ -73,4 +73,5 @@ public class HeartRateZone extends Activity{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

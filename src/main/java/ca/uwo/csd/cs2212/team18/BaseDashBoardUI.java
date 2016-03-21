@@ -43,6 +43,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import java.awt.Color;
@@ -58,6 +59,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
+import javax.swing.ScrollPaneConstants;
 
 
 /**
@@ -82,7 +84,8 @@ public class BaseDashBoardUI extends JFrame{
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
 	JPanel[] awardBox = new JPanel[20];
-
+	 
+	
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
 	JButton friendZoneButton = new JButton("Friend Zone");
@@ -138,7 +141,7 @@ public class BaseDashBoardUI extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
-		setLayout(null);
+		getContentPane().setLayout(null);
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -168,19 +171,49 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelUserText.setFont(font);
 		sidePanelUserText.setForeground(blueColour);
 		sidePanelUser.add(sidePanelUserText);
-		sidePanelUser.setBounds(this.getWidth()-250, 80, 250, 300);
+		sidePanelUser.setBounds(638, 80, 250, 220);
 		sidePanelUser.setBackground(Color.WHITE);
 		sidePanelUser.setVisible(true);
+		sidePanelAward.setLayout(null);
+		sidePanelAwardText.setBounds(104, 6, 60, 22);
+		
+				// Set up award panel
+				sidePanelAwardText.setFont(font);
+				sidePanelAwardText.setForeground(blueColour);
+				
+						sidePanelAward.add(sidePanelAwardText);
+						sidePanelAward.setBounds(638, 305, 250, 146);
+						sidePanelAward.setBackground(Color.WHITE);
+						sidePanelAward.setVisible(true);
+						getContentPane().add(sidePanelAward);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBounds(638, 305, 250, 146);
+        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        getContentPane().add(scrollPane);
+        
+        JPanel borderlaoutpanel = new JPanel();
+        borderlaoutpanel.setBackground(Color.WHITE);
+        scrollPane.setViewportView(borderlaoutpanel);
+        borderlaoutpanel.setLayout(new BorderLayout(0, 0));
+        
+        JPanel columnpanel = new JPanel();
+        borderlaoutpanel.add(columnpanel, BorderLayout.NORTH);
+        columnpanel.setLayout(new GridLayout(0, 1, 0, 1));
+        columnpanel.setBackground(Color.WHITE);
+       
 
-		// Set up award panel
-		sidePanelAwardText.setFont(font);
-		sidePanelAwardText.setForeground(blueColour);
+        for(int i=0;i<8;i++) {
+            JPanel rowPanel = new JPanel();
+            rowPanel.setPreferredSize(new Dimension(300,30));
+            columnpanel.add(rowPanel);
+            rowPanel.setLayout(null);
 
-		sidePanelAward.add(sidePanelAwardText);
-		sidePanelAward.setBounds(this.getWidth()-250, 385, 250, 300);
-		sidePanelAward.setBackground(Color.WHITE);
-		sidePanelAward.setVisible(true);
-
+            
+        }
+		/*
 		// Setup how the buttons look like
 		fitCalcButton.setFont(font);
 		fitCalcButton.setForeground(blueColour);
@@ -189,6 +222,18 @@ public class BaseDashBoardUI extends JFrame{
 		dailyGoalsButton.setFont(font);
 		dailyGoalsButton.setForeground(blueColour);
 		dailyGoalsButton.setVisible(true);
+		dailyGoalsButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				try {
+					DailyGoalsUI daily = new DailyGoalsUI();
+					daily.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		*/
 
 		friendZoneButton.setFont(font);
 		friendZoneButton.setForeground(blueColour);
@@ -223,7 +268,7 @@ public class BaseDashBoardUI extends JFrame{
 
 				contentPane.setBackground(new Color(26, 168, 180));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				dateDialog.add(contentPane);
+				dateDialog.getContentPane().add(contentPane);
 				JLayeredPane layeredPane = new JLayeredPane() ;
 				Component layeredPane_1 = new JLayeredPane();
 				layeredPane.setLayer(layeredPane_1, 1);
@@ -422,12 +467,11 @@ public class BaseDashBoardUI extends JFrame{
 
 		///////////////////////////////////////////////////////////////////////
 
-		this.add(buttonPanel);
-		this.add(sidePanelLogo);
-		this.add(sidePanelUser);
-		this.add(sidePanelAward);
-		this.add(boxes);
-		this.add(dateButton);
+		getContentPane().add(buttonPanel);
+		getContentPane().add(sidePanelLogo);
+		getContentPane().add(sidePanelUser);
+		getContentPane().add(boxes);
+		getContentPane().add(dateButton);
 	}
 
 	private void loadCustomConfiguration() throws Exception{
