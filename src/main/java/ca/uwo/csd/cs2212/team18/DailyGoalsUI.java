@@ -112,13 +112,13 @@ public class DailyGoalsUI extends JDialog {
 		label.setBounds(0, 0, 403, 203);
 		layeredPane.add(label);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		//final APIData api;
-		//if(test == true){
-			//api = new APIData(date);
-		//}
-		//else{
-		//	api = new APIData();
-		//}
+		final APIData api;
+		if(test == true){
+			api = new APIData();
+		}
+		else{
+			api = new APIData(date);
+		}
 
 		year = new SimpleDateFormat("yyyy").format(new Date());
 		month = new SimpleDateFormat("MM").format(new Date());
@@ -131,7 +131,7 @@ public class DailyGoalsUI extends JDialog {
 		text.setWrapStyleWord(true);
 		text.enable(false); 
 		layeredPane.add(text);
-		text.setText(goalll.toString(year, month, day));//,api));
+		text.setText(goalll.toString(year, month, day,api));
 		text.repaint();
 		JLabel lblGoalsFor = new JLabel("Goal(s) for: ");
 		lblGoalsFor.setBounds(124, 10, 87, 16);
@@ -262,7 +262,7 @@ public class DailyGoalsUI extends JDialog {
 											userMessage = goalll.add(goal);
 
 
-											text.setText(goalll.toString(year,month,day));//, api));
+											text.setText(goalll.toString(year,month,day, api));
 											text.revalidate();
 											text.repaint();
 
@@ -388,9 +388,9 @@ public class DailyGoalsUI extends JDialog {
 						month = textField_1.getText();
 						day = textField_2.getText();
 						newDate = year + "-" + month + "-" + day;
-						//if(test == true){
-							//api.refresh(newDate);
-						//}
+						if(test == false){
+							api.refresh(newDate);
+						}
 						l.setText(newDate);
 						l.repaint();
 
@@ -409,7 +409,7 @@ public class DailyGoalsUI extends JDialog {
 
 							JOptionPane.showMessageDialog(goals2,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 						}
-						text.setText(goalll.toString(year,month,day));//,api));
+						text.setText(goalll.toString(year,month,day,api));
 						text.revalidate();
 						text.repaint();
 					}
@@ -485,7 +485,7 @@ public class DailyGoalsUI extends JDialog {
 									JOptionPane.showMessageDialog(goals3,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 								}
 
-								text.setText(goalll.toString(year,month,day));//,api));
+								text.setText(goalll.toString(year,month,day,api));
 								text.revalidate();
 								text.repaint();
 
