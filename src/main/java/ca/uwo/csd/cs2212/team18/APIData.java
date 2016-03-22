@@ -180,7 +180,10 @@ public class APIData extends Data{
 		setBestLife();
 		setHeartRate();
 		setRecentActivity();
+		//save();
+
 	}
+
 
 	protected void readFiles(){
 		BufferedReader bR = null;
@@ -236,7 +239,7 @@ public class APIData extends Data{
 			// Will store the new access/refresh tokens in the 
 			// appropriate file
 			FileWriter fileWriter = 
-					new FileWriter("/Users/Sam/Desktop/Team18Tokens.txt");
+					new FileWriter("src/main/resources/Team18Tokens.txt");
 			bW = new BufferedWriter(fileWriter);
 			bW.write(accessToken.getToken());
 			bW.newLine();
@@ -265,6 +268,28 @@ public class APIData extends Data{
 			}
 		}
 	}
+
+	/*private void save(){
+		BufferedWriter bW = null;
+		try {
+			FileWriter fileWriter =
+					new FileWriter("/")
+		} catch(FileNotFoundException ex){
+			System.out.println(
+					"Unable to open file\n"+ex.getMessage());
+		} catch(IOException ex) {
+			System.out.println(
+					"Error reading/write file\n"+ex.getMessage());   
+		} finally {
+			try {
+				if (bW != null)
+					bW.close(); 
+			} catch(Exception e) {
+				System.out.println(
+						"Error closing file\n"+e.getMessage());
+			}
+		}
+	}*/
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
