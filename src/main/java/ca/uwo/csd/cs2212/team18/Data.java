@@ -29,14 +29,7 @@ public abstract class Data {
 	protected HeartRateZone peak = new HeartRateZone("Peak");
 	protected FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
-	protected abstract void readFiles();
 
-	protected abstract void setActivities();
-	protected abstract void setBestLife();
-	protected abstract void setHeartRate();
-	protected abstract void setRecentActivity();
-
-	
 	protected String refresh() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
