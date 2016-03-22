@@ -1,3 +1,4 @@
+//package ca.uwo.csd.cs2212.team18;
 
 
 //Import 
@@ -25,7 +26,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,6 +45,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import java.awt.Color;
@@ -59,6 +61,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
+import javax.swing.ScrollPaneConstants;
 
 
 /**
@@ -76,8 +79,58 @@ public class BaseDashBoardUI extends JFrame{
 	Color blueColour = Color.decode("#45C2C5");
 
 	JLabel logoImage = new JLabel(new ImageIcon("src/images/FitByte Logo.png"));
-	JLabel awardIcon[] = new JLabel[20];
-	//xawardIcon[1] = new JLabel(new ImageIcon("src/images/FitByte Logo.png"));
+	JLabel awardA[] = new JLabel[20];
+	JLabel awardD[] = new JLabel[20];
+	
+
+	{
+		awardA[0] =  new JLabel(new ImageIcon("src/images/awards/Activate/burj.png"));
+		awardA[1] =  new JLabel(new ImageIcon("src/images/awards/Activate/10_days.png"));
+		awardA[2] =  new JLabel(new ImageIcon("src/images/awards/Activate/heaven.png"));
+		awardA[3] =  new JLabel(new ImageIcon("src/images/awards/Activate/200_steps.png"));
+		awardA[4] =  new JLabel(new ImageIcon("src/images/awards/Activate/1000_floors.png"));
+		awardA[5] =  new JLabel(new ImageIcon("src/images/awards/Activate/9000.png"));
+		awardA[6] =  new JLabel(new ImageIcon("src/images/awards/Activate/back2back.png"));
+		awardA[7] =  new JLabel(new ImageIcon("src/images/awards/Activate/burn_1000.png"));
+		awardA[8] =  new JLabel(new ImageIcon("src/images/awards/Activate/cake.png"));
+		awardA[9] =  new JLabel(new ImageIcon("src/images/awards/Activate/cereal.png"));
+		awardA[10] =  new JLabel(new ImageIcon("src/images/awards/Activate/cold_heart.png"));
+		awardA[11] =  new JLabel(new ImageIcon("src/images/awards/Activate/distance_earth.png"));
+		awardA[12] =  new JLabel(new ImageIcon("src/images/awards/Activate/earth.png"));
+		awardA[13] =  new JLabel(new ImageIcon("src/images/awards/Activate/fat.png"));
+		awardA[14] =  new JLabel(new ImageIcon("src/images/awards/Activate/mass.png"));
+		awardA[15] =  new JLabel(new ImageIcon("src/images/awards/Activate/mile.png"));
+		awardA[16] =  new JLabel(new ImageIcon("src/images/awards/Activate/moon.png"));
+		awardA[17] =  new JLabel(new ImageIcon("src/images/awards/Activate/shoe.png"));
+		awardA[18] =  new JLabel(new ImageIcon("src/images/awards/Activate/western.png"));
+		awardA[19] =  new JLabel(new ImageIcon("src/images/awards/Activate/whiteoaks.png"));
+	}
+	
+	{
+		awardD[0] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dburj.png"));
+		awardD[1] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d10_days.png"));
+		awardD[2] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dheaven.png"));
+		awardD[3] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d200_steps.png"));
+		awardD[4] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d1000_floors.png"));
+		awardD[5] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d9000.png"));
+		awardD[6] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dback2back.png"));
+		awardD[7] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dburn_1000.png"));
+		awardD[8] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcake.png"));
+		awardD[9] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcereal.png"));
+		awardD[10] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcold_heart.png"));
+		awardD[11] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/ddistance_earth.png"));
+		awardD[12] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dearth.png"));
+		awardD[13] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dfat.png"));
+		awardD[14] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmass.png"));
+		awardD[15] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmile.png"));
+		awardD[16] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmoon.png"));
+		awardD[17] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dshoe.png"));
+		awardD[18] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dwestern.png"));
+		awardD[19] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dwhiteoaks.png"));
+	}
+
+	JScrollPane scrollPane = new JScrollPane();
+	JPanel scrollPanelBorder = new JPanel();
 
 	JPanel sidePanelLogo = new JPanel();
 	JPanel sidePanelUser = new JPanel();
@@ -85,10 +138,10 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
-	JPanel awardBox = new JPanel(new GridLayout());
 
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
+	JButton friendZoneButton = new JButton("Friend Zone");
 	JButton heartRateButton = new JButton("Heart Rate");
 	JButton dateButton = new JButton("Date");
 	JPanel buttonPanel = new JPanel();
@@ -141,7 +194,7 @@ public class BaseDashBoardUI extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
-		setLayout(null);
+		getContentPane().setLayout(null);
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -171,31 +224,38 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelUserText.setFont(font);
 		sidePanelUserText.setForeground(blueColour);
 		sidePanelUser.add(sidePanelUserText);
-		sidePanelUser.setBounds(this.getWidth()-250, 81, 250, 210);
+		sidePanelUser.setBounds(this.getWidth()-250, 81, 250, 150);
 		sidePanelUser.setBackground(Color.WHITE);
 		sidePanelUser.setVisible(true);
-
-		/////////////////////////////////////////////////////////////////
+		sidePanelAward.setLayout(null);
+		sidePanelAwardText.setHorizontalAlignment(SwingConstants.CENTER);
+		sidePanelAwardText.setVerticalAlignment(SwingConstants.TOP);
 
 		// Set up award panel
 		sidePanelAwardText.setFont(font);
 		sidePanelAwardText.setForeground(blueColour);
+		sidePanelAwardText.setBounds(75, 4, 100, 100);
+
+		sidePanelAward.setBounds(this.getWidth()-250, 240, 250, 238);
+		sidePanelAward.setBackground(Color.WHITE);
+		sidePanelAward.setVisible(true);
+		getContentPane().add(sidePanelAward);
+
+		scrollPanelBorder.setBackground(Color.WHITE);
+		scrollPanelBorder.setLayout(new GridLayout(0, 3, 5, 5));
+
+
+		for(int i=0;i<20;i++) {
+			scrollPanelBorder.add(awardD[i]);
+		}
+
+		scrollPane.setBounds(0, 30, 250, 200);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setViewportView(scrollPanelBorder);
+		scrollPane.setBorder(null);
 
 		sidePanelAward.add(sidePanelAwardText);
-		sidePanelAward.setBounds(this.getWidth()-250, 300, 250, 179);
-		sidePanelAward.setBackground(Color.WHITE);
-
-		awardBox.setBackground(Color.white);
-		awardBox.setLayout(new GridLayout(1,1,10,10));
-
-			//award[i] = new String("src/images/awards/"+".png");
-			//awardIcon[i] = new JLabel(new ImageIcon(award[i]));
-		
-
-		awardBox.add(awardIcon[1]);
-		sidePanelAward.add(awardBox);
-
-		/////////////////////////////////////////////////////////////////
+		sidePanelAward.add(scrollPane);
 
 		// Setup how the buttons look like
 		fitCalcButton.setFont(font);
@@ -205,6 +265,22 @@ public class BaseDashBoardUI extends JFrame{
 		dailyGoalsButton.setFont(font);
 		dailyGoalsButton.setForeground(blueColour);
 		dailyGoalsButton.setVisible(true);
+		dailyGoalsButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				try {
+					DailyGoalsUI daily = new DailyGoalsUI();
+					daily.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+
+		friendZoneButton.setFont(font);
+		friendZoneButton.setForeground(blueColour);
+		friendZoneButton.setVisible(true);
 
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
@@ -216,6 +292,7 @@ public class BaseDashBoardUI extends JFrame{
 
 		buttonPanel.add(fitCalcButton);
 		buttonPanel.add(dailyGoalsButton);
+		buttonPanel.add(friendZoneButton);
 		buttonPanel.add(heartRateButton);
 
 		dateButton.setFont(font);
@@ -234,7 +311,7 @@ public class BaseDashBoardUI extends JFrame{
 
 				contentPane.setBackground(new Color(26, 168, 180));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				dateDialog.add(contentPane);
+				dateDialog.getContentPane().add(contentPane);
 				JLayeredPane layeredPane = new JLayeredPane() ;
 				Component layeredPane_1 = new JLayeredPane();
 				layeredPane.setLayer(layeredPane_1, 1);
@@ -291,10 +368,6 @@ public class BaseDashBoardUI extends JFrame{
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
 							singleFirstBox.setString(basedashboard.getSelectedDate());
-							singleSecondBox.setString(basedashboard.getSelectedDate());
-							singleThirdBox.setString(basedashboard.getSelectedDate());
-							singleFourthBox.setString(basedashboard.getSelectedDate());
-							singleFifthBox.setString(basedashboard.getSelectedDate());
 							dateDialog.dispose();
 						}
 						else {
@@ -320,26 +393,27 @@ public class BaseDashBoardUI extends JFrame{
 
 		plusSign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel contentPane = new JPanel();
+				JPanel contentPane;
 				final JDialog plusButton = new JDialog();
-				JButton btnNewButton = new JButton("OK");
-				JLayeredPane layeredPane = new JLayeredPane();
-				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
-
 				plusButton.setVisible(true);
 				plusButton.setTitle("Additional Features");
 				plusButton.setBounds(100, 100, 276, 217);
+				contentPane = new JPanel();
 				contentPane.setToolTipText("hello");
 				contentPane.setBackground(new Color(69, 194, 197));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				plusButton.setContentPane(contentPane);
 				contentPane.setLayout(null);
 
+				JButton btnNewButton = new JButton("OK");
+
+				JLayeredPane layeredPane = new JLayeredPane();
 				layeredPane.setBounds(5, 5, 265, 184);
 				layeredPane.setToolTipText("");
 				contentPane.add(layeredPane);
 				layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
 
+				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
 				lblSelectTheFeatures.setAlignmentX(0.5f);
 				layeredPane.add(lblSelectTheFeatures);
 
@@ -350,6 +424,8 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						if (comboBox.getSelectedItem().toString().equals("Calories")) {
 
+							SingleBox singleFirstBox = new SingleBox();
+							JPanel firstBox = singleFirstBox.createCaloriesBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(firstBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
@@ -360,6 +436,8 @@ public class BaseDashBoardUI extends JFrame{
 						}
 						if (comboBox.getSelectedItem().toString().equals("Active Minutes")) {
 
+							SingleBox singleSecondBox = new SingleBox();
+							JPanel secondBox = singleSecondBox.createActiveSedentaryBox(); 
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(secondBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
@@ -370,6 +448,8 @@ public class BaseDashBoardUI extends JFrame{
 						}
 						if (comboBox.getSelectedItem().toString().equals("Distance")) {
 
+							SingleBox singleThirdBox = new SingleBox();
+							JPanel thirdBox = singleThirdBox.createDistanceBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(thirdBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
@@ -380,6 +460,8 @@ public class BaseDashBoardUI extends JFrame{
 						}
 						if (comboBox.getSelectedItem().toString().equals("Floors")) {
 
+							SingleBox singleFourthBox = new SingleBox();
+							JPanel fourthBox = singleFourthBox.createFloorBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fourthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
@@ -391,6 +473,8 @@ public class BaseDashBoardUI extends JFrame{
 						}
 						if (comboBox.getSelectedItem().toString().equals("Steps")) {
 
+							SingleBox singleFifthBox = new SingleBox();
+							JPanel fifthBox = singleFifthBox.createStepBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fifthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
@@ -406,11 +490,12 @@ public class BaseDashBoardUI extends JFrame{
 				btnNewButton.setAlignmentX(0.5f);
 				layeredPane.add(comboBox);
 				layeredPane.add(btnNewButton);
+
 			}
 		});
-
 		emptyBox.setLayout(new BorderLayout());
 		emptyBox.add(plusSign);
+
 
 		boxes.setBounds(45,75,550,350);
 		boxes.setVisible(true);
@@ -425,12 +510,11 @@ public class BaseDashBoardUI extends JFrame{
 
 		///////////////////////////////////////////////////////////////////////
 
-		this.add(buttonPanel);
-		this.add(sidePanelLogo);
-		this.add(sidePanelUser);
-		this.add(sidePanelAward);
-		this.add(boxes);
-		this.add(dateButton);
+		getContentPane().add(buttonPanel);
+		getContentPane().add(sidePanelLogo);
+		getContentPane().add(sidePanelUser);
+		getContentPane().add(boxes);
+		getContentPane().add(dateButton);
 	}
 
 	private void loadCustomConfiguration() throws Exception{
