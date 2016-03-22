@@ -12,6 +12,7 @@ import java.io.IOException;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.exceptions.OAuthConnectionException;
 import com.github.scribejava.core.model.*;
 
 import org.json.JSONException;
@@ -98,21 +99,45 @@ public class APIData extends Data{
 
 
 	private void createRequests(String date){
-		// Builds the strings to request for specific information from the API
-		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
-		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
-		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
-		requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
-		// Calls methods that will pull information from the API and store them
-		// in the appropriate attributes
-		setActivities();
-		setBestLife();
-		setHeartRate();
-		setRecentActivity();
-		save();
 
+		try{// Builds the strings to request for specific information from the API
+			requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+			requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+			requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
+			requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
+			// Calls methods that will pull information from the API and store them
+			// in the appropriate attributes
+			setActivities();
+			setBestLife();
+			setHeartRate();
+			setRecentActivity();
+			save();
+		}catch(OAuthConnectionException e){
+			connectionError();
+		}
 	}
 
+	private void connectionError(){
+		TestData data = new TestData();
+		caloriesOut = data.getCaloriesOut();
+		floors = data.getFloors();
+		steps = data.getSteps();
+		actMin = data.getActMin();
+		sedMin = data.getSedMin();
+		distance = data.getDistance();
+		restingHeartRate = data.getRestingHeartRate();
+		bestDistance = data.getBestDistance();
+		bestFloors = data.getBestFloors();
+		bestSteps = data.getBestSteps();
+		totalDistance = data.getTotalDistance();
+		totalFloors = data.getTotalFloors();
+		totalSteps = data.getTotalSteps();
+		outOfRange = data.getOutOfRange();
+		fatBurn = data.getFatBurn();
+		cardio = data.getCardio();
+		peak = data.getPeak();
+		recentActivities = data.getRecentActivities();
+	}
 
 	private void readFiles(){
 		BufferedReader bR = null;
@@ -485,6 +510,9 @@ public class APIData extends Data{
 		createRequests(date);
 
 		return super.refresh();
+	}
+	public static void main(String args[]){
+		APIData data = new APIData("2016-01-01");
 	}
 }
 
