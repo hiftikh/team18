@@ -62,7 +62,6 @@ public class SingleBox{
 	JLabel stepBestString = new JLabel();
 	JLabel stepTotalString = new JLabel();
 
-	public static boolean testBool;
 
 	// Constructor
 	public SingleBox(){
@@ -71,61 +70,112 @@ public class SingleBox{
 	/**
 	 * Set new string for activities
 	 */
-	APIData apiData;
-	public void setString(String dateInput) {
-		System.out.println(testBool);
-		if (testBool == true) {
-			apiData = new APIData();
-			modifyString();
+	/**
+	 * Set new string for activities
+	 */
+
+	
+	static int caloriesOut;
+	static int floorDailyOut;
+	static int floorBestOut;
+	static int floorTotalOut;
+	static int stepDailyOut;
+	static int stepBestOut;
+	static int stepTotalOut;
+	static int activeOut;
+	static int sedOut;
+	static int distanceDailyOut;
+	static int distanceBestOut;
+	static int distanceTotalOut;
+	
+	/**
+	 * Set new string for activities
+	 */
+	static Data apiData;
+	static APIData notTest;
+	private static boolean test;
+	
+	public void setTest(boolean testorNot) {
+		test = testorNot;
+	}
+	public void passAPI(Data api) {
+		apiData = api;
+	}
+	public void updateAPI(String dateInput) {
+		if (test == true) {
 		}
 		else {
-			apiData = new APIData(dateInput);
-			modifyString();
+		notTest = (APIData) apiData; 
+		notTest.refresh(apiInput);
 		}
 	}
-
+	
+	public void updateTilesVars() {
+		if (test == true) {
+		caloriesOut = (int) apiData.getCaloriesOut().getValue();
+		floorDailyOut = (int) apiData.getFloors().getValue();
+		floorBestOut = (int) apiData.getBestFloors().getValue();
+		floorTotalOut = (int) apiData.getTotalFloors().getValue();
+		stepDailyOut = (int) apiData.getSteps().getValue();
+		stepBestOut = (int) apiData.getBestSteps().getValue();
+		stepTotalOut = (int) apiData.getTotalSteps().getValue();
+		activeOut = (int) apiData.getActMin().getValue();
+		sedOut = (int) apiData.getSedMin().getValue();
+		distanceDailyOut = (int) apiData.getDistance().getValue();
+		distanceBestOut = (int) apiData.getBestDistance().getValue();
+		distanceTotalOut = (int) apiData.getTotalDistance().getValue();
+		}
+		else {
+		caloriesOut = (int) notTest.getCaloriesOut().getValue();
+		floorDailyOut = (int) notTest.getFloors().getValue();
+		floorBestOut = (int) notTest.getBestFloors().getValue();
+		floorTotalOut = (int) notTest.getTotalFloors().getValue();
+		stepDailyOut = (int) notTest.getSteps().getValue();
+		stepBestOut = (int) notTest.getBestSteps().getValue();
+		stepTotalOut = (int) notTest.getTotalSteps().getValue();
+		activeOut = (int) notTest.getActMin().getValue();
+		sedOut = (int) notTest.getSedMin().getValue();
+		distanceDailyOut = (int) notTest.getDistance().getValue();
+		distanceBestOut = (int) notTest.getBestDistance().getValue();
+		distanceTotalOut = (int) notTest.getTotalDistance().getValue();
+	}
+	}
+	
+	
 	/**
 	 *  Method used to produce API Data
 	 */
-	private void modifyString() {
-
-		int caloriesOut = (int) apiData.getCaloriesOut().getValue();
+	public void modifyString(int kindBox) {
+		if (kindBox == 0) {
 		calString.setText(String.valueOf(caloriesOut));
-
-		int floorDailyOut = (int) apiData.getFloors().getValue();
+		}
+		
+		if (kindBox == 1) {
+		System.out.println(floorDailyOut);
 		floorDailyString.setText(String.valueOf(floorDailyOut));
-
-		int floorBestOut = (int) apiData.getBestFloors().getValue();
 		floorBestString.setText(String.valueOf(floorBestOut));
-
-		int floorTotalOut = (int) apiData.getTotalFloors().getValue();
 		floorTotalString.setText(String.valueOf(floorTotalOut));
-
-		int stepDailyOut = (int) apiData.getSteps().getValue();
+		}
+		
+		if (kindBox == 2) {		
+		System.out.println(stepDailyString);
 		stepDailyString.setText(String.valueOf(stepDailyOut));
-
-		int stepBestOut = (int) apiData.getBestSteps().getValue();
 		stepBestString.setText(String.valueOf(stepBestOut));
-
-		int stepTotalOut = (int) apiData.getTotalSteps().getValue();
 		stepTotalString.setText(String.valueOf(stepTotalOut));
-
-		int activeOut = (int) apiData.getActMin().getValue();
+		}
+		
+		if (kindBox == 3) {
 		activeString.setText(String.valueOf(activeOut));
-
-		int sedOut = (int) apiData.getSedMin().getValue();
 		sedString.setText(String.valueOf(sedOut));
+		}
 
-		int distanceDailyOut = (int) apiData.getDistance().getValue();
+		if (kindBox == 4) {
 		distanceDailyString.setText(String.valueOf(distanceDailyOut));
-
-		int distanceBestOut = (int) apiData.getBestDistance().getValue();
 		distanceBestString.setText(String.valueOf(distanceBestOut));
-
-		int distanceTotalOut = (int) apiData.getTotalDistance().getValue();
 		distanceTotalString.setText(String.valueOf(distanceTotalOut));
+		}
+		
 	}
-
 	/**
 	 * Method will create a box with Calories information
 	 * @return JPanel with Calories

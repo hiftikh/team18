@@ -164,12 +164,17 @@ public class BaseDashBoardUI extends JFrame{
 
 	private JFrame itself = new JFrame();
 
-	// Check for args == 0
+	Data data;
 	private boolean testOrNot;
 	public BaseDashBoardUI(boolean testorNot) {
 		this.initUI();
 		testOrNot = testorNot;
-		SingleBox.testBool = testOrNot;
+		if (testorNot == true) {
+			data = new TestData();
+		}
+		else {
+			data = new APIData(basedashboard.getCurrentDate());
+		}
 		try {
 			this.loadCustomConfiguration();
 		} catch (Exception e) {
@@ -195,6 +200,8 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
 		getContentPane().setLayout(null);
+		
+		singleFirstBox.passAPI(data);
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -261,6 +268,17 @@ public class BaseDashBoardUI extends JFrame{
 		fitCalcButton.setFont(font);
 		fitCalcButton.setForeground(blueColour);
 		fitCalcButton.setVisible(true);
+		fitCalcButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				try {
+					FitCalcUI fitCalc = new FitCalcUI(data, testOrNot);
+					fitCalc.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
 		dailyGoalsButton.setFont(font);
 		dailyGoalsButton.setForeground(blueColour);
@@ -268,7 +286,7 @@ public class BaseDashBoardUI extends JFrame{
 		dailyGoalsButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				try {
-					DailyGoalsUI daily = new DailyGoalsUI();
+					DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
 					daily.setVisible(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

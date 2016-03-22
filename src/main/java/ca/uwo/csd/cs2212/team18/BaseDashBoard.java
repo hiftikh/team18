@@ -29,14 +29,23 @@ public class BaseDashBoard implements Serializable{
 	/**
 	 * String representing the api input
 	 */
+
 	private String apiInput = "";
+	private String curDate = "";
+	private String curYear = "";
+	private String curMonth = "";
+	private String curDay = "";
+	
+	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+	//get current date time with Date()
+
 
 	/**
 	 * constructor to make an instance of BaseDashBoard
 	 */
 	public BaseDashBoard() {
 	}	
-
+	
 	/**
 	 * Converts the ArrayList<String> into String[]
 	 * @return an array containing the contents of the ArrayList
@@ -100,9 +109,9 @@ public class BaseDashBoard implements Serializable{
 		//get current date time with Date()
 		Date date = new Date();
 		String fulldate = dateFormat.format(date);
-		String curYear = fulldate.substring(0,4);
-		String curMonth = fulldate.substring(4,6);
-		String curDay = fulldate.substring(6,8);
+		curYear = fulldate.substring(0,4);
+		curMonth = fulldate.substring(4,6);
+		curDay = fulldate.substring(6,8);
 
 		if (Integer.parseInt(curYear) < Integer.parseInt(year)) {
 			return "We can't look at data on a future date... yet. In the meantime input a date in the past";
@@ -126,6 +135,15 @@ public class BaseDashBoard implements Serializable{
 
 		//ApiData apidata = new ApiData(apiInput)
 		return "";
+	}
+	
+	public String getCurrentDate() {
+		curDate = curDate.concat(curYear);
+		curDate = curDate.concat("-");
+		curDate = curDate.concat(curMonth);
+		curDate = curDate.concat("-");
+		curDate = curDate.concat(curDay);
+		return curDate;
 	}
 
 	/**

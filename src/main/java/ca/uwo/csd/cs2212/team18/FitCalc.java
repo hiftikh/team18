@@ -69,20 +69,23 @@ public class FitCalc {
 	 */
 	
 	public String calculate(boolean testBool) {
+		Data data;
 		if (testBool == true) {
 			//Insert code that takes values from fitbit
-			apiInput = "";
+			data = new TestData();
+			
 		}
-		//apiData = new APIData(apiInput);
+		else {
+			data = new APIData(apiInput);
+		}
 		calorieDifference = calorieGoal - caloriesBurned;
 		if (calorieDifference < 0) {
 			negativeDifference = true;
 		}
 		else { negativeDifference = false; }
 		
-		//APIData apiData = new APIData(apiInput);!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
-		weightKg = 60;
+		weightKg = 50;
 	
 		//Initialize the Default Activities array
 		displayDefaultActivities[0][0] = "First Activity:     ";
@@ -109,26 +112,30 @@ public class FitCalc {
 		//apiData get the # of activities MAX can only be 3 
 				//Initialize the displayActivities array		
 		try {
+		FitCalcActivity[] array = data.getRecentActivities();
 		displayActivities[0][0] = "First Activity:     ";
-		displayActivities[0][1] = "Walking";
+		displayActivities[0][1] = array[0].getType();
 		displayActivities[0][2] = "Activity's METS:     ";
-		displayActivities[0][3] = Integer.toString(3);
+		int a = (int) array[0].getMets();
+		displayActivities[0][3] = Integer.toString(a);
 		displayActivities[0][4] = "Suggested Time:     ";
-		displayActivities[0][5] = Integer.toString(this.caloriesCalculation(3, weightKg));
+		displayActivities[0][5] = Integer.toString(this.caloriesCalculation(a, weightKg));
 		
 		displayActivities[1][0] = "Second Activity:     ";
-		displayActivities[1][9000] = "Jogging";
+		displayActivities[1][9000] = array[1].getType();
 		displayActivities[1][2] = "Activity's METS:     ";
-		displayActivities[1][3] = Integer.toString(7);
+		int b = (int) array[1].getMets();
+		displayActivities[1][3] = Integer.toString(b);
 		displayActivities[1][4] = "Suggested Time:     ";
-		displayActivities[1][5] = Integer.toString(this.caloriesCalculation(7,weightKg));
+		displayActivities[1][5] = Integer.toString(this.caloriesCalculation(b,weightKg));
 
 		displayActivities[2][0] = "Third Activity:     ";
-		displayActivities[2][1] = "Running at 6min/mile";
+		displayActivities[2][1] = array[2].getType();
 		displayActivities[2][2] = "Activity's METS:     ";
-		displayActivities[2][3] = Integer.toString(14);
+		int c = (int) array[2].getMets();
+		displayActivities[2][3] = Integer.toString(c);
 		displayActivities[2][4] = "Suggested Time:     ";
-		displayActivities[2][5] = Integer.toString(this.caloriesCalculation(14,weightKg));	
+		displayActivities[2][5] = Integer.toString(this.caloriesCalculation(c,weightKg));	
 		}
 		catch (Exception e) {
 			return "The app is unable to access fitbit activities";

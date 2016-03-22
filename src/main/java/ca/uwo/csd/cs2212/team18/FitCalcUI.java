@@ -46,8 +46,11 @@ public class FitCalcUI extends JDialog {
 		return this;
 	}
 	
-
-	public FitCalcUI(){
+	private Data data;
+	private boolean testOrNot;
+	public FitCalcUI(Data datas, boolean test){
+		data = datas;
+		testOrNot = test;
 		initFitCalcUI();
 	}
 	
@@ -56,7 +59,7 @@ public class FitCalcUI extends JDialog {
 	 */
 	public void initFitCalcUI() {
 		setBackground(Color.RED);
-		final FitCalc fitCalc = new FitCalc();
+		final FitCalc fitCalc = new FitCalc(Data data, boolean testOrNot);
 		setTitle("FitCalc");
 		setResizable(false);
 		setBounds(100, 100, 450, 340);
