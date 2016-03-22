@@ -38,38 +38,6 @@ public class APIData extends Data{
 	static final String CALL_BACK_URL="http://localhost:8080";
 	static final String SCOPE = "activity%20heartrate";
 
-	/*// Initializes constants used to store for default APIData constructor
-	// This will be used if the program is using test values
-	private static final int DEFAULT_STEPS = 10042;
-	private static final int DEFAULT_FLOORS = 27;
-	private static final double DEFAULT_DISTANCE = 7.52;
-	private static final int DEFAULT_ACTIVE_MINUTES = 265;
-	private static final int DEFAULT_SEDENTARY_MINUTES = 1175;
-	private static final int DEFAULT_CALORIES_OUT = 2565;
-	private static final double DEFAULT_BEST_DISTANCE = 10.0593;
-	private static final String DEFAULT_BEST_DISTANCE_DATE = "2016-01-06";
-	private static final int DEFAULT_BEST_FlOORS = 26;
-	private static final String DEFAULT_BEST_FLOORS_DATE = "2016-01-08";
-	private static final int DEFAULT_BEST_STEPS = 13685;
-	private static final String DEFAULT_BEST_STEPS_DATE = "2016-01-06";
-	private static final double DEFAULT_TOTAL_DISTANCE = 202.95;
-	private static final int DEFAULT_TOTAL_FLOORS = 560;
-	private static final int DEFAULT_TOTAL_STEPS = 272799;
-	private static final int DEFAULT_RESTING_HEART_RATE = 71;
-	private static final int DEFAULT_OUT_OF_RANGE_VALUE = 422;
-	private static final int DEFAULT_OUT_OF_RANGE_MIN = 30;
-	private static final int DEFAULT_OUT_OF_RANGE_MAX = 94;
-	private static final int DEFAULT_FAT_BURN_VALUE = 230;
-	private static final int DEFAULT_FAT_BURN_MIN = 94;
-	private static final int DEFAULT_FAT_BURN_MAX = 131;
-	private static final int DEFAULT_CARDIO_VALUE = 12;
-	private static final int DEFAULT_CARDIO_MIN = 131;
-	private static final int DEFAULT_CARDIO_MAX = 159;
-	private static final int DEFAULT_PEAK_VALUE = 12;
-	private static final int DEFAULT_PEAK_MIN = 159;
-	private static final int DEFAULT_PEAK_MAX = 220;*/
-
-	private FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
 	// String variables that will store the different urls that will access the information
 	// from the APIData
@@ -93,45 +61,6 @@ public class APIData extends Data{
 	private String refreshToken = null;
 	private Long expiresIn = null;
 	private String rawResponse = null;
-
-
-	/**
-	 * Default constructor that creates an APIData object
-	 * that has test attributes
-	 */
-	/*public APIData(){
-		// Sets default values to the object's attributes
-		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
-		floors.setValue(DEFAULT_FLOORS);
-		steps.setValue(DEFAULT_STEPS);
-		actMin.setValue(DEFAULT_ACTIVE_MINUTES);
-		sedMin.setValue(DEFAULT_SEDENTARY_MINUTES);
-		distance.setValue((int)DEFAULT_DISTANCE);
-		bestDistance.setValue((int)DEFAULT_BEST_DISTANCE);
-		bestDistance.setDate(DEFAULT_BEST_DISTANCE_DATE);
-		bestFloors.setValue(DEFAULT_BEST_FlOORS);
-		bestFloors.setDate(DEFAULT_BEST_FLOORS_DATE);
-		bestSteps.setValue(DEFAULT_BEST_STEPS);
-		bestSteps.setDate(DEFAULT_BEST_STEPS_DATE);
-		totalDistance.setValue((int)DEFAULT_TOTAL_DISTANCE);
-		totalFloors.setValue(DEFAULT_TOTAL_FLOORS);
-		totalSteps.setValue(DEFAULT_TOTAL_STEPS);
-		restingHeartRate.setValue(DEFAULT_RESTING_HEART_RATE);
-		outOfRange.setValue(DEFAULT_OUT_OF_RANGE_VALUE);
-		outOfRange.setMin(DEFAULT_OUT_OF_RANGE_MIN);
-		outOfRange.setMax(DEFAULT_OUT_OF_RANGE_MAX);
-		fatBurn.setValue(DEFAULT_FAT_BURN_VALUE);
-		fatBurn.setMin(DEFAULT_FAT_BURN_MIN);
-		fatBurn.setMax(DEFAULT_FAT_BURN_MAX);
-		cardio.setValue(DEFAULT_CARDIO_VALUE);
-		cardio.setMin(DEFAULT_CARDIO_MIN);
-		cardio.setMax(DEFAULT_CARDIO_MAX);
-		peak.setValue(DEFAULT_PEAK_VALUE);
-		peak.setMin(DEFAULT_PEAK_MIN);
-		peak.setMax(DEFAULT_PEAK_MAX);
-
-	}
-	 */
 
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
@@ -180,12 +109,12 @@ public class APIData extends Data{
 		setBestLife();
 		setHeartRate();
 		setRecentActivity();
-		//save();
+		save();
 
 	}
 
 
-	protected void readFiles(){
+	private void readFiles(){
 		BufferedReader bR = null;
 		try {
 
@@ -269,11 +198,61 @@ public class APIData extends Data{
 		}
 	}
 
-	/*private void save(){
+	private void save(){
 		BufferedWriter bW = null;
 		try {
 			FileWriter fileWriter =
-					new FileWriter("/")
+					new FileWriter("src/main/resources/Data.txt");
+			bW = new BufferedWriter(fileWriter);
+			bW.write(String.valueOf(caloriesOut.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(floors.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(steps.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(actMin.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(sedMin.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(distance.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(bestDistance.getValue()));
+			bW.newLine();
+			bW.write(bestDistance.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(bestFloors.getValue()));
+			bW.newLine();
+			bW.write(bestFloors.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(bestSteps.getValue()));
+			bW.newLine();
+			bW.write(bestSteps.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(totalDistance.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(totalFloors.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(totalSteps.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(restingHeartRate.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(outOfRange.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(fatBurn.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(cardio.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(peak.getValue()));
+			bW.newLine();
+			for (int i =0; i < recentActivities.length; i++){
+				bW.write(recentActivities[i].getType());
+				bW.newLine();
+				bW.write(String.valueOf(recentActivities[i].getValue()));
+				bW.newLine();
+				bW.write(String.valueOf(recentActivities[i].getMets()));
+				bW.newLine();
+			}
+			bW.close();
 		} catch(FileNotFoundException ex){
 			System.out.println(
 					"Unable to open file\n"+ex.getMessage());
@@ -289,7 +268,7 @@ public class APIData extends Data{
 						"Error closing file\n"+e.getMessage());
 			}
 		}
-	}*/
+	}
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
@@ -343,7 +322,7 @@ public class APIData extends Data{
 	 * This includes the attributes Calories Out, Floors, Steps, Active Minutes, Sedentary
 	 * Minutes, and Distance 
 	 */
-	protected void setActivities(){
+	private void setActivities(){
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
@@ -372,7 +351,7 @@ public class APIData extends Data{
 	 * This includes the attributes Best Distance, Best Steps, Best Floors, Total Distance,
 	 * Total Steps, and Total Floors
 	 */
-	protected void setBestLife(){
+	private void setBestLife(){
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
@@ -411,19 +390,18 @@ public class APIData extends Data{
 	 * This includes the attributes Resting Heart Rate, Out of Range Zone, Fat Burn Zone,
 	 * Cardio Zone, and Peak Zone
 	 */
-	protected void setHeartRate(){
+	private void setHeartRate(){
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
+			api(requestUrlHeartRate);
 			JSONObject jsonObj = new JSONObject(response.getBody());
 			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
 			JSONArray jsonArray;
-			api(requestUrlHeartRate);
 			jsonArray = jsonObj.getJSONArray("activities-heart");
 			jsonObj = jsonArray.getJSONObject(0);
 			jsonObj = jsonObj.getJSONObject("value");
 			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
-			restingHeartRate.setValue(0);
 			jsonArray = jsonObj.getJSONArray("heartRateZones");
 			jsonOutOfRange = jsonArray.getJSONObject(0);
 			setHRObject(outOfRange, jsonOutOfRange);
@@ -443,7 +421,7 @@ public class APIData extends Data{
 		}
 	}
 
-	protected void setRecentActivity() {
+	private void setRecentActivity() {
 		try{
 			api(requestUrlRecentActivities);
 			final String REQUEST_URL_RECENT_ACTIVITY_PREFIX = "https://api.fitbit.com/1/activities/";
@@ -507,10 +485,6 @@ public class APIData extends Data{
 		createRequests(date);
 
 		return super.refresh();
-	}
-
-	public static void main (String args[]){
-		APIData api = new APIData("2016-01-02");
 	}
 }
 
