@@ -190,13 +190,13 @@ public class APIData extends Data{
 			// Stores various user authentication information variables from
 			// the Team18Credentials.txt and Team18Tokens.txt files
 			FileReader fileReader =
-					new FileReader("/Users/Sam/Desktop/Team18Credentials.txt");   
+					new FileReader("src/main/resources/Team18Credentials.txt");   
 			bR = new BufferedReader(fileReader);
 			clientID = bR.readLine();
 			bR.readLine();
 			apiSecret = bR.readLine();
 			bR.close();
-			fileReader = new FileReader("/Users/Sam/Desktop/Team18Tokens.txt");
+			fileReader = new FileReader("src/main/resources/Team18Tokens.txt");
 			bR = new BufferedReader(fileReader);
 
 			accessTokenItself = bR.readLine();
