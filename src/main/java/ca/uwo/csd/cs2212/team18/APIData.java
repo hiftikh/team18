@@ -26,8 +26,8 @@ import org.json.JSONArray;
  */
 public class APIData extends Data{
 
-	/* Notes:
-	 * - make separate test class that overrides ApiData Class
+	/* TODO Notes:
+	 * - make separate test class that overrides ApiData Class 
 	 * - Make these into a linked list so that you will not need to manually name them(?)
 	 * 	make them in the constructor
 	 * - //Create separate private methods to better categorize this(?) is it
@@ -38,7 +38,7 @@ public class APIData extends Data{
 	static final String CALL_BACK_URL="http://localhost:8080";
 	static final String SCOPE = "activity%20heartrate";
 
-	// Initializes constants used to store for default APIData constructor
+	/*// Initializes constants used to store for default APIData constructor
 	// This will be used if the program is using test values
 	private static final int DEFAULT_STEPS = 10042;
 	private static final int DEFAULT_FLOORS = 27;
@@ -67,7 +67,7 @@ public class APIData extends Data{
 	private static final int DEFAULT_CARDIO_MAX = 159;
 	private static final int DEFAULT_PEAK_VALUE = 12;
 	private static final int DEFAULT_PEAK_MIN = 159;
-	private static final int DEFAULT_PEAK_MAX = 220;
+	private static final int DEFAULT_PEAK_MAX = 220;*/
 
 	private FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
@@ -99,7 +99,7 @@ public class APIData extends Data{
 	 * Default constructor that creates an APIData object
 	 * that has test attributes
 	 */
-	public APIData(){
+	/*public APIData(){
 		// Sets default values to the object's attributes
 		caloriesOut.setValue(DEFAULT_CALORIES_OUT);
 		floors.setValue(DEFAULT_FLOORS);
@@ -131,7 +131,7 @@ public class APIData extends Data{
 		peak.setMax(DEFAULT_PEAK_MAX);
 
 	}
-
+*/
 
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
@@ -282,6 +282,7 @@ public class APIData extends Data{
 		response = request.send();
 
 		System.out.println("HTTP response code: " + response.getCode());
+		System.out.println(response.getBody());
 		int statusCode = response.getCode();
 
 		/*
@@ -411,7 +412,7 @@ public class APIData extends Data{
 			setHRObject(peak, jsonPeak);
 
 		} catch (JSONException e) {
-			restingHeartRate.setValue(0);
+		/*	restingHeartRate.setValue(0);
 			outOfRange.setValue(0);
 			outOfRange.setMin(DEFAULT_OUT_OF_RANGE_MIN);
 			outOfRange.setMax(DEFAULT_OUT_OF_RANGE_MAX);
@@ -423,7 +424,7 @@ public class APIData extends Data{
 			cardio.setMax(DEFAULT_CARDIO_MAX);
 			peak.setValue(0);
 			peak.setMin(DEFAULT_PEAK_MIN);
-			peak.setMax(DEFAULT_PEAK_MAX);
+			peak.setMax(DEFAULT_PEAK_MAX);*/
 		}
 	}
 
@@ -495,6 +496,10 @@ public class APIData extends Data{
 		setRecentActivity();
 
 		return super.refresh();
+	}
+
+	public static void main (String args[]){
+		APIData api = new APIData("2016-01-02");
 	}
 }
 
