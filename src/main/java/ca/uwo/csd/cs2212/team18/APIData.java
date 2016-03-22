@@ -69,8 +69,6 @@ public class APIData extends Data{
 	private static final int DEFAULT_PEAK_MIN = 159;
 	private static final int DEFAULT_PEAK_MAX = 220;*/
 
-	private FitCalcActivity[] recentActivities = new FitCalcActivity[3];
-
 	// String variables that will store the different urls that will access the information
 	// from the APIData
 	private String requestUrlActivities;
@@ -180,7 +178,7 @@ public class APIData extends Data{
 		setBestLife();
 		setHeartRate();
 		setRecentActivity();
-		//save();
+		save();
 
 	}
 
@@ -269,11 +267,61 @@ public class APIData extends Data{
 		}
 	}
 
-	/*private void save(){
+	private void save(){
 		BufferedWriter bW = null;
 		try {
 			FileWriter fileWriter =
-					new FileWriter("/")
+					new FileWriter("src/main/resources/Data.txt");
+			bW = new BufferedWriter(fileWriter);
+			bW.write(String.valueOf(caloriesOut.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(floors.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(steps.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(actMin.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(sedMin.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(distance.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(bestDistance.getValue()));
+			bW.newLine();
+			bW.write(bestDistance.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(bestFloors.getValue()));
+			bW.newLine();
+			bW.write(bestFloors.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(bestSteps.getValue()));
+			bW.newLine();
+			bW.write(bestSteps.getDate());
+			bW.newLine();
+			bW.write(String.valueOf(totalDistance.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(totalFloors.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(totalSteps.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(restingHeartRate.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(outOfRange.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(fatBurn.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(cardio.getValue()));
+			bW.newLine();
+			bW.write(String.valueOf(peak.getValue()));
+			bW.newLine();
+			for (int i =0; i < recentActivities.length; i++){
+				bW.write(recentActivities[i].getType());
+				bW.newLine();
+				bW.write(String.valueOf(recentActivities[i].getValue()));
+				bW.newLine();
+				bW.write(String.valueOf(recentActivities[i].getMets()));
+				bW.newLine();
+			}
+			bW.close();
 		} catch(FileNotFoundException ex){
 			System.out.println(
 					"Unable to open file\n"+ex.getMessage());
@@ -289,7 +337,7 @@ public class APIData extends Data{
 						"Error closing file\n"+e.getMessage());
 			}
 		}
-	}*/
+	}
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
@@ -415,10 +463,10 @@ public class APIData extends Data{
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
 		try {
+			api(requestUrlHeartRate);
 			JSONObject jsonObj = new JSONObject(response.getBody());
 			JSONObject jsonOutOfRange, jsonFatBurn, jsonCardio,  jsonPeak; 
 			JSONArray jsonArray;
-			api(requestUrlHeartRate);
 			jsonArray = jsonObj.getJSONArray("activities-heart");
 			jsonObj = jsonArray.getJSONObject(0);
 			jsonObj = jsonObj.getJSONObject("value");
@@ -510,7 +558,7 @@ public class APIData extends Data{
 	}
 
 	public static void main (String args[]){
-		APIData api = new APIData("2016-01-02");
+		APIData api = new APIData("2016-02-25");
 	}
 }
 
