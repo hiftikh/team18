@@ -131,7 +131,7 @@ public class APIData extends Data{
 		peak.setMax(DEFAULT_PEAK_MAX);
 
 	}
-*/
+	 */
 
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
@@ -163,24 +163,23 @@ public class APIData extends Data{
 				rawResponse);
 
 		// Method that will create the request urls based on the date
-		createRequestUrls(date);
+		createRequests(date);
+	}
 
+
+
+	private void createRequests(String date){
+		// Builds the strings to request for specific information from the API
+		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
+		requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
 		// Calls methods that will pull information from the API and store them
 		// in the appropriate attributes
 		setActivities();
 		setBestLife();
 		setHeartRate();
 		setRecentActivity();
-
-
-	}
-
-	private void createRequestUrls(String date){
-		// Builds the strings to request for specific information from the API
-		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
-		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
-		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
-		requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
 	}
 
 	protected void readFiles(){
@@ -282,7 +281,6 @@ public class APIData extends Data{
 		response = request.send();
 
 		System.out.println("HTTP response code: " + response.getCode());
-		System.out.println(response.getBody());
 		int statusCode = response.getCode();
 
 		/*
@@ -412,19 +410,11 @@ public class APIData extends Data{
 			setHRObject(peak, jsonPeak);
 
 		} catch (JSONException e) {
-		/*	restingHeartRate.setValue(0);
-			outOfRange.setValue(0);
-			outOfRange.setMin(DEFAULT_OUT_OF_RANGE_MIN);
-			outOfRange.setMax(DEFAULT_OUT_OF_RANGE_MAX);
-			fatBurn.setValue(0);
-			fatBurn.setMin(DEFAULT_FAT_BURN_MIN);
-			fatBurn.setMax(DEFAULT_FAT_BURN_MAX);
-			cardio.setValue(0);
-			cardio.setMin(DEFAULT_CARDIO_MIN);
-			cardio.setMax(DEFAULT_CARDIO_MAX);
-			peak.setValue(0);
-			peak.setMin(DEFAULT_PEAK_MIN);
-			peak.setMax(DEFAULT_PEAK_MAX);*/
+			restingHeartRate.setValue(-1);
+			outOfRange.setValue(-1);
+			fatBurn.setValue(-1);
+			cardio.setValue(-1);
+			peak.setValue(-1);
 		}
 	}
 
@@ -489,11 +479,7 @@ public class APIData extends Data{
 
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
-		createRequestUrls(date);
-		setActivities();
-		setBestLife();
-		setHeartRate();
-		setRecentActivity();
+		createRequests(date);
 
 		return super.refresh();
 	}
