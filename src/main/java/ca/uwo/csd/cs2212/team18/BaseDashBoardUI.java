@@ -78,55 +78,55 @@ public class BaseDashBoardUI extends JFrame{
 	Font font2 = new Font("Arial", Font.BOLD, 48);
 	Color blueColour = Color.decode("#45C2C5");
 
-	JLabel logoImage = new JLabel(new ImageIcon("src/images/FitByte Logo.png"));
+	JLabel logoImage = new JLabel(new ImageIcon("src/main/resources/images/FitByte Logo.png"));
 	JLabel awardA[] = new JLabel[20];
 	JLabel awardD[] = new JLabel[20];
 	
 
 	{
-		awardA[0] =  new JLabel(new ImageIcon("src/images/awards/Activate/burj.png"));
-		awardA[1] =  new JLabel(new ImageIcon("src/images/awards/Activate/10_days.png"));
-		awardA[2] =  new JLabel(new ImageIcon("src/images/awards/Activate/heaven.png"));
-		awardA[3] =  new JLabel(new ImageIcon("src/images/awards/Activate/200_steps.png"));
-		awardA[4] =  new JLabel(new ImageIcon("src/images/awards/Activate/1000_floors.png"));
-		awardA[5] =  new JLabel(new ImageIcon("src/images/awards/Activate/9000.png"));
-		awardA[6] =  new JLabel(new ImageIcon("src/images/awards/Activate/back2back.png"));
-		awardA[7] =  new JLabel(new ImageIcon("src/images/awards/Activate/burn_1000.png"));
-		awardA[8] =  new JLabel(new ImageIcon("src/images/awards/Activate/cake.png"));
-		awardA[9] =  new JLabel(new ImageIcon("src/images/awards/Activate/cereal.png"));
-		awardA[10] =  new JLabel(new ImageIcon("src/images/awards/Activate/cold_heart.png"));
-		awardA[11] =  new JLabel(new ImageIcon("src/images/awards/Activate/distance_earth.png"));
-		awardA[12] =  new JLabel(new ImageIcon("src/images/awards/Activate/earth.png"));
-		awardA[13] =  new JLabel(new ImageIcon("src/images/awards/Activate/fat.png"));
-		awardA[14] =  new JLabel(new ImageIcon("src/images/awards/Activate/mass.png"));
-		awardA[15] =  new JLabel(new ImageIcon("src/images/awards/Activate/mile.png"));
-		awardA[16] =  new JLabel(new ImageIcon("src/images/awards/Activate/moon.png"));
-		awardA[17] =  new JLabel(new ImageIcon("src/images/awards/Activate/shoe.png"));
-		awardA[18] =  new JLabel(new ImageIcon("src/images/awards/Activate/western.png"));
-		awardA[19] =  new JLabel(new ImageIcon("src/images/awards/Activate/whiteoaks.png"));
+		awardA[0] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/burj.png"));
+		awardA[1] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/10_days.png"));
+		awardA[2] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/heaven.png"));
+		awardA[3] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/200_steps.png"));
+		awardA[4] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/1000_floors.png"));
+		awardA[5] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/9000.png"));
+		awardA[6] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/back2back.png"));
+		awardA[7] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/burn_1000.png"));
+		awardA[8] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/cake.png"));
+		awardA[9] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/cereal.png"));
+		awardA[10] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/cold_heart.png"));
+		awardA[11] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/distance_earth.png"));
+		awardA[12] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/earth.png"));
+		awardA[13] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/fat.png"));
+		awardA[14] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/mass.png"));
+		awardA[15] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/mile.png"));
+		awardA[16] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/moon.png"));
+		awardA[17] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/shoe.png"));
+		awardA[18] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/western.png"));
+		awardA[19] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/whiteoaks.png"));
 	}
 	
 	{
-		awardD[0] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dburj.png"));
-		awardD[1] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d10_days.png"));
-		awardD[2] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dheaven.png"));
-		awardD[3] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d200_steps.png"));
-		awardD[4] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d1000_floors.png"));
-		awardD[5] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/d9000.png"));
-		awardD[6] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dback2back.png"));
-		awardD[7] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dburn_1000.png"));
-		awardD[8] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcake.png"));
-		awardD[9] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcereal.png"));
-		awardD[10] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dcold_heart.png"));
-		awardD[11] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/ddistance_earth.png"));
-		awardD[12] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dearth.png"));
-		awardD[13] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dfat.png"));
-		awardD[14] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmass.png"));
-		awardD[15] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmile.png"));
-		awardD[16] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dmoon.png"));
-		awardD[17] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dshoe.png"));
-		awardD[18] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dwestern.png"));
-		awardD[19] =  new JLabel(new ImageIcon("src/images/awards/Deactivate/dwhiteoaks.png"));
+		awardD[0] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dburj.png"));
+		awardD[1] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/d10_days.png"));
+		awardD[2] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dheaven.png"));
+		awardD[3] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/d200_steps.png"));
+		awardD[4] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/d1000_floors.png"));
+		awardD[5] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/d9000.png"));
+		awardD[6] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dback2back.png"));
+		awardD[7] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dburn_1000.png"));
+		awardD[8] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcake.png"));
+		awardD[9] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcereal.png"));
+		awardD[10] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcold_heart.png"));
+		awardD[11] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/ddistance_earth.png"));
+		awardD[12] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dearth.png"));
+		awardD[13] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dfat.png"));
+		awardD[14] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmass.png"));
+		awardD[15] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmile.png"));
+		awardD[16] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmoon.png"));
+		awardD[17] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dshoe.png"));
+		awardD[18] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dwestern.png"));
+		awardD[19] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dwhiteoaks.png"));
 	}
 
 	JScrollPane scrollPane = new JScrollPane();
