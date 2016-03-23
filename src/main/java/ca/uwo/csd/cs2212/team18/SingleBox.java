@@ -51,18 +51,18 @@ public class SingleBox{
 	}
 
 	// Create JLabel with updated information
-	JLabel calString = new JLabel();
-	JLabel activeString = new JLabel();
-	JLabel sedString = new JLabel();
-	JLabel distanceDailyString = new JLabel();
-	JLabel distanceBestString = new JLabel();
-	JLabel distanceTotalString = new JLabel();
-	JLabel floorDailyString = new JLabel();
-	JLabel floorBestString = new JLabel();
-	JLabel floorTotalString = new JLabel();
-	JLabel stepDailyString = new JLabel();
-	JLabel stepBestString = new JLabel();
-	JLabel stepTotalString = new JLabel();
+	static JLabel calString = new JLabel();
+	static JLabel activeString = new JLabel();
+	static JLabel sedString = new JLabel();
+	static JLabel distanceDailyString = new JLabel();
+	static JLabel distanceBestString = new JLabel();
+	static JLabel distanceTotalString = new JLabel();
+	static JLabel floorDailyString = new JLabel();
+	static JLabel floorBestString = new JLabel();
+	static JLabel floorTotalString = new JLabel();
+	static JLabel stepDailyString = new JLabel();
+	static JLabel stepBestString = new JLabel();
+	static JLabel stepTotalString = new JLabel();
 
 
 	// Constructor
@@ -153,14 +153,13 @@ public class SingleBox{
 		}
 		
 		if (kindBox == 1) {
-		System.out.println(floorDailyOut);
+		
 		floorDailyString.setText(String.valueOf(floorDailyOut));
 		floorBestString.setText(String.valueOf(floorBestOut));
 		floorTotalString.setText(String.valueOf(floorTotalOut));
 		}
 		
 		if (kindBox == 2) {		
-		System.out.println(stepDailyString);
 		stepDailyString.setText(String.valueOf(stepDailyOut));
 		stepBestString.setText(String.valueOf(stepBestOut));
 		stepTotalString.setText(String.valueOf(stepTotalOut));
@@ -220,7 +219,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				BaseDashBoard.addClosedTile("Calories");
 			}
 		});
 		paneName.add(xSignButton);
@@ -280,7 +279,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				BaseDashBoard.addClosedTile("Active Minutes");
 			}
 		});
 		// Add labels and button to the pane
@@ -363,7 +362,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				BaseDashBoard.addClosedTile("Distance");
 			}
 		});
 		paneName.add(xSignButton);
@@ -439,7 +438,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				BaseDashBoard.addClosedTile("Floors");
 			}
 		});
 		paneName.add(xSignButton);
@@ -516,7 +515,7 @@ public class SingleBox{
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
-				//BaseDashBoardUI.addClosedTile(name);
+				BaseDashBoard.addClosedTile("Steps");
 			}
 		});
 		paneName.add(xSignButton);

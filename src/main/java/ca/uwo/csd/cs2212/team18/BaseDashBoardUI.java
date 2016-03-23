@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-package main.java.ca.uwo.csd.cs2212.team18;
-=======
+
 package ca.uwo.csd.cs2212.team18;
 
 //package ca.uwo.csd.cs2212.team18;
->>>>>>> e884f07ca7bc381bbfda1c0a5f38e4ccd06938ad
-
 
 //Import 
 import java.util.ArrayList;
@@ -214,6 +210,13 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().setLayout(null);
 		
 		singleFirstBox.passAPI(data);
+		singleFirstBox.updateAPI(basedashboard.getCurrentDate());
+		singleFirstBox.updateTilesVars();
+		singleFirstBox.modifyString(0);
+		singleFirstBox.modifyString(1);
+		singleFirstBox.modifyString(2);
+		singleFirstBox.modifyString(3);
+		singleFirstBox.modifyString(4);
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -400,13 +403,7 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent event) {
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
-<<<<<<< HEAD
-							singleFirstBox.setString(basedashboard.getSelectedDate());
-							singleSecondBox.setString(basedashboard.getSelectedDate());
-							singleThirdBox.setString(basedashboard.getSelectedDate());
-							singleFourthBox.setString(basedashboard.getSelectedDate());
-							singleFifthBox.setString(basedashboard.getSelectedDate());
-=======
+
 							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
 							singleFirstBox.updateTilesVars();
 							singleFirstBox.modifyString(0);
@@ -414,7 +411,7 @@ public class BaseDashBoardUI extends JFrame{
 							singleFirstBox.modifyString(2);
 							singleFirstBox.modifyString(3);
 							singleFirstBox.modifyString(4);
->>>>>>> e884f07ca7bc381bbfda1c0a5f38e4ccd06938ad
+
 							dateDialog.dispose();
 						}
 						else {

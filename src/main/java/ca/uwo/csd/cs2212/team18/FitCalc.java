@@ -116,7 +116,7 @@ public class FitCalc {
 		displayActivities[0][5] = Integer.toString(this.caloriesCalculation(a, weightKg));
 		
 		displayActivities[1][0] = "Second Activity:     ";
-		displayActivities[1][9000] = array[1].getType();
+		displayActivities[1][1] = array[1].getType();
 		displayActivities[1][2] = "Activity's METS:     ";
 		int b = (int) array[1].getMets();
 		displayActivities[1][3] = Integer.toString(b);
