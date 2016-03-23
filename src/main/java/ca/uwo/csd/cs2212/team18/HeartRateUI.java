@@ -128,7 +128,7 @@ public class HeartRateUI extends JDialog {
 		JLabel lblNewLabel_1 = new JLabel("Fat Burn Zone");
 		lblNewLabel_1.setToolTipText("<html><body>Fat burn zone, which means your heart rate is 50 to 69% "
 				+ "of maximum, <br> is the low-to-medium intensity exercise zone and may be a good <br>"
-				+ " place to start for those new to exercise. It’s called the fat burn zone <br>"
+				+ " place to start for those new to exercise. It's called the fat burn zone <br>"
 				+ "because a higher percentage of calories are burned from fat, <br>but the total "
 				+ "calorie burn rate is lower.</body></html>");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();

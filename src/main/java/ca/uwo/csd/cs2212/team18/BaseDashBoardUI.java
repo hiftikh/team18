@@ -1,7 +1,4 @@
-
 package ca.uwo.csd.cs2212.team18;
-
-//package ca.uwo.csd.cs2212.team18;
 
 //Import 
 import java.util.ArrayList;
@@ -269,6 +266,22 @@ public class BaseDashBoardUI extends JFrame{
 		for(int i=0;i<20;i++) {
 			scrollPanelBorder.add(awardD[i]);
 		}
+		
+		Boolean a[] = new Boolean[20];
+		/*for(int i = 0; i < 20; i++){
+			a[i] = false;
+		}*/
+		
+		
+		a = Accolades.complete(data, testOrNot);
+		
+		for(int i = 0; i < 20; i++){
+			if(a[i] != false){
+				scrollPanelBorder.remove(awardD[i]);
+				scrollPanelBorder.add(awardA[i], i);
+				sidePanelAward.repaint();
+			}
+		}
 
 		scrollPane.setBounds(0, 30, 250, 200);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -300,8 +313,8 @@ public class BaseDashBoardUI extends JFrame{
 		dailyGoalsButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				try {
-					//DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
-					//daily.setVisible(true);
+					DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
+					daily.setVisible(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -31,10 +31,10 @@ public class BaseDashBoard implements Serializable{
 	 */
 
 	private String apiInput = "";
-	private String curDate = "";
-	private String curYear = "";
-	private String curMonth = "";
-	private String curDay = "";
+	private static String curDate = "";
+	private static String curYear = "";
+	private static String curMonth = "";
+	private static String curDay = "";
 	
 	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 	//get current date time with Date()
@@ -137,7 +137,7 @@ public class BaseDashBoard implements Serializable{
 		return "";
 	}
 	
-	public String getCurrentDate() {
+	public static String getCurrentDate() {
 		curDate = curDate.concat(curYear);
 		curDate = curDate.concat("-");
 		curDate = curDate.concat(curMonth);
