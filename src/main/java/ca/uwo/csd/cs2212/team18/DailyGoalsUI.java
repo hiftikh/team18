@@ -118,6 +118,9 @@ public class DailyGoalsUI extends JDialog {
 	 */
 	public void initDailyGoalsUI(final Data data, final Boolean test){
 		final Data dat = this.test(data, test);
+		if(test == false){
+			notTest = (APIData) dat;
+		}
 		final GoalList goalll = DailyGoals.load();
 		//if(test == true){
 			//data = new TestData();
@@ -170,12 +173,12 @@ public class DailyGoalsUI extends JDialog {
 		text.enable(false); 
 		layeredPane.add(text);
 		//data = this.test(data, test);
-		//if(test == true){
+		if(test == true){
 		text.setText(goalll.toString(year, month, day,dat));
-		//}
-		//else{
-			//text.setText(goalll.toString(year, month, day, notTest));
-		//}*/
+		}
+		else{
+			text.setText(goalll.toString(year, month, day, notTest));
+		}
 		text.repaint();
 		JLabel lblGoalsFor = new JLabel("Goal(s) for: ");
 		lblGoalsFor.setBounds(124, 10, 87, 16);
@@ -305,12 +308,12 @@ public class DailyGoalsUI extends JDialog {
 											goal.setMeasure(m);
 											userMessage = goalll.add(goal);
 
-											//if(test == true){
+											if(test == true){
 											text.setText(goalll.toString(year,month,day, dat));
-											//}
-											//else{
-												//text.setText(goalll.toString(year, month, day, notTest));
-											//}
+											}
+											else{
+												text.setText(goalll.toString(year, month, day, notTest));
+											}
 											
 											text.revalidate();
 											text.repaint();
@@ -437,18 +440,24 @@ public class DailyGoalsUI extends JDialog {
 						fMonth = textField_1.getText();
 						fDay = textField_2.getText();
 						newDate = fYear + "-" + fMonth + "-" + fDay;
-						if(test == false){
-							notTest.refresh();
-						}
+						
 						if(newDate.contentEquals("--")){
 							
 						}
+						
 						else{
 						year = fYear;
 						month = fMonth;
 						day = fDay;
 						l.setText(newDate);
 						l.repaint();
+						if(test == false){
+							notTest.refresh(newDate);
+							if(notTest.isErrorConnection() == true){
+								JOptionPane.showMessageDialog(goals2,"Could not establish connection with FitBit Server. Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
+							}
+							
+						}
 						}
 						
 						String userMessage = DailyGoals.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
@@ -466,12 +475,12 @@ public class DailyGoalsUI extends JDialog {
 
 							JOptionPane.showMessageDialog(goals2,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 						}
-						//if(test == true){
+						if(test == true){
 							text.setText(goalll.toString(year,month,day,dat));
-						//}
-						//else{
-						//text.setText(goalll.toString(year,month,day,notTest));
-						//}
+						}
+						else{
+						text.setText(goalll.toString(year,month,day,notTest));
+						}
 						text.revalidate();
 						text.repaint();
 					}
@@ -547,12 +556,12 @@ public class DailyGoalsUI extends JDialog {
 									JOptionPane.showMessageDialog(goals3,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 								}
 
-								//if(test == true){
+								if(test == true){
 								text.setText(goalll.toString(year,month,day,dat));
-						//	}
-							//else{
-								//text.setText(goalll.toString(year, month, day, notTest));
-							//}
+							}
+							else{
+								text.setText(goalll.toString(year, month, day, notTest));
+							}
 								text.revalidate();
 								text.repaint();
 
