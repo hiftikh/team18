@@ -1,4 +1,4 @@
-//package ca.uwo.csd.cs2212.team18;
+package main.java.ca.uwo.csd.cs2212.team18;
 
 
 //Import 
@@ -134,17 +134,18 @@ public class BaseDashBoardUI extends JFrame{
 
 	JPanel sidePanelLogo = new JPanel();
 	JPanel sidePanelUser = new JPanel();
-	JLabel sidePanelUserText = new JLabel("Hello User");
+	JLabel sidePanelUserText = new JLabel("Hello Beth");
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
 
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
-	JButton friendZoneButton = new JButton("Friend Zone");
 	JButton heartRateButton = new JButton("Heart Rate");
 	JButton dateButton = new JButton("Date");
+	JButton resetButton = new JButton("Reset");
 	JPanel buttonPanel = new JPanel();
+	JPanel datePanel = new JPanel();
 
 	static JLayeredPane boxes = new JLayeredPane();
 	SingleBox singleFirstBox = new SingleBox();
@@ -246,7 +247,6 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelAward.setBounds(this.getWidth()-250, 240, 250, 238);
 		sidePanelAward.setBackground(Color.WHITE);
 		sidePanelAward.setVisible(true);
-		getContentPane().add(sidePanelAward);
 
 		scrollPanelBorder.setBackground(Color.WHITE);
 		scrollPanelBorder.setLayout(new GridLayout(0, 3, 5, 5));
@@ -295,11 +295,6 @@ public class BaseDashBoardUI extends JFrame{
 			}
 		});
 
-
-		friendZoneButton.setFont(font);
-		friendZoneButton.setForeground(blueColour);
-		friendZoneButton.setVisible(true);
-
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
 		heartRateButton.setVisible(true);
@@ -310,13 +305,22 @@ public class BaseDashBoardUI extends JFrame{
 
 		buttonPanel.add(fitCalcButton);
 		buttonPanel.add(dailyGoalsButton);
-		buttonPanel.add(friendZoneButton);
 		buttonPanel.add(heartRateButton);
 
 		dateButton.setFont(font);
 		dateButton.setForeground(blueColour);
-		dateButton.setBounds(225,35,200,30);
 		dateButton.setVisible(true);
+		
+		resetButton.setFont(font);
+		resetButton.setForeground(blueColour);
+		resetButton.setVisible(true);
+		
+		datePanel.setVisible(true);
+		datePanel.setBounds(-20,30,this.getWidth()-250,40);
+		datePanel.setBackground(blueColour);
+		
+		datePanel.add(dateButton);
+		datePanel.add(resetButton);
 
 		// Check what happens when date button is pressed
 		dateButton.addActionListener(new ActionListener() {
@@ -386,6 +390,10 @@ public class BaseDashBoardUI extends JFrame{
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
 							singleFirstBox.setString(basedashboard.getSelectedDate());
+							singleSecondBox.setString(basedashboard.getSelectedDate());
+							singleThirdBox.setString(basedashboard.getSelectedDate());
+							singleFourthBox.setString(basedashboard.getSelectedDate());
+							singleFifthBox.setString(basedashboard.getSelectedDate());
 							dateDialog.dispose();
 						}
 						else {
@@ -529,10 +537,13 @@ public class BaseDashBoardUI extends JFrame{
 		///////////////////////////////////////////////////////////////////////
 
 		getContentPane().add(buttonPanel);
+		getContentPane().add(datePanel);
 		getContentPane().add(sidePanelLogo);
 		getContentPane().add(sidePanelUser);
+		getContentPane().add(sidePanelAward);
 		getContentPane().add(boxes);
-		getContentPane().add(dateButton);
+		//getContentPane().add(resetButton);
+		//getContentPane().add(dateButton);
 	}
 
 	private void loadCustomConfiguration() throws Exception{
