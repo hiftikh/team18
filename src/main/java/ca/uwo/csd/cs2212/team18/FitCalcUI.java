@@ -34,7 +34,7 @@ public class FitCalcUI extends JDialog {
 	//Initialize some variables
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldInput;
-	private final JLabel lblNewLabel = new JLabel("The average person with a slightly active life \r\nburns roughly 1850 calories");
+	private final JLabel lblNewLabel = new JLabel("The average person with a slightly active life burns roughly 1850 calories");
 	private final JPanel panel = new JPanel();
 	private final JButton btnCalc = new JButton("Calculate");
 	private final JButton btnExit = new JButton("    Exit    ");
