@@ -62,6 +62,7 @@ public class APIData extends Data{
 	private String refreshToken = null;
 	private Long expiresIn = null;
 	private String rawResponse = null;
+	private boolean rateLimitReached = false;
 
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
@@ -105,38 +106,50 @@ public class APIData extends Data{
 			requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
 			requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
 			requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
-			// Calls methods that will pull information from the API and store them
-			// in the appropriate attributes
-			setActivities();
-			setBestLife();
-			setHeartRate();
-			setRecentActivity();
-			save();
+
+			api(requestUrlBestLife);
+			if(!rateLimitReached){
+				// Calls methods that will pull information from the API and store them
+				// in the appropriate attributes
+				setActivities();
+				setBestLife();
+				setHeartRate();
+				setRecentActivity();
+				save();
+			}
+			else{
+				
+			}
 		}catch(OAuthConnectionException e){
 			connectionError();
 		}
 	}
 
+	//TODO make it so that even if some of the API requests work if one of them doesn't then they all fail
 	private void connectionError(){
-		TestData data = new TestData();
-		caloriesOut = data.getCaloriesOut();
-		floors = data.getFloors();
-		steps = data.getSteps();
-		actMin = data.getActMin();
-		sedMin = data.getSedMin();
-		distance = data.getDistance();
-		restingHeartRate = data.getRestingHeartRate();
-		bestDistance = data.getBestDistance();
-		bestFloors = data.getBestFloors();
-		bestSteps = data.getBestSteps();
-		totalDistance = data.getTotalDistance();
-		totalFloors = data.getTotalFloors();
-		totalSteps = data.getTotalSteps();
-		outOfRange = data.getOutOfRange();
-		fatBurn = data.getFatBurn();
-		cardio = data.getCardio();
-		peak = data.getPeak();
-		recentActivities = data.getRecentActivities();
+		caloriesOut.setValue(0);
+		floors.setValue(0);
+		steps.setValue(0);
+		actMin.setValue(0);
+		sedMin.setValue(0);
+		distance.setValue(0);
+		restingHeartRate.setValue(0);
+		bestDistance.setValue(0);
+		bestDistance.setDate("Not Available");
+		bestFloors.setValue(0);
+		bestFloors.setDate("Not Available");
+		bestSteps.setValue(0);
+		bestSteps.setDate("Not Available");
+		totalDistance.setValue(0);
+		totalFloors.setValue(0);
+		totalSteps.setValue(0);
+		outOfRange.setValue(0);
+		fatBurn.setValue(0);
+		cardio.setValue(0);
+		peak.setValue(0);
+		for (int i = 0; i < recentActivities.length; i++){
+			
+		}
 	}
 
 	private void readFiles(){
@@ -336,9 +349,11 @@ public class APIData extends Data{
 			break;
 		case 429:
 			System.out.println("Rate limit exceeded");
+			rateLimitReached = true;
 			break;
 		}
 	}
+
 
 	/**
 	 * The setActivites method is a private helper method that will parse through
@@ -364,7 +379,6 @@ public class APIData extends Data{
 			jsonObj = jsonArray.getJSONObject(0);
 			distance.setValue((int)jsonObj.getDouble("distance"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -381,6 +395,7 @@ public class APIData extends Data{
 		// appropriate attributes
 		try {
 			api(requestUrlBestLife);
+
 			JSONObject jsonBest, jsonLife, jsonDistance, jsonSteps, jsonFloors;
 			JSONObject jsonObj = new JSONObject(response.getBody());
 			jsonBest = jsonObj;
@@ -511,8 +526,12 @@ public class APIData extends Data{
 
 		return super.refresh();
 	}
+	
+	public boolean isRateLimitReached() {
+		return rateLimitReached;
+	}
 	public static void main(String args[]){
-		APIData data = new APIData("2016-01-01");
+		APIData api = new APIData("2016-02-24");
 	}
 }
 
