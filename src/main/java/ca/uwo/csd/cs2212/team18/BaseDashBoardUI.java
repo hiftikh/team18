@@ -116,7 +116,7 @@ public class BaseDashBoardUI extends JFrame{
 		awardA[9].setToolTipText("<html><body>You’ve killed a bowl of cereal,<br> I hope you’re proud of that (379 calories).</body></html>");
 		awardA[10].setToolTipText("<html><body>You’ve murdered so much,<br> that your heart is as cold as ice (5200 calories).</body></html>");
 		awardA[11].setToolTipText("<html><body>You’ve travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
-		awardA[12].setToolTipText("<html><body>You’re adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
+		awardA[12].setToolTipText("<html><body>Your adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
 		awardA[13].setToolTipText("<html><body>You’re burning everything,<br> and don’t seem to be ready to stop (3500 calories).</body></html>");
 		awardA[14].setToolTipText("<html><body>You’ve destroyed everything in sight.<br> There is nothing else for you to murder (7500 calories).</body></html>");
 		awardA[15].setToolTipText("<html><body>The song says “I will walk 500 miles”,<br> well you’ve walked 1 only 499 more to go (1.60934 km).</body></html>");
@@ -165,7 +165,7 @@ public class BaseDashBoardUI extends JFrame{
 		awardD[11].setToolTipText("<html><body>You’ve travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
 		
 		awardD[12] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dearth.png"));
-		awardD[12].setToolTipText("<html><body>You’re adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
+		awardD[12].setToolTipText("<html><body>Your adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
 		
 		awardD[13] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dfat.png"));
 		awardD[13].setToolTipText("<html><body>You’re burning everything,<br> and don’t seem to be ready to stop (3500 calories).</body></html>");
