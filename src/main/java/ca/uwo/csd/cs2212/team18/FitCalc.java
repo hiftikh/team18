@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class FitCalc {
 	private int calorieGoal;
-	private int caloriesBurned = 199;
+	private int caloriesBurned;
 	private int calorieDifference;
 	boolean test = true;
 	private boolean negativeDifference;
@@ -71,7 +71,7 @@ public class FitCalc {
 	 */
 	
 	public String calculate(boolean testBool) {
-		
+		caloriesBurned = data.getCaloriesOut().getValue();
 		calorieDifference = calorieGoal - caloriesBurned;
 		if (calorieDifference < 0) {
 			negativeDifference = true;
