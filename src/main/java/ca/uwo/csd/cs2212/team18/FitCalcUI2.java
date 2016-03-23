@@ -86,7 +86,7 @@ public class FitCalcUI2 extends JDialog {
 	public void initFitCalcUI2(boolean defaultActivities) {
 		setTitle("FitCalc Results");
 		setResizable(false);
-		setBounds(100, 100, 900, 425);
+		setBounds(100, 100, 984, 425);
 		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 450, 20));	
 		getContentPane().setBackground(blueColour);
 		
