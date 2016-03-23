@@ -79,17 +79,33 @@ public class DailyGoalsUI extends JDialog {
 	 * Day value of the date
 	 */
 	private String day;
+	
+	/**
+	 * Year value of the date
+	 */
+	private String fYear;
+	
+	/**
+	 * Month value of the date
+	 */
+	private String fMonth;
+	
+	/**
+	 * Day value of the date
+	 */
+	private String fDay;
+
 
 	//static Data apiData;
-	//static APIData notTest;
+	static APIData notTest;
 	
 	/**
 	 * Constructor to create the frame
 	 * @param dat Data to be used
 	 * @param t Boolean to determine what type of data to use
 	 */
-	public DailyGoalsUI(Data dat, Boolean t){
-		initDailyGoalsUI(dat, t);
+	public DailyGoalsUI(Data data, Boolean t){
+		initDailyGoalsUI(data, t);
 	}
 
 	/**
@@ -100,15 +116,16 @@ public class DailyGoalsUI extends JDialog {
 	 * @param data The Data to be used 
 	 * @param test Boolean used to determine whether to use test data
 	 */
-	public void initDailyGoalsUI(Data data, final Boolean test){
-
+	public void initDailyGoalsUI(final Data data, final Boolean test){
+		final Data dat = this.test(data, test);
 		final GoalList goalll = DailyGoals.load();
-		/*if(test == true){
-		}
-		else{
-			notTest = (APIData) apiData;
-			notTest.refresh(newDate);
-		}*/
+		//if(test == true){
+			//data = new TestData();
+		//}
+		//else{
+			//notTest = (APIData) data;
+			//notTest.refresh(newDate);
+		//}
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent wind) {
@@ -139,7 +156,7 @@ public class DailyGoalsUI extends JDialog {
 		label.setBounds(0, 0, 403, 203);
 		layeredPane.add(label);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		final Data dat = this.test(data, test);
+	
 
 		year = new SimpleDateFormat("yyyy").format(new Date());
 		month = new SimpleDateFormat("MM").format(new Date());
@@ -152,7 +169,13 @@ public class DailyGoalsUI extends JDialog {
 		text.setWrapStyleWord(true);
 		text.enable(false); 
 		layeredPane.add(text);
+		//data = this.test(data, test);
+		//if(test == true){
 		text.setText(goalll.toString(year, month, day,dat));
+		//}
+		//else{
+			//text.setText(goalll.toString(year, month, day, notTest));
+		//}*/
 		text.repaint();
 		JLabel lblGoalsFor = new JLabel("Goal(s) for: ");
 		lblGoalsFor.setBounds(124, 10, 87, 16);
@@ -282,8 +305,13 @@ public class DailyGoalsUI extends JDialog {
 											goal.setMeasure(m);
 											userMessage = goalll.add(goal);
 
-
+											//if(test == true){
 											text.setText(goalll.toString(year,month,day, dat));
+											//}
+											//else{
+												//text.setText(goalll.toString(year, month, day, notTest));
+											//}
+											
 											text.revalidate();
 											text.repaint();
 
@@ -405,17 +433,24 @@ public class DailyGoalsUI extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent event) {
 
-						year = textField.getText();
-						month = textField_1.getText();
-						day = textField_2.getText();
-						newDate = year + "-" + month + "-" + day;
+						fYear = textField.getText();
+						fMonth = textField_1.getText();
+						fDay = textField_2.getText();
+						newDate = fYear + "-" + fMonth + "-" + fDay;
 						if(test == false){
-							dat.refresh();
+							notTest.refresh();
 						}
-						
+						if(newDate.contentEquals("--")){
+							
+						}
+						else{
+						year = fYear;
+						month = fMonth;
+						day = fDay;
 						l.setText(newDate);
 						l.repaint();
-
+						}
+						
 						String userMessage = DailyGoals.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 
 						if (userMessage == "") {
@@ -431,7 +466,12 @@ public class DailyGoalsUI extends JDialog {
 
 							JOptionPane.showMessageDialog(goals2,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 						}
-						text.setText(goalll.toString(year,month,day,dat));
+						//if(test == true){
+							text.setText(goalll.toString(year,month,day,dat));
+						//}
+						//else{
+						//text.setText(goalll.toString(year,month,day,notTest));
+						//}
 						text.revalidate();
 						text.repaint();
 					}
@@ -507,7 +547,12 @@ public class DailyGoalsUI extends JDialog {
 									JOptionPane.showMessageDialog(goals3,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 								}
 
+								//if(test == true){
 								text.setText(goalll.toString(year,month,day,dat));
+						//	}
+							//else{
+								//text.setText(goalll.toString(year, month, day, notTest));
+							//}
 								text.revalidate();
 								text.repaint();
 
