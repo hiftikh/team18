@@ -20,7 +20,7 @@ public class DailyGoals implements Serializable{
 	//private variables
 
 	/**
-	 * Condition to let the constructor know wether to
+	 * Condition to let the constructor know whether to
 	 * run in demo mode or in product mode
 	 */
 	private boolean testApi;

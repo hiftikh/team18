@@ -170,15 +170,15 @@ public class GoalList implements Serializable{
 	}
 
 	/**
-	 * API toString method that prints out the contents of the list 
-	 * and whether or not it has been met by getting data from the api
+	 * dat toString method that prints out the contents of the list 
+	 * and whether or not it has been met by getting data from the dat
 	 * @param year The year to be checked
 	 * @param month The month to be checked 
 	 * @param day The day to be checked
-	 * @param api API object to pull data from
+	 * @param dat The data to be used for the checks
 	 * @return The contents of the goal list on that specified date
 	 */
-	public String toString(String year, String month, String day, Data api){
+	public String toString(String year, String month, String day, Data dat){
 		// Create an empty string
 		String alt = "";
 
@@ -212,8 +212,8 @@ public class GoalList implements Serializable{
 							// If the type is equal to steps
 							if(typ.equals("Steps")){
 
-								// Get the value of steps from the api
-								int stepC = api.getSteps().getValue();
+								// Get the value of steps from the data
+								int stepC = dat.getSteps().getValue();
 
 								// If the user met the step goal add (complete) to the string
 								if(stepC >= this.bigList.get(i).get(j).getMeasure()){
@@ -229,8 +229,8 @@ public class GoalList implements Serializable{
 							// If the type is equal to distance
 							else if(typ.equals("Distance")){
 
-								// Get the value of distance from the api
-								int distC  = api.getDistance().getValue();
+								// Get the value of distance from the data
+								int distC  = dat.getDistance().getValue();
 
 								// If the user met their goal for distance add (complete) to the string
 								if(distC >= this.bigList.get(i).get(j).getMeasure()){
@@ -246,8 +246,8 @@ public class GoalList implements Serializable{
 							// If the type is equal to floors
 							else if(typ.equals("Floors")){
 
-								// Get the value of floors climbed from the api
-								int floorC = api.getFloors().getValue();
+								// Get the value of floors climbed from the data
+								int floorC = dat.getFloors().getValue();
 
 								// If the user met there goal then add (complete) to the string
 								if(floorC >= this.bigList.get(i).get(j).getMeasure()){
@@ -263,8 +263,8 @@ public class GoalList implements Serializable{
 							// If the type is equal to Active minutes
 							else if(typ.equals("Active minutes")){
 
-								// Get the value for Active minutes from the api
-								int actC = api.getActMin().getValue();
+								// Get the value for Active minutes from the data
+								int actC = dat.getActMin().getValue();
 
 								// See if the user met their goal, if so then add (complete) to the string
 								if(actC >= this.bigList.get(i).get(j).getMeasure()){
@@ -280,8 +280,8 @@ public class GoalList implements Serializable{
 							// If the type is equal to calories
 							else if(typ.equals("Calories")){
 
-								// Get the value for calories from the api
-								int calC = api.getCaloriesOut().getValue();
+								// Get the value for calories from the data
+								int calC = dat.getCaloriesOut().getValue();
 
 								// If the user met their goal. then add (complete) to the string
 								if(calC >= this.bigList.get(i).get(j).getMeasure()){

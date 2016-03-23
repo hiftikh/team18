@@ -64,19 +64,37 @@ public class DailyGoalsUI extends JDialog {
 	 * String to change the date to user's preference 
 	 */
 	private String newDate;
+	
+	/**
+	 * Year value of the date
+	 */
 	private String year;
+	
+	/**
+	 * Month value of the date
+	 */
 	private String month;
+	
+	/**
+	 * Day value of the date
+	 */
 	private String day;
 
+	/**
+	 * Constructor to create the frame
+	 * @param dat Data to be used
+	 * @param t Boolean to determine what type of data to use
+	 */
 	public DailyGoalsUI(Data dat, Boolean t){
 		initDailyGoalsUI(dat, t);
 	}
 
 	/**
-	 * Constructor to create the frame
+	 * init method that creates the window
 	 * User has access to several features
 	 * Creating a goal, switching the date, and removing a goal
 	 * the user is also able to view the goals they set on a particular day
+	 * @param data The Data to be used 
 	 * @param test Boolean used to determine whether to use test data
 	 */
 	public void initDailyGoalsUI(Data data, final Boolean test){
@@ -522,15 +540,25 @@ public class DailyGoalsUI extends JDialog {
 
 	}
 	
+	/**
+	 * Test method, used to determine if the data is API Data or Test Data
+	 * @param dat The Data
+	 * @param test Boolean value to determine what type of data to use
+	 * @return If test is true, then TestData; otherwise, APIData
+	 */
+	
 	private Data test(Data dat, Boolean test){
-		Data data;
+		
+		// If test is true then use TestData
 		if(test == true){
 			dat = new TestData();
 		}
+		
+		// Else use API Data
 		else{
 			dat = new APIData(newDate);
 		}
-		data = dat;
+	
 		return dat;
 	}
 }
