@@ -49,7 +49,7 @@ public class HeartRateUI extends JDialog {
 	 */
 	public void initHeartRateUI() {
 		setTitle("Heart Rate Zone");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 355);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(blueColour);
 		
@@ -60,7 +60,10 @@ public class HeartRateUI extends JDialog {
 		JLayeredPane layeredPane = new JLayeredPane();
 		contentPanel.add(layeredPane);
 		layeredPane.setLayout(new FlowLayout(FlowLayout.CENTER, 500, 20));
-		
+
+		JLabel jl = new JLabel("Mouseover the heart rate zones names' to view descriptions");  
+		layeredPane.add(jl);
+
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		layeredPane.add(layeredPane_2);
 		GridBagLayout gbl_layeredPane_2 = new GridBagLayout();
