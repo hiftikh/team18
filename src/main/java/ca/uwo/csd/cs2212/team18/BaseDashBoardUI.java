@@ -109,21 +109,21 @@ public class BaseDashBoardUI extends JFrame{
 		awardA[2].setToolTipText("<html><body>Amazing, you have conquered floors,<br> and have climbed to unimaginable heights.</body></html>");
 		awardA[3].setToolTipText("<html><body>The first step in your journey outside of the house (200 steps).</body></html>");
 		awardA[4].setToolTipText("<html><body>Outstanding, you have climbed 1000 Floors.</body></html>");
-		awardA[5].setToolTipText("<html><body>What does the fitbit say about your total step counter?<br> IT’S OVER 9000!!!!.</body></html>");
+		awardA[5].setToolTipText("<html><body>What does the fitbit say about your total step counter?<br> IT IS OVER 9000!!!!.</body></html>");
 		awardA[6].setToolTipText("<html><body>You have hit the big 10k, congrats on the milestone.</body></html>");
-		awardA[7].setToolTipText("<html><body>You’re murderous intentions grow strong with every calorie burned (1000 calories).</body></html>");
-		awardA[8].setToolTipText("<html><body>You’ve eaten the food of the devil,<br> how horrible you must feel (2420 calories).</body></html>");
-		awardA[9].setToolTipText("<html><body>You’ve killed a bowl of cereal,<br> I hope you’re proud of that (379 calories).</body></html>");
-		awardA[10].setToolTipText("<html><body>You’ve murdered so much,<br> that your heart is as cold as ice (5200 calories).</body></html>");
-		awardA[11].setToolTipText("<html><body>You’ve travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
+		awardA[7].setToolTipText("<html><body>Your murderous intentions grow strong with every calorie burned (1000 calories).</body></html>");
+		awardA[8].setToolTipText("<html><body>You have eaten the food of the devil,<br> how horrible you must feel (2420 calories).</body></html>");
+		awardA[9].setToolTipText("<html><body>You have killed a bowl of cereal,<br> I hope you are proud of that (379 calories).</body></html>");
+		awardA[10].setToolTipText("<html><body>You have murdered so much,<br> that your heart is as cold as ice (5200 calories).</body></html>");
+		awardA[11].setToolTipText("<html><body>You have travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
 		awardA[12].setToolTipText("<html><body>Your adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
-		awardA[13].setToolTipText("<html><body>You’re burning everything,<br> and don’t seem to be ready to stop (3500 calories).</body></html>");
-		awardA[14].setToolTipText("<html><body>You’ve destroyed everything in sight.<br> There is nothing else for you to murder (7500 calories).</body></html>");
-		awardA[15].setToolTipText("<html><body>The song says “I will walk 500 miles”,<br> well you’ve walked 1 only 499 more to go (1.60934 km).</body></html>");
-		awardA[16].setToolTipText("<html><body>I didn’t expect you to take the infinity and beyond part seriously (384400 km).</body></html>");
+		awardA[13].setToolTipText("<html><body>You are burning everything,<br> and do not seem to be ready to stop (3500 calories).</body></html>");
+		awardA[14].setToolTipText("<html><body>You have destroyed everything in sight.<br> There is nothing else for you to murder (7500 calories).</body></html>");
+		awardA[15].setToolTipText("<html><body>The song says I will walk 500 miles,<br> well you have walked 1 only 499 more to go (1.60934 km).</body></html>");
+		awardA[16].setToolTipText("<html><body>I did not expect you to take the infinity and beyond part seriously (384400 km).</body></html>");
 		awardA[17].setToolTipText("<html><body>Those shoes must be getting pretty comfy (1000 steps).</body></html>");
 		awardA[18].setToolTipText("<html><body>You visited friends at Fanshawe<br> and then walked to Western for class (6.2 km).</body></html>");
-		awardA[19].setToolTipText("<html><body>Masonville wasn’t good enough for you, <br>so you decided to walk 12 km to go to White Oaks(12.2 km).</body></html>");
+		awardA[19].setToolTipText("<html><body>Masonville was not good enough for you, <br>so you decided to walk 12 km to go to White Oaks(12.2 km).</body></html>");
 
 	}
 	
@@ -144,40 +144,40 @@ public class BaseDashBoardUI extends JFrame{
 		awardD[4].setToolTipText("<html><body>Outstanding, you have climbed 1000 Floors.</body></html>");
 		
 		awardD[5] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/d9000.png"));
-		awardD[5].setToolTipText("<html><body>What does the fitbit say about your total step counter?<br> IT’S OVER 9000!!!!.</body></html>");
+		awardD[5].setToolTipText("<html><body>What does the fitbit say about your total step counter?<br> IT IS OVER 9000!!!!.</body></html>");
 		
 		awardD[6] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dback2back.png"));
 		awardD[6].setToolTipText("<html><body>You have hit the big 10k, congrats on the milestone.</body></html>");
 		
 		awardD[7] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dburn_1000.png"));
-		awardD[7].setToolTipText("<html><body>You’re murderous intentions grow strong with every calorie burned (1000 calories).</body></html>");
+		awardD[7].setToolTipText("<html><body>You have murderous intentions grow strong with every calorie burned (1000 calories).</body></html>");
 		
 		awardD[8] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcake.png"));
-		awardD[8].setToolTipText("<html><body>You’ve eaten the food of the devil,<br> how horrible you must feel (2420 calories).</body></html>");
+		awardD[8].setToolTipText("<html><body>You have eaten the food of the devil,<br> how horrible you must feel (2420 calories).</body></html>");
 		
 		awardD[9] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcereal.png"));
-		awardD[9].setToolTipText("<html><body>You’ve killed a bowl of cereal,<br> I hope you’re proud of that (379 calories).</body></html>");
+		awardD[9].setToolTipText("<html><body>You have killed a bowl of cereal,<br> I hope you are proud of that (379 calories).</body></html>");
 		
 		awardD[10] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dcold_heart.png"));
-		awardD[10].setToolTipText("<html><body>You’ve murdered so much,<br> that your heart is as cold as ice (5200 calories).</body></html>");
+		awardD[10].setToolTipText("<html><body>You have murdered so much,<br> that your heart is as cold as ice (5200 calories).</body></html>");
 		
 		awardD[11] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/ddistance_earth.png"));
-		awardD[11].setToolTipText("<html><body>You’ve travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
+		awardD[11].setToolTipText("<html><body>You have travelled a lot,<br> only thing left is to travel to infinity and beyond (40075 km).</body></html>");
 		
 		awardD[12] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dearth.png"));
 		awardD[12].setToolTipText("<html><body>Your adventures have taken you all around the earth<br> in only 131,480,184 steps.</body></html>");
 		
 		awardD[13] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dfat.png"));
-		awardD[13].setToolTipText("<html><body>You’re burning everything,<br> and don’t seem to be ready to stop (3500 calories).</body></html>");
+		awardD[13].setToolTipText("<html><body>You are burning everything,<br> and do not seem to be ready to stop (3500 calories).</body></html>");
 		
 		awardD[14] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmass.png"));
-		awardD[14].setToolTipText("<html><body>You’ve destroyed everything in sight.<br> There is nothing else for you to murder (7500 calories).</body></html>");
+		awardD[14].setToolTipText("<html><body>You have destroyed everything in sight.<br> There is nothing else for you to murder (7500 calories).</body></html>");
 		
 		awardD[15] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmile.png"));
-		awardD[15].setToolTipText("<html><body>The song says “I will walk 500 miles”,<br> well you’ve walked 1 only 499 more to go (1.60934 km).</body></html>");
+		awardD[15].setToolTipText("<html><body>The song says I will walk 500 miles,<br> well you have walked 1 only 499 more to go (1.60934 km).</body></html>");
 		
 		awardD[16] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dmoon.png"));
-		awardD[16].setToolTipText("<html><body>I didn’t expect you to take the infinity and beyond part seriously (384400 km).</body></html>");
+		awardD[16].setToolTipText("<html><body>I did not expect you to take the infinity and beyond part seriously (384400 km).</body></html>");
 		
 		awardD[17] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dshoe.png"));
 		awardD[17].setToolTipText("<html><body>Those shoes must be getting pretty comfy (1000 steps).</body></html>");
@@ -186,7 +186,7 @@ public class BaseDashBoardUI extends JFrame{
 		awardD[18].setToolTipText("<html><body>You visited friends at Fanshawe<br> and then walked to Western for class (6.2 km).</body></html>");
 		
 		awardD[19] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Deactivate/dwhiteoaks.png"));
-		awardD[19].setToolTipText("<html><body>Masonville wasn’t good enough for you,<br> so you decided to walk 12 km to go to White Oaks(12.2 km).</body></html>");
+		awardD[19].setToolTipText("<html><body>Masonville was not good enough for you,<br> so you decided to walk 12 km to go to White Oaks(12.2 km).</body></html>");
 	}
 
 	JScrollPane scrollPane = new JScrollPane();
@@ -268,7 +268,6 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().setLayout(null);
 		
 		singleFirstBox.passAPI(data);
-		singleFirstBox.updateAPI(basedashboard.getCurrentDate());
 		singleFirstBox.updateTilesVars();
 		singleFirstBox.modifyString(0);
 		singleFirstBox.modifyString(1);
