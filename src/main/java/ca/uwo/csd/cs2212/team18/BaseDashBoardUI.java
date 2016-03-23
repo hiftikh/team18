@@ -312,6 +312,17 @@ public class BaseDashBoardUI extends JFrame{
 		heartRateButton.setFont(font);
 		heartRateButton.setForeground(blueColour);
 		heartRateButton.setVisible(true);
+		heartRateButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				try {
+					HeartRateUI HRUI = new HeartRateUI(data, testOrNot);
+					HRUI.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
 		buttonPanel.setVisible(true);
 		buttonPanel.setBounds(0,0,this.getWidth()-250,40);
@@ -439,90 +450,111 @@ public class BaseDashBoardUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				JPanel contentPane;
 				final JDialog plusButton = new JDialog();
-				plusButton.setVisible(true);
-				plusButton.setTitle("Additional Features");
-				plusButton.setBounds(100, 100, 276, 217);
+				
+				//Modal 
+				plusButton.setModal(true);
+				plusButton.setResizable(false);
+				
+				plusButton.setTitle("Adding Back Features that were Removed");
+				plusButton.setBounds(100, 100, 276, 180);
+				plusButton.setMinimumSize(new Dimension(276,180));
 				contentPane = new JPanel();
 				contentPane.setToolTipText("hello");
 				contentPane.setBackground(new Color(69, 194, 197));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				plusButton.setContentPane(contentPane);
-				contentPane.setLayout(null);
+				
+				contentPane.setLayout(new BorderLayout(0,0));
 
 				JButton btnNewButton = new JButton("OK");
 
+				//modal
+				plusButton.setLocationRelativeTo (btnNewButton);
+				//plusButton.setModal(true);
+				
+				
 				JLayeredPane layeredPane = new JLayeredPane();
-				layeredPane.setBounds(5, 5, 265, 184);
+				layeredPane.setBounds(0, 0, 276, 195);
+				
 				layeredPane.setToolTipText("");
-				contentPane.add(layeredPane);
-				layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
-
+				contentPane.add(BorderLayout.CENTER, layeredPane); 
+				
+				FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER, 450, 17);
+				layeredPane.setLayout(myLayout);
+							
 				JLabel lblSelectTheFeatures = new JLabel("Select the feature(s) you wish to view");
 				lblSelectTheFeatures.setAlignmentX(0.5f);
 				layeredPane.add(lblSelectTheFeatures);
 
 				final JComboBox<String[]> comboBox = new JComboBox<String[]>();
+				
+				//set the size of combobox
+				comboBox.setPreferredSize(new Dimension(110, 20));
+				
 				comboBox.setModel(new DefaultComboBoxModel(basedashboard.getStringArrayList()));
 
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (comboBox.getSelectedItem().toString().equals("Calories")) {
-
+						if (basedashboard.getStringArrayList().length == 0) {
+							JOptionPane.showMessageDialog(plusSign,"Whoa! There are no more features to add so nothing is going to happen.\n Nothing else to see around here.","Input warning",JOptionPane.WARNING_MESSAGE);
+						}
+						else if (comboBox.getSelectedItem().toString().equals("Calories")) {
+							
 							SingleBox singleFirstBox = new SingleBox();
 							JPanel firstBox = singleFirstBox.createCaloriesBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(firstBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-
+							
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Calories");
 						}
-						if (comboBox.getSelectedItem().toString().equals("Active Minutes")) {
-
+						else if (comboBox.getSelectedItem().toString().equals("Active Minutes")) {
+							
 							SingleBox singleSecondBox = new SingleBox();
 							JPanel secondBox = singleSecondBox.createActiveSedentaryBox(); 
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(secondBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-
+							
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Active Minutes");
 						}
-						if (comboBox.getSelectedItem().toString().equals("Distance")) {
-
+						else if (comboBox.getSelectedItem().toString().equals("Distance")) {
+							
 							SingleBox singleThirdBox = new SingleBox();
 							JPanel thirdBox = singleThirdBox.createDistanceBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(thirdBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-
+							
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 							basedashboard.readdedSelectedTile("Distance");
 						}
-						if (comboBox.getSelectedItem().toString().equals("Floors")) {
-
+						else if (comboBox.getSelectedItem().toString().equals("Floors")) {
+							
 							SingleBox singleFourthBox = new SingleBox();
 							JPanel fourthBox = singleFourthBox.createFloorBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fourthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-
+							
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 
 							basedashboard.readdedSelectedTile("Floors");
 						}
-						if (comboBox.getSelectedItem().toString().equals("Steps")) {
-
+						else if (comboBox.getSelectedItem().toString().equals("Steps")) {
+							
 							SingleBox singleFifthBox = new SingleBox();
 							JPanel fifthBox = singleFifthBox.createStepBox();
 							BaseDashBoardUI.getFrame().remove(emptyBox);
 							BaseDashBoardUI.getFrame().add(fifthBox);
 							BaseDashBoardUI.getFrame().add(emptyBox);
-
+							
 							boxes.repaint();
 							SwingUtilities.updateComponentTreeUI(boxes);
 
@@ -531,9 +563,14 @@ public class BaseDashBoardUI extends JFrame{
 						plusButton.dispose();
 					}
 				});
+				
+				
 				btnNewButton.setAlignmentX(0.5f);
 				layeredPane.add(comboBox);
 				layeredPane.add(btnNewButton);
+				
+				plusButton.setVisible(true);
+				plusButton.pack();
 
 			}
 		});
