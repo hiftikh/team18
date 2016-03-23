@@ -449,7 +449,7 @@ public class BaseDashBoardUI extends JFrame{
 				dateDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				dateDialog.setBounds(100, 100, 442, 237);
 
-				contentPane.setBackground(new Color(26, 168, 180));
+				contentPane.setBackground(new Color(69, 194, 197));
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				dateDialog.getContentPane().add(contentPane);
 				JLayeredPane layeredPane = new JLayeredPane() ;
