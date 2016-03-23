@@ -91,7 +91,7 @@ public class FitCalcUI2 extends JDialog {
 		getContentPane().setBackground(blueColour);
 		
 		//Label at the top
-		JLabel lblExplanation = new JLabel("Mouseover to know how our App calculates the suggestions");
+		JLabel lblExplanation = new JLabel("Mouseover here to know how our App calculates the suggestions");
 		lblExplanation.setToolTipText("<html><body> First, if possible, the app gets your three most recent activities from fitbit.com <br>"
 				+ "and gets your corresponding METS (Metabolic Equivalent of Tasks) for a particular activity<br>" 
 				+ "Our app then uses the formula (Calories = METS * weight (kg) * time (hours)) to calculate suggestions</body></html>");
