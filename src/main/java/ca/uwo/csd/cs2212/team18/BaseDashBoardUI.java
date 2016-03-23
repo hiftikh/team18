@@ -104,7 +104,7 @@ public class BaseDashBoardUI extends JFrame{
 		awardA[18] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/western.png"));
 		awardA[19] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/whiteoaks.png"));
 
-		awardA[0].setToolTipText("<html><body>Awesome, you climbed the Burj Khalifa.</body></html>");
+		awardA[0].setToolTipText("<html><body>Awesome, you climbed the Burj Khalifa (272 floors).</body></html>");
 		awardA[1].setToolTipText("<html><body>Congrats you've climbed 10 floors.</body></html>");
 		awardA[2].setToolTipText("<html><body>Amazing, you have conquered floors,<br> and have climbed to unimaginable heights.</body></html>");
 		awardA[3].setToolTipText("<html><body>The first step in your journey outside of the house (200 steps).</body></html>");
