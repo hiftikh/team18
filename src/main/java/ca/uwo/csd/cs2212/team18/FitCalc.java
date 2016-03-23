@@ -21,16 +21,16 @@ public class FitCalc {
 	private String[][] displayActivities= new String[3][6];
 	private String[][] displayDefaultActivities = new String[3][6];
 	
-	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+	private DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
 	//get current date time with Date()
-	Date date = new Date();
-	String fulldate = dateFormat.format(date);
-	String curYear = fulldate.substring(0,4);
-	String curMonth = fulldate.substring(4,6);
-	String curDay = fulldate.substring(6,8);
+	private Date date = new Date();
+	private String fulldate = dateFormat.format(date);
+	private String curYear = fulldate.substring(0,4);
+	private String curMonth = fulldate.substring(4,6);
+	private String curDay = fulldate.substring(6,8);
 
-	String apiInput = "";
+	private String apiInput = "";
 	{
 		apiInput = apiInput.concat(curYear);
 		apiInput = apiInput.concat("-");
@@ -39,9 +39,11 @@ public class FitCalc {
 		apiInput = apiInput.concat(curDay);
 	}
 	
-	//APIData apiData;
+	private Data data;
 	
-	public FitCalc() {		
+	public FitCalc(Data datas, boolean testOrNot) {		
+		data = datas;
+		
 	}
 	public String checkCaloriesInput(String input) {
 		//Checks if user has inputed something
@@ -69,15 +71,7 @@ public class FitCalc {
 	 */
 	
 	public String calculate(boolean testBool) {
-		Data data;
-		if (testBool == true) {
-			//Insert code that takes values from fitbit
-			data = new TestData();
-			
-		}
-		else {
-			data = new APIData(apiInput);
-		}
+		
 		calorieDifference = calorieGoal - caloriesBurned;
 		if (calorieDifference < 0) {
 			negativeDifference = true;

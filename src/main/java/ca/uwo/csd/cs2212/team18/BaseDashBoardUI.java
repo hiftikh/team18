@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team18;
+
 //package ca.uwo.csd.cs2212.team18;
 
 
@@ -164,17 +166,22 @@ public class BaseDashBoardUI extends JFrame{
 
 	private JFrame itself = new JFrame();
 
-	Data data;
+	private Data data;
 	private boolean testOrNot;
 	public BaseDashBoardUI(boolean testorNot) {
-		this.initUI();
+		
 		testOrNot = testorNot;
+		singleFirstBox.setTestOrNot(testorNot);
 		if (testorNot == true) {
 			data = new TestData();
 		}
 		else {
 			data = new APIData(basedashboard.getCurrentDate());
 		}
+		
+		
+		this.initUI();
+		
 		try {
 			this.loadCustomConfiguration();
 		} catch (Exception e) {
@@ -286,8 +293,8 @@ public class BaseDashBoardUI extends JFrame{
 		dailyGoalsButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				try {
-					DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
-					daily.setVisible(true);
+					//DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
+					//daily.setVisible(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -385,7 +392,13 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent event) {
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
-							singleFirstBox.setString(basedashboard.getSelectedDate());
+							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
+							singleFirstBox.updateTilesVars();
+							singleFirstBox.modifyString(0);
+							singleFirstBox.modifyString(1);
+							singleFirstBox.modifyString(2);
+							singleFirstBox.modifyString(3);
+							singleFirstBox.modifyString(4);
 							dateDialog.dispose();
 						}
 						else {

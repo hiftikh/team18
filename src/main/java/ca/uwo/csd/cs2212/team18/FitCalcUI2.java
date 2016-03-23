@@ -69,8 +69,12 @@ public class FitCalcUI2 extends JDialog {
 	 * Constructor that gets the FitCalc object
 	 * @param fitCalculator	 * 
 	 */
-	public FitCalcUI2(FitCalc fitCalculator) {
+	private Data data;
+	private boolean test;
+	public FitCalcUI2(FitCalc fitCalculator, Data datas, boolean testOrNot) {
 		fitCalc = fitCalculator;
+		data = datas;
+		test = testOrNot;
 		initFitCalcUI2(false);
 	}
 	
@@ -317,7 +321,7 @@ public class FitCalcUI2 extends JDialog {
 			Back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					getDialog().dispose();
-					FitCalcUI fitCalcUI = new FitCalcUI();
+					FitCalcUI fitCalcUI = new FitCalcUI(data, test);
 					fitCalcUI.setVisible(true);
 				}
 			});
