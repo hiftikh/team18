@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team18;
+
 // Import needed files
 import java.awt.Color;
 import java.awt.Font;
@@ -95,7 +97,7 @@ public class SingleBox{
 	static APIData notTest;
 	private static boolean test;
 	
-	public void setTest(boolean testorNot) {
+	public void setTestOrNot(boolean testorNot) {
 		test = testorNot;
 	}
 	public void passAPI(Data api) {

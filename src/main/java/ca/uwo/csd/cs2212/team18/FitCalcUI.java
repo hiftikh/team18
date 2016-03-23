@@ -59,7 +59,7 @@ public class FitCalcUI extends JDialog {
 	 */
 	public void initFitCalcUI() {
 		setBackground(Color.RED);
-		final FitCalc fitCalc = new FitCalc(Data data, boolean testOrNot);
+		final FitCalc fitCalc = new FitCalc(data,testOrNot);
 		setTitle("FitCalc");
 		setResizable(false);
 		setBounds(100, 100, 450, 340);
@@ -107,7 +107,7 @@ public class FitCalcUI extends JDialog {
 						fitCalc.setCalorieGoal(Integer.parseInt(textFieldInput.getText()));
 						getDialog().dispose();						
 						fitCalc.calculate(true);						
-						FitCalcUI2 fitCalcUI2 = new FitCalcUI2(fitCalc);
+						FitCalcUI2 fitCalcUI2 = new FitCalcUI2(fitCalc,data,testOrNot);
 						fitCalcUI2.setVisible(true);
 					}
 					

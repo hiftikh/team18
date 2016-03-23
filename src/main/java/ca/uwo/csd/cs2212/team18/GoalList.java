@@ -178,7 +178,7 @@ public class GoalList implements Serializable{
 	 * @param api API object to pull data from
 	 * @return The contents of the goal list on that specified date
 	 */
-	public String toString(String year, String month, String day, APIData api){
+	public String toString(String year, String month, String day, Data api){
 		// Create an empty string
 		String alt = "";
 
