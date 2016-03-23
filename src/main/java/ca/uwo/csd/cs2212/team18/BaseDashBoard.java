@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -36,8 +37,15 @@ public class BaseDashBoard implements Serializable{
 	private static String curMonth = "";
 	private static String curDay = "";
 	
-	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-	//get current date time with Date()
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Calendar cal = Calendar.getInstance();
+	String fullCurDate = dateFormat.format(cal.getTime());{
+	
+		curYear = fullCurDate.substring(0,4);
+		curMonth = fullCurDate.substring(5,7);
+		curDay = fullCurDate.substring(8,10);
+		
+	}
 
 
 	/**
@@ -46,6 +54,9 @@ public class BaseDashBoard implements Serializable{
 	public BaseDashBoard() {
 	}	
 	
+	public String getCurrentTimeAndDate() {
+		return fullCurDate;
+	}
 	/**
 	 * Converts the ArrayList<String> into String[]
 	 * @return an array containing the contents of the ArrayList
@@ -217,5 +228,8 @@ public class BaseDashBoard implements Serializable{
 				closedTileNames.remove(i);
 			}
 		}
-	}		
+	}
+	public void updateLastModified() {
+		
+	}
 }
