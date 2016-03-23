@@ -80,6 +80,9 @@ public class DailyGoalsUI extends JDialog {
 	 */
 	private String day;
 
+	//static Data apiData;
+	//static APIData notTest;
+	
 	/**
 	 * Constructor to create the frame
 	 * @param dat Data to be used
@@ -100,6 +103,12 @@ public class DailyGoalsUI extends JDialog {
 	public void initDailyGoalsUI(Data data, final Boolean test){
 
 		final GoalList goalll = DailyGoals.load();
+		/*if(test == true){
+		}
+		else{
+			notTest = (APIData) apiData;
+			notTest.refresh(newDate);
+		}*/
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent wind) {
@@ -556,7 +565,7 @@ public class DailyGoalsUI extends JDialog {
 		
 		// Else use API Data
 		else{
-			dat = new APIData(newDate);
+			dat = (APIData) dat;
 		}
 	
 		return dat;

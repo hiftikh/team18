@@ -24,7 +24,7 @@ public class Accolades {
 
 		// Else test is false, so use API Data
 		else{
-			dat = new APIData(BaseDashBoard.getCurrentDate());
+			dat = (APIData) dat;
 		}
 
 		// Create a Boolean array to store the true/false values
