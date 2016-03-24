@@ -195,7 +195,7 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel sidePanelLogo = new JPanel();
 	JPanel sidePanelUser = new JPanel();
 	JLabel sidePanelUserText = new JLabel("Hello Beth");
-	JLabel sidePanelUserTextRefresh = new JLabel("Last Updated:");
+	JLabel sidePanelUserTextRefresh = new JLabel("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 	JLabel updateString = new JLabel();
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
@@ -225,10 +225,10 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
-	private JFrame itself = new JFrame();
 
 	private Data data;
 	private boolean testOrNot;
+	private APIData api;
 	public BaseDashBoardUI(boolean testorNot) {
 		
 		testOrNot = testorNot;
@@ -420,6 +420,26 @@ public class BaseDashBoardUI extends JFrame{
 		refreshButton.setFont(font);
 		refreshButton.setForeground(blueColour);
 		refreshButton.setVisible(true);
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if (testOrNot == false) {
+					api = (APIData) data;
+					if (api.isErrorConnection() == true) {
+						
+					}
+					else {
+						singleFirstBox.updateAPI(basedashboard.getSelectedDate());
+						singleFirstBox.updateTilesVars();
+						singleFirstBox.modifyString(0);
+						singleFirstBox.modifyString(1);
+						singleFirstBox.modifyString(2);
+						singleFirstBox.modifyString(3);
+						singleFirstBox.modifyString(4);
+					}					
+				}				
+				sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
+			}
+		});
 		
 		datePanel.setVisible(true);
 		datePanel.setBounds(-20,30,this.getWidth()-250,40);
