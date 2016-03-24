@@ -30,7 +30,7 @@ public abstract class Data {
 	protected FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
 
-	protected String refresh() {
+	public String refresh() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		return sdf.format(cal.getTime());

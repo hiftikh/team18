@@ -178,14 +178,10 @@ public class APIData extends Data{
 		}
 		// Handles exception if the file is not found
 		catch(FileNotFoundException ex) {
-			System.out.println(
-					"Unable to open file\n"+ex.getMessage());
 			System.exit(1);
 		}
 		// Handles exception if the file's text formating is incorrect
-		catch(IOException ex) {
-			System.out.println(
-					"Error reading/write file\n"+ex.getMessage());  
+		catch(IOException ex) { 
 			System.exit(1);
 		}
 		finally{
@@ -195,8 +191,6 @@ public class APIData extends Data{
 					bR.close(); 
 			}
 			catch(Exception e){
-				System.out.println(
-						"Error closing file\n"+e.getMessage()); 
 			}
 		}
 	}
@@ -221,18 +215,12 @@ public class APIData extends Data{
 			bW.newLine();
 			bW.close();
 		} catch(FileNotFoundException ex){
-			System.out.println(
-					"Unable to open file\n"+ex.getMessage());
-		} catch(IOException ex) {
-			System.out.println(
-					"Error reading/write file\n"+ex.getMessage());   
+		} catch(IOException ex) { 
 		} finally {
 			try {
 				if (bW != null)
 					bW.close(); 
 			} catch(Exception e) {
-				System.out.println(
-						"Error closing file\n"+e.getMessage());
 			}
 		}
 	}
@@ -293,18 +281,12 @@ public class APIData extends Data{
 			}
 			bW.close();
 		} catch(FileNotFoundException ex){
-			System.out.println(
-					"Unable to open file\n"+ex.getMessage());
-		} catch(IOException ex) {
-			System.out.println(
-					"Error reading/write file\n"+ex.getMessage());   
+		} catch(IOException ex) {  
 		} finally {
 			try {
 				if (bW != null)
 					bW.close(); 
 			} catch(Exception e) {
-				System.out.println(
-						"Error closing file\n"+e.getMessage());
 			}
 		}
 	}
@@ -323,7 +305,6 @@ public class APIData extends Data{
 
 		response = request.send();
 
-		System.out.println("HTTP response code: " + response.getCode());
 		int statusCode = response.getCode();
 
 		/*
@@ -336,13 +317,10 @@ public class APIData extends Data{
 		switch(statusCode){
 		case 200:
 			errorConnection = false;
-			System.out.println("Success");
 			break;
 		case 400:
-			System.out.println("Bad Request");
 			break;
 		case 401:
-			System.out.println("Likely Expired Token");
 			accessToken = service.refreshOAuth2AccessToken(accessToken);
 			request = new OAuthRequest(Verb.GET, requestUrl, service);
 			service.signRequest(accessToken, request);
@@ -350,7 +328,6 @@ public class APIData extends Data{
 			writeFiles();
 			break;
 		case 429:
-			System.out.println("Rate limit exceeded");
 			errorConnection = true;
 			break;
 		}
@@ -382,7 +359,7 @@ public class APIData extends Data{
 			jsonObj = jsonArray.getJSONObject(0);
 			distance.setValue((int)jsonObj.getDouble("distance"));
 		} catch (JSONException e) {
-			e.printStackTrace();
+			connectionError();
 		}
 	}
 
@@ -421,7 +398,6 @@ public class APIData extends Data{
 			totalFloors.setValue(jsonLife.getInt("floors"));
 
 		} catch (JSONException e) {
-			e.printStackTrace();
 			connectionError();
 		}
 	}
@@ -447,13 +423,10 @@ public class APIData extends Data{
 			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
 			jsonArray = jsonObj.getJSONArray("heartRateZones");
 			jsonOutOfRange = jsonArray.getJSONObject(0);
-			setHRObject(outOfRange, jsonOutOfRange);
 			jsonFatBurn = jsonArray.getJSONObject(1);
-			setHRObject(fatBurn, jsonFatBurn);
 			jsonCardio = jsonArray.getJSONObject(2);
-			setHRObject(cardio, jsonCardio);
 			jsonPeak = jsonArray.getJSONObject(3);
-			setHRObject(peak, jsonPeak);
+
 
 		} catch (JSONException e) {
 			restingHeartRate.setValue(-1);
@@ -488,7 +461,7 @@ public class APIData extends Data{
 				}
 			}
 		}catch (JSONException e){
-			e.printStackTrace();
+			connectionError();
 		}
 	}
 
@@ -532,11 +505,6 @@ public class APIData extends Data{
 
 	public boolean isErrorConnection() {
 		return errorConnection;
-	}
-	public static void main(String args[]){
-		APIData api = new APIData("2016-03-23");
-		api.refresh("2016-03-23");
-		System.out.println(api.isErrorConnection());
 	}
 }
 
