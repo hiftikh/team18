@@ -9,6 +9,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Class that stores the list of user's created daily goals
+ * @author Team 18
+ *
+ */
 public class GoalList implements Serializable{
 
 	/**
@@ -91,8 +96,7 @@ public class GoalList implements Serializable{
 	}
 
 	/**
-	 * Remove method that deletes a goal from the big list, 
-	 * only if the goal exists
+	 * Remove method that deletes a goal from the big list, only if the goal exists
 	 * @param type The type of goal to be removed
 	 * @param year The year the goal belongs to
 	 * @param month The month the goal belongs to
@@ -170,8 +174,8 @@ public class GoalList implements Serializable{
 	}
 
 	/**
-	 * dat toString method that prints out the contents of the list 
-	 * and whether or not it has been met by getting data from the dat
+	 * toString method that prints out the contents of the list 
+	 * and whether or not it has been met by getting data
 	 * @param year The year to be checked
 	 * @param month The month to be checked 
 	 * @param day The day to be checked
@@ -307,7 +311,7 @@ public class GoalList implements Serializable{
 	}
 
 	/**
-	 * isEmpty method used to determine if the list is empty
+	 * isEmpty method used to determine if the list is empty 
 	 * @return true if empty; false otherwise
 	 */
 	public Boolean isEmpty(){
@@ -321,7 +325,7 @@ public class GoalList implements Serializable{
 
 	/**
 	 * Store method that saves the goal list onto a 
-	 * file so that it may be reused/loaded for future usage
+	 * file so that it may be reused/loaded for future usage 
 	 * @throws Exception if the file is not found / does not exist
 	 */
 	public void store() throws Exception {

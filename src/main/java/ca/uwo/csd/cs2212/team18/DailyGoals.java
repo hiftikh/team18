@@ -15,15 +15,13 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
+/**
+ * Class that saves, loads, and checks date and measure variables in the daily goals component
+ * @author Team 18
+ */
 public class DailyGoals implements Serializable{
 
 	//private variables
-
-	/**
-	 * Condition to let the constructor know whether to
-	 * run in demo mode or in product mode
-	 */
-	private boolean testApi;
 
 	/**
 	 * Integer to represent the year
@@ -41,20 +39,15 @@ public class DailyGoals implements Serializable{
 	private int day;
 
 	/**
-	 * Constructor method to create a constructor
-	 * If in test mode, then test data will be used
-	 * If not in test mode, will provide user with actual date
-	 * @param testApiCondition If test mode then set to true
+	 * Constructor method to create an instance of Daily Goals 
 	 */
 	public DailyGoals(){
 	}
 
 	/**
 	 * Method used to check user input, when adding a goal
-	 * 
 	 * @param input The input to be checked
-	 * @return an appropriate error message if the input is not valid
-	 * @return "" if the input is valid
+	 * @return an appropriate error message if the input is not valid; "" if valid
 	 */
 	public static String checkMeasureInput(String input){
 
@@ -77,12 +70,10 @@ public class DailyGoals implements Serializable{
 
 	/**
 	 * Method to check user input, when changing the date
-	 * 
 	 * @param year The year to be checked
 	 * @param month The month to be checked
 	 * @param day The day to be checked
-	 * @return an appropriate error message if the input is not valid
-	 * @return "" if the input is valid
+	 * @return an appropriate error message if the input is not valid; "" if valid
 	 */
 	public static String checkDateInput(String year, String month, String day) {
 
