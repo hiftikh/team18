@@ -22,17 +22,13 @@ import org.json.JSONArray;
  * The purpose of this class is to create objects that will access the
  * Fitbit's API servers via Oauthentication 2 and will parse through the resulting
  * JSON texts and store the various values for each of the object's attributes
- * @author team 18
+ * @author Team 18 (Sam Ali-mirsalari)
  *
  */
 public class APIData extends Data{
 
-	/* TODO Notes:
-	 * - make separate test class that overrides ApiData Class 
-	 * - Make these into a linked list so that you will not need to manually name them(?)
-	 * 	make them in the constructor
-	 * - //Create separate private methods to better categorize this(?) is it
-	 * 	even useful since i am going to be splitting this anyways
+	/**
+	 * Declare constants
 	 */
 
 	static final String REQUEST_URL_PREFIX = "https://api.fitbit.com/1/user/3WGW2P/";
@@ -100,6 +96,11 @@ public class APIData extends Data{
 
 
 
+	/**
+	 * A helper method that will create the request urls and sent for the requests
+	 * @param date the string parameter date is used to choose the date that the api requests
+	 * will access from Fitbit API servers
+	 */
 	private void createRequests(String date){
 
 
@@ -123,8 +124,10 @@ public class APIData extends Data{
 		}
 	}
 
-	//TODO make it so that even if some of the API requests 
-	//work if one of them doesn't then they all fail
+	/**
+	 * Private method that will set all the attributes of the APIData object to invalid
+	 * values
+	 */
 	private void connectionError(){
 		errorConnection = true;
 		caloriesOut.setValue(-1);
@@ -148,11 +151,18 @@ public class APIData extends Data{
 		cardio.setValue(-1);
 		peak.setValue(-1);
 		for (int i = 0; i < recentActivities.length; i++){
-			//TODO: set recent activities values to not available
+			recentActivities[i].setMets(-1);
+			recentActivities[i].setType("Not Available");
+			recentActivities[i].setValue(-1);
 		}
 	}
 
 
+	/**
+	 * Private method that reads the credentials and tokens
+	 * files in order to authenticate the users credentials
+	 * and allow Fitbit information to be attained
+	 */
 	private void readFiles(){
 		BufferedReader bR = null;
 		try {
@@ -195,6 +205,10 @@ public class APIData extends Data{
 		}
 	}
 
+	/**
+	 * Private method that will write the new tokens
+	 * to the tokens file
+	 */
 	private void writeFiles() {
 		BufferedWriter bW = null;
 		try {
@@ -225,6 +239,11 @@ public class APIData extends Data{
 		}
 	}
 
+	/**
+	 * private method that will store the values 
+	 * of the APIData object to a file 
+	 * so that the test mode has values 
+	 */
 	private void save(){
 		BufferedWriter bW = null;
 		try {
@@ -290,6 +309,7 @@ public class APIData extends Data{
 			}
 		}
 	}
+	
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
@@ -437,6 +457,12 @@ public class APIData extends Data{
 		}
 	}
 
+	/**
+	 * The setRecentActivity method is a private method that will parse through
+	 * the current nresponse body that contains the JSON information for the APIData object's
+	 * Heart Rate information
+	 * This includes the 3 most recent activities and they will be stored into an array
+	 */
 	private void setRecentActivity() {
 		try{
 			api(requestUrlRecentActivities);
@@ -503,6 +529,12 @@ public class APIData extends Data{
 		return super.refresh();
 	}
 
+	/**
+	 * Method that will return the value indicating wether there was 
+	 * a error connecting with the api
+	 * @return errorConnection which is a boolean value
+	 * that stores whether or not there was an api error
+	 */
 	public boolean isErrorConnection() {
 		return errorConnection;
 	}

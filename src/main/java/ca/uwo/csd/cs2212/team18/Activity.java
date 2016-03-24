@@ -2,7 +2,7 @@ package ca.uwo.csd.cs2212.team18;
 /**
  * The Activity class creates Activity objects that will store the name and value of 
  * a certain activity
- * @author team 18
+ * @author Team 18 (Sam Ali-mirsalari)
  *
  */
 public class Activity {
