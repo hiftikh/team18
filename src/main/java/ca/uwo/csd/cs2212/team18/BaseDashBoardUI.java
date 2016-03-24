@@ -21,14 +21,18 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JDialog;
+
 import javax.swing.ScrollPaneConstants;
+
 
 /**
  * BaseDashBoardUI class.
@@ -152,7 +156,6 @@ public class BaseDashBoardUI extends JFrame{
 	JLabel currentDate = new JLabel();
 	JLabel currentDatetxt = new JLabel();
 
-	// Create buttons
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
 	JButton heartRateButton = new JButton("Heart Rate");
@@ -222,6 +225,7 @@ public class BaseDashBoardUI extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
+
 		getContentPane().setLayout(null);		
 		singleFirstBox.passAPI(data,testOrNot);
 		singleFirstBox.updateTilesVars();
@@ -230,6 +234,7 @@ public class BaseDashBoardUI extends JFrame{
 		singleFirstBox.modifyString(2);
 		singleFirstBox.modifyString(3);
 		singleFirstBox.modifyString(4);
+
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -325,6 +330,7 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelAward.add(sidePanelAwardText);
 		sidePanelAward.add(scrollPane);
 
+
 		// Setup how the buttons look like
 		fitCalcButton.setFont(font);
 		fitCalcButton.setForeground(blueColour);
@@ -351,6 +357,7 @@ public class BaseDashBoardUI extends JFrame{
 			public void actionPerformed(ActionEvent event){
 				try {
 					DailyGoalsUI daily = new DailyGoalsUI(data, testOrNot);
+
 					daily.setVisible(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -358,6 +365,7 @@ public class BaseDashBoardUI extends JFrame{
 				}
 			}
 		});
+
 
 		// Setup how the heartRate button looks like
 		heartRateButton.setFont(font);
@@ -672,6 +680,7 @@ public class BaseDashBoardUI extends JFrame{
 		boxes.add(fifthBox);
 		boxes.add(emptyBox);
 
+
 		// Add everything to main UI screen
 		getContentPane().add(buttonPanel);
 		getContentPane().add(datePanel);
@@ -679,6 +688,7 @@ public class BaseDashBoardUI extends JFrame{
 		getContentPane().add(sidePanelUser);
 		getContentPane().add(sidePanelAward);
 		getContentPane().add(boxes);
+
 	}
 
 	// Loads default values
@@ -711,5 +721,5 @@ public class BaseDashBoardUI extends JFrame{
 			System.out.println("Other Error");
 		}
 	}
-	
+
 } //End of class

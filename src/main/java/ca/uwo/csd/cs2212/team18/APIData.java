@@ -64,6 +64,7 @@ public class APIData extends Data{
 	private String rawResponse = null;
 	private boolean errorConnection = false;
 
+
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
 	 * API for a specific date
@@ -100,6 +101,7 @@ public class APIData extends Data{
 
 
 	private void createRequests(String date){
+
 
 		try {
 			// Builds the strings to request for specific information from the API
@@ -146,9 +148,10 @@ public class APIData extends Data{
 		cardio.setValue(-1);
 		peak.setValue(-1);
 		for (int i = 0; i < recentActivities.length; i++){
-
+			//TODO: set recent activities values to not available
 		}
 	}
+
 
 	private void readFiles(){
 		BufferedReader bR = null;
@@ -518,7 +521,7 @@ public class APIData extends Data{
 	 * @return The current time in the format of HH:mm:ss in order to indicate
 	 * the time that a refresh for new information was requested
 	 */
-	protected String refresh(String date) {
+	public String refresh(String date) {
 
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
