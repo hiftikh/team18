@@ -165,7 +165,6 @@ public class BaseDashBoard implements Serializable{
 		curDate = curDate.concat(curMonth);
 		curDate = curDate.concat("-");
 		curDate = curDate.concat(curDay);
-		System.out.println(curDate);
 		return curDate;
 	}
 

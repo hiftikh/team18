@@ -1,4 +1,4 @@
-package main.java.ca.uwo.csd.cs2212.team18;
+package ca.uwo.csd.cs2212.team18;
 
 //Import 
 import java.util.ArrayList;
@@ -176,10 +176,10 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
-	// Declare variables for API
-	private JFrame itself = new JFrame();
+	private JFrame itself = this;
 	private Data data;
 	private boolean testOrNot;
+	private APIData api;
 
 	/**
 	 * Checks when to use default values or API
@@ -219,10 +219,8 @@ public class BaseDashBoardUI extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setBackground(blueColour);
 		setResizable(false);
-		getContentPane().setLayout(null);
-
-		// Change the balues of the API
-		singleFirstBox.passAPI(data);
+		getContentPane().setLayout(null);		
+		singleFirstBox.passAPI(data,testOrNot);
 		singleFirstBox.updateTilesVars();
 		singleFirstBox.modifyString(0);
 		singleFirstBox.modifyString(1);
@@ -376,7 +374,26 @@ public class BaseDashBoardUI extends JFrame{
 		refreshButton.setForeground(blueColour);
 		refreshButton.setVisible(true);
 
-		// Panel that holds the date and refresh button
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if (testOrNot == false) {
+					api = (APIData) data;
+					if (api.isErrorConnection() == true) {
+						JOptionPane.showMessageDialog(itself,"Could not establish connection with FitBit Server! Try again later","Connection warning",JOptionPane.WARNING_MESSAGE);
+					}
+					else {
+						singleFirstBox.updateAPI(basedashboard.getSelectedDate());
+						singleFirstBox.updateTilesVars();
+						singleFirstBox.modifyString(0);
+						singleFirstBox.modifyString(1);
+						singleFirstBox.modifyString(2);
+						singleFirstBox.modifyString(3);
+						singleFirstBox.modifyString(4);
+					}
+				}				
+				sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
+			}
+		});
 		datePanel.setVisible(true);
 		datePanel.setBounds(-20,30,this.getWidth()-250,40);
 		datePanel.setBackground(blueColour);
@@ -453,7 +470,7 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent event) {
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
-							// Refreshes the boxes with new values
+
 							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
 							singleFirstBox.updateTilesVars();
 							singleFirstBox.modifyString(0);

@@ -1,4 +1,4 @@
-package main.java.ca.uwo.csd.cs2212.team18;
+package ca.uwo.csd.cs2212.team18;
 
 // Import needed files
 import java.awt.Color;
@@ -84,9 +84,12 @@ public class SingleBox{
 	public void setTestOrNot(boolean testorNot) {
 		test = testorNot;
 	}
-	// Method to pass the API Data
-	public void passAPI(Data api) {
+	public void passAPI(Data api, boolean testorNot) {
+
 		apiData = api;
+		if (testorNot == false) {
+			notTest = (APIData) apiData;
+		}
 	}
 	// Method to update the API
 	public void updateAPI(String dateInput) {
