@@ -132,7 +132,7 @@ public class DailyGoalsUI extends JDialog {
 		final GoalList goalll = DailyGoals.load();
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
-			@Override
+
 			public void windowClosing(java.awt.event.WindowEvent wind) {
 				DailyGoals.save(goalll);
 				if(!goalll.valid(year, month, day)){
@@ -194,7 +194,7 @@ public class DailyGoalsUI extends JDialog {
 		btnCreateAGoal.setVisible(true);
 
 		btnCreateAGoal.addActionListener(new ActionListener(){
-			@Override
+	
 			public void actionPerformed(ActionEvent evt){
 
 				final JDialog goals = new JDialog();
@@ -284,7 +284,6 @@ public class DailyGoalsUI extends JDialog {
 							okButton.addActionListener(new ActionListener(){
 								final Goal goal = new Goal("", 0, year, month, day);
 
-								@Override
 								public void actionPerformed(ActionEvent evt){
 									String userMessage = DailyGoals.checkMeasureInput(txtReps.getText());
 
@@ -324,9 +323,9 @@ public class DailyGoalsUI extends JDialog {
 											}
 											else{
 												int m = Integer.parseInt(txtReps.getText());
-
 												goal.setMeasure(m);
 												userMessage = goalll.add(goal);
+
 
 												if(test == true){
 													text.setText(goalll.toString(year,month,day, dat));
@@ -370,7 +369,7 @@ public class DailyGoalsUI extends JDialog {
 
 							cancelButton.addActionListener(new ActionListener(){
 
-								@Override
+
 								public void actionPerformed(ActionEvent evt){
 
 									if(goalll.valid(year, month, day)){
@@ -399,7 +398,6 @@ public class DailyGoalsUI extends JDialog {
 		layeredPane.add(btnSwitchDate);
 		btnSwitchDate.addActionListener(new ActionListener(){
 
-			@Override
 			public void actionPerformed(ActionEvent evt){
 				final JFrame goals2 = new JFrame();
 				goals2.setVisible(true);
@@ -465,7 +463,7 @@ public class DailyGoalsUI extends JDialog {
 				btnOk.setVisible(true);
 				btnOk.addActionListener(new ActionListener(){
 
-					@Override
+
 					public void actionPerformed(ActionEvent event) {
 
 						fYear = textField.getText();
@@ -535,7 +533,7 @@ public class DailyGoalsUI extends JDialog {
 
 		btnRemoveGoal.addActionListener(new ActionListener(){
 
-			@Override
+
 			public void actionPerformed(ActionEvent evt){
 				final JDialog goals3 = new JDialog();
 				goals3.setVisible(true);
@@ -575,8 +573,8 @@ public class DailyGoalsUI extends JDialog {
 						okButton.setVisible(true);
 						okButton.addActionListener(new ActionListener(){
 
-							@Override
 							public void actionPerformed(ActionEvent evt){
+
 
 								String userMessage = "";
 								if(comboBox.getSelectedItem().equals("Steps")){
@@ -633,7 +631,7 @@ public class DailyGoalsUI extends JDialog {
 						cancelButton.setVisible(true);
 						cancelButton.addActionListener(new ActionListener(){
 
-							@Override
+
 							public void actionPerformed(ActionEvent evt){
 
 								if(goalll.valid(year, month, day)){
