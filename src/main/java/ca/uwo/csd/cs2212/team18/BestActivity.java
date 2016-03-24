@@ -1,7 +1,7 @@
 package ca.uwo.csd.cs2212.team18;
 /**
  * Extends the Activity Class to include date that stat was achieved
- * @author team 18
+ * @author Team 18 (Sam Ali-mirsalari)
  */
 public class BestActivity extends Activity{
 

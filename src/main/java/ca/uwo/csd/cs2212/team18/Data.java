@@ -3,6 +3,12 @@ package ca.uwo.csd.cs2212.team18;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * Abstract parent class for the APIData and TestData classes
+ * that will store all the attributes
+ * @author Team 18 (Sam Ali-mirsalari)
+ *
+ */
 public abstract class Data {
 
 	// Initializes activity variables to store the Activity information
@@ -30,6 +36,13 @@ public abstract class Data {
 	protected FitCalcActivity[] recentActivities = new FitCalcActivity[3];
 
 
+	/**
+	 * This refresh method will only return the time
+	 * That the user pressed the button, since it might 
+	 * possibly not be an APIData object, which
+	 * in that case new values will not be gotten
+	 * @return
+	 */
 	public String refresh() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
