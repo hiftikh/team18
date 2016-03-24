@@ -1,6 +1,11 @@
 package ca.uwo.csd.cs2212.team18;
 import java.io.Serializable;
 
+/**
+ * Class that holds data to be stored in goalList class and displayed onto the UI
+ * @author Team 18
+ *
+ */
 public class Goal implements Serializable{
 
 	//Private Variables
@@ -129,9 +134,9 @@ public class Goal implements Serializable{
 	}
 
 	/**
-	 * toString method that returns an appropriate String
+	 * toString method that returns an appropriate String 
 	 * based on what type of goal it is
-	 * @return an appropriate description based on the type of goal
+	 * @return an appropriate description based on the type of goal; "" if not applicable
 	 */
 	public String toString(){
 

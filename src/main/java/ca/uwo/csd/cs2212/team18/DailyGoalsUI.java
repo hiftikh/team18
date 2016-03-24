@@ -42,8 +42,15 @@ import java.awt.Point;
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * Class that displays the contents of daily goals component 
+ * including creating a goal, switching the date, and removing a goal
+ * @author Team 18
+ *
+ */
 public class DailyGoalsUI extends JDialog {
 	//Private variables 
+
 	/**
 	 * JPanel that contains the contents of the program
 	 */
@@ -59,48 +66,47 @@ public class DailyGoalsUI extends JDialog {
 	 */
 	private JTextField txtReps;
 
-
 	/**
 	 * String to change the date to user's preference 
 	 */
 	private String newDate;
-	
+
 	/**
 	 * Year value of the date
 	 */
 	private String year;
-	
+
 	/**
 	 * Month value of the date
 	 */
 	private String month;
-	
+
 	/**
 	 * Day value of the date
 	 */
 	private String day;
-	
+
 	/**
-	 * Year value of the date
+	 * Fake year value of the date (Used for comparison)
 	 */
 	private String fYear;
-	
+
 	/**
-	 * Month value of the date
+	 * Fake month value of the date (Used for comparison)
 	 */
 	private String fMonth;
-	
+
 	/**
-	 * Day value of the date
+	 * Fake day value of the date (Used for comparison)
 	 */
 	private String fDay;
 
 
 	//static Data apiData;
 	static APIData notTest;
-	
+
 	/**
-	 * Constructor to create the frame
+	 * Constructor to create the UI for Daily Goals
 	 * @param dat Data to be used
 	 * @param t Boolean to determine what type of data to use
 	 */
@@ -109,28 +115,24 @@ public class DailyGoalsUI extends JDialog {
 	}
 
 	/**
-	 * init method that creates the window
-	 * User has access to several features
-	 * Creating a goal, switching the date, and removing a goal
+	 * init method that creates the window 
+	 * User has access to several features 
+	 * Creating a goal, switching the date, and removing a goal 
 	 * the user is also able to view the goals they set on a particular day
 	 * @param data The Data to be used 
 	 * @param test Boolean used to determine whether to use test data
 	 */
 	public void initDailyGoalsUI(final Data data, final Boolean test){
 		final Data dat = this.test(data, test);
+
 		if(test == false){
 			notTest = (APIData) dat;
 		}
+
 		final GoalList goalll = DailyGoals.load();
-		//if(test == true){
-			//data = new TestData();
-		//}
-		//else{
-			//notTest = (APIData) data;
-			//notTest.refresh(newDate);
-		//}
+
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
-			@Override
+
 			public void windowClosing(java.awt.event.WindowEvent wind) {
 				DailyGoals.save(goalll);
 				if(!goalll.valid(year, month, day)){
@@ -159,7 +161,6 @@ public class DailyGoalsUI extends JDialog {
 		label.setBounds(0, 0, 403, 203);
 		layeredPane.add(label);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	
 
 		year = new SimpleDateFormat("yyyy").format(new Date());
 		month = new SimpleDateFormat("MM").format(new Date());
@@ -172,13 +173,15 @@ public class DailyGoalsUI extends JDialog {
 		text.setWrapStyleWord(true);
 		text.enable(false); 
 		layeredPane.add(text);
-		//data = this.test(data, test);
+
 		if(test == true){
-		text.setText(goalll.toString(year, month, day,dat));
+			text.setText(goalll.toString(year, month, day,dat));
 		}
+
 		else{
 			text.setText(goalll.toString(year, month, day, notTest));
 		}
+
 		text.repaint();
 		JLabel lblGoalsFor = new JLabel("Goal(s) for: ");
 		lblGoalsFor.setBounds(124, 10, 87, 16);
@@ -191,7 +194,7 @@ public class DailyGoalsUI extends JDialog {
 		btnCreateAGoal.setVisible(true);
 
 		btnCreateAGoal.addActionListener(new ActionListener(){
-			@Override
+	
 			public void actionPerformed(ActionEvent evt){
 
 				final JDialog goals = new JDialog();
@@ -207,15 +210,18 @@ public class DailyGoalsUI extends JDialog {
 
 				goals.getContentPane().add(contentPanel, BorderLayout.CENTER);
 				contentPanel.setLayout(null);
+
 				{
 					JLabel lblSetTheGoals = new JLabel("Select a goal you hope to achieve");
 					lblSetTheGoals.setBounds(70, 24, 214, 16);
 					contentPanel.add(lblSetTheGoals);
 					lblSetTheGoals.setAlignmentY(20);
 				}
+
 				JLayeredPane layeredPane_1 = new JLayeredPane();
 				layeredPane_1.setBounds(6, 52, 152, 180);
 				contentPanel.add(layeredPane_1);
+
 				{
 					ButtonGroup group = new ButtonGroup();
 					layeredPane_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 8));
@@ -238,6 +244,7 @@ public class DailyGoalsUI extends JDialog {
 					final JRadioButton btn2 = new JRadioButton("Floors");
 					layeredPane_1.add(btn2);
 					group.add(btn2);
+
 					{
 						JLayeredPane layeredPane = new JLayeredPane();
 						layeredPane.setBounds(153, 52, 201, 180);
@@ -266,6 +273,7 @@ public class DailyGoalsUI extends JDialog {
 						goals.getContentPane().add(buttonPane, BorderLayout.SOUTH);
 						buttonPane.setBackground((new Color(69, 194, 197)));
 						buttonPane.setVisible(true);
+
 						{
 							JButton okButton = new JButton("OK");
 							okButton.setBounds(62, 112, 68, 29);
@@ -275,7 +283,8 @@ public class DailyGoalsUI extends JDialog {
 							okButton.setVisible(true);
 							okButton.addActionListener(new ActionListener(){
 								final Goal goal = new Goal("", 0, year, month, day);
-								@Override
+
+			
 								public void actionPerformed(ActionEvent evt){
 									String userMessage = DailyGoals.checkMeasureInput(txtReps.getText());
 
@@ -284,18 +293,23 @@ public class DailyGoalsUI extends JDialog {
 									}
 
 									else{
+
 										if(btn1.isSelected()){
 											goal.setType("Steps");
 										}
+
 										if(btn2.isSelected()){
 											goal.setType("Floors");
 										}
+
 										if(btn3.isSelected()){
 											goal.setType("Distance");
 										}
+
 										if(btn4.isSelected()){
 											goal.setType("Calories");
 										}
+
 										if(btn5.isSelected()){
 											goal.setType("Active minutes");
 										}
@@ -303,38 +317,51 @@ public class DailyGoalsUI extends JDialog {
 										if(!userMessage.equals("")){
 											JOptionPane.showMessageDialog(goals, userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 										}
-										else{
-											int m = Integer.parseInt(txtReps.getText());
-											goal.setMeasure(m);
-											userMessage = goalll.add(goal);
 
-											if(test == true){
-											text.setText(goalll.toString(year,month,day, dat));
+										else{
+											if(txtReps.getText().length() > 9){
+												JOptionPane.showMessageDialog(goals, "Enter a smaller measure","Input warning",JOptionPane.WARNING_MESSAGE);
 											}
 											else{
-												text.setText(goalll.toString(year, month, day, notTest));
-											}
-											
-											text.revalidate();
-											text.repaint();
+												int m = Integer.parseInt(txtReps.getText());
 
-											if (userMessage.equals("")) {
-												if(goalll.valid(year, month, day)){
-													setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+												goal.setMeasure(m);
+												userMessage = goalll.add(goal);
+
+												if(test == true){
+													text.setText(goalll.toString(year,month,day, dat));
 												}
+
 												else{
-													setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													text.setText(goalll.toString(year, month, day, notTest));
 												}
-												goals.dispose();
-											}
-											else {
-												JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+
+												text.revalidate();
+												text.repaint();
+
+												if (userMessage.equals("")) {
+
+													if(goalll.valid(year, month, day)){
+														setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+													}
+
+													else{
+														setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													}
+
+													goals.dispose();
+												}
+
+												else {
+													JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+												}
 											}
 										}
 									}
 								}
 							});
 						}
+
 						{
 							JButton cancelButton = new JButton("Cancel");
 							cancelButton.setActionCommand("Cancel");
@@ -342,14 +369,18 @@ public class DailyGoalsUI extends JDialog {
 							cancelButton.setVisible(true);
 
 							cancelButton.addActionListener(new ActionListener(){
-								@Override
+
+			
 								public void actionPerformed(ActionEvent evt){
+
 									if(goalll.valid(year, month, day)){
 										setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 									}
+
 									else{
 										setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 									}
+
 									goals.dispose();
 								}
 							});
@@ -360,7 +391,6 @@ public class DailyGoalsUI extends JDialog {
 			}
 
 			private Object dispose() {
-
 				return null;
 			}});
 
@@ -368,7 +398,8 @@ public class DailyGoalsUI extends JDialog {
 		btnSwitchDate.setBounds(145, 155, 117, 29);
 		layeredPane.add(btnSwitchDate);
 		btnSwitchDate.addActionListener(new ActionListener(){
-			@Override
+
+			
 			public void actionPerformed(ActionEvent evt){
 				final JFrame goals2 = new JFrame();
 				goals2.setVisible(true);
@@ -433,54 +464,64 @@ public class DailyGoalsUI extends JDialog {
 
 				btnOk.setVisible(true);
 				btnOk.addActionListener(new ActionListener(){
-					@Override
+
+
 					public void actionPerformed(ActionEvent event) {
 
 						fYear = textField.getText();
 						fMonth = textField_1.getText();
 						fDay = textField_2.getText();
 						newDate = fYear + "-" + fMonth + "-" + fDay;
-						
+
 						if(newDate.contentEquals("--")){
-							
+
 						}
-						
+
 						else{
-						year = fYear;
-						month = fMonth;
-						day = fDay;
-						l.setText(newDate);
-						l.repaint();
-						if(test == false){
-							notTest.refresh(newDate);
-							if(notTest.isErrorConnection() == true){
-								JOptionPane.showMessageDialog(goals2,"Could not establish connection with FitBit Server. Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
+							year = fYear;
+							month = fMonth;
+							day = fDay;
+							l.setText(newDate);
+							l.repaint();
+							if(test == false){
+
+								notTest.refresh(newDate);
+
+								if(notTest.isErrorConnection() == true){
+									JOptionPane.showMessageDialog(goals2,"Could not establish connection with FitBit Server. Try again later.","Connection warning",JOptionPane.WARNING_MESSAGE);
+								}
+
 							}
-							
 						}
-						}
-						
+
 						String userMessage = DailyGoals.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 
 						if (userMessage == "") {
+
 							if(goalll.valid(year, month, day)){
 								setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 							}
+
 							else{
 								setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 							}
+
 							goals2.dispose();
 						}
+
 						else {
 
 							JOptionPane.showMessageDialog(goals2,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 						}
+
 						if(test == true){
 							text.setText(goalll.toString(year,month,day,dat));
 						}
+
 						else{
-						text.setText(goalll.toString(year,month,day,notTest));
+							text.setText(goalll.toString(year,month,day,notTest));
 						}
+
 						text.revalidate();
 						text.repaint();
 					}
@@ -493,7 +534,7 @@ public class DailyGoalsUI extends JDialog {
 		layeredPane.add(btnRemoveGoal);
 
 		btnRemoveGoal.addActionListener(new ActionListener(){
-			@Override
+
 			public void actionPerformed(ActionEvent evt){
 				final JDialog goals3 = new JDialog();
 				goals3.setVisible(true);
@@ -532,63 +573,74 @@ public class DailyGoalsUI extends JDialog {
 						buttonPane.add(okButton);
 						okButton.setVisible(true);
 						okButton.addActionListener(new ActionListener(){
-							@Override
-							public void actionPerformed(ActionEvent evt){
 
+							public void actionPerformed(ActionEvent evt){
 
 								String userMessage = "";
 								if(comboBox.getSelectedItem().equals("Steps")){
 									userMessage = goalll.remove("Steps",year,month,day);
 								}
+
 								else if(comboBox.getSelectedItem().equals("Floors")){
 									userMessage = goalll.remove("Floors",year,month,day);
 								}
+
 								else if(comboBox.getSelectedItem().equals("Calories burned")){
 									userMessage = goalll.remove("Calories",year,month,day);
 								}
+
 								else if(comboBox.getSelectedItem().equals("Active Minutes")){
 									userMessage = goalll.remove("Active minutes",year,month,day);
 								}
+
 								else if(comboBox.getSelectedItem().equals("Total distance")){
 									userMessage = goalll.remove("Distance",year,month,day);
 								}
+
 								if(!userMessage.equals("")){
 									JOptionPane.showMessageDialog(goals3,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
 								}
 
 								if(test == true){
-								text.setText(goalll.toString(year,month,day,dat));
-							}
-							else{
-								text.setText(goalll.toString(year, month, day, notTest));
-							}
+									text.setText(goalll.toString(year,month,day,dat));
+								}
+
+								else{
+									text.setText(goalll.toString(year, month, day, notTest));
+								}
 								text.revalidate();
 								text.repaint();
 
 								if(goalll.valid(year, month, day)){
 									setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 								}
+
 								else{
 									setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 								}
+
 								goals3.dispose();
 							}
 						});
 					}
+
 					{
 						JButton cancelButton = new JButton("Cancel");
 						cancelButton.setActionCommand("Cancel");
 						buttonPane.add(cancelButton);
 						cancelButton.setVisible(true);
 						cancelButton.addActionListener(new ActionListener(){
-							@Override
+
 							public void actionPerformed(ActionEvent evt){
+
 								if(goalll.valid(year, month, day)){
 									setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 								}
+
 								else{
-									setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+									setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);		
 								}
+
 								goals3.dispose();
 							}
 						});
@@ -602,26 +654,26 @@ public class DailyGoalsUI extends JDialog {
 		jScroll.setPreferredSize(new Dimension(60,60));
 
 	}
-	
+
 	/**
 	 * Test method, used to determine if the data is API Data or Test Data
 	 * @param dat The Data
 	 * @param test Boolean value to determine what type of data to use
 	 * @return If test is true, then TestData; otherwise, APIData
 	 */
-	
+
 	private Data test(Data dat, Boolean test){
-		
+
 		// If test is true then use TestData
 		if(test == true){
 			dat = new TestData();
 		}
-		
+
 		// Else use API Data
 		else{
 			dat = (APIData) dat;
 		}
-	
+
 		return dat;
 	}
 }
