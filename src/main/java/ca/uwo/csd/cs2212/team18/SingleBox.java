@@ -8,18 +8,10 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 
 // Create SingleBox Class
 public class SingleBox{
@@ -33,13 +25,14 @@ public class SingleBox{
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
-	//get current date time with Date()
+	// Get current date time with Date()
 	Date date = new Date();
 	String fulldate = dateFormat.format(date);
 	String curYear = fulldate.substring(0,4);
 	String curMonth = fulldate.substring(4,6);
 	String curDay = fulldate.substring(6,8);
 
+	// Put the date value together 
 	String apiInput = "";
 	{
 		apiInput = apiInput.concat(curYear);
@@ -67,12 +60,8 @@ public class SingleBox{
 	public SingleBox(){
 	} 
 
-	/**
-	 * Set new string for activities
-	 */
-	/**
-	 * Set new string for activities
-	 */
+
+	// Set new string for activities
 	static int caloriesOut;
 	static int floorDailyOut;
 	static int floorBestOut;
@@ -86,31 +75,32 @@ public class SingleBox{
 	static int distanceBestOut;
 	static int distanceTotalOut;
 
-	/**
-	 * Set new string for activities
-	 */
+	// Set new string for activities
 	static Data apiData;
 	static APIData notTest;
 	private static boolean test;
 
+	// Method that checks to run in default or API values
 	public void setTestOrNot(boolean testorNot) {
 		test = testorNot;
 	}
 	public void passAPI(Data api, boolean testorNot) {
+
 		apiData = api;
 		if (testorNot == false) {
 			notTest = (APIData) apiData;
 		}
 	}
+	// Method to update the API
 	public void updateAPI(String dateInput) {
 		if (test == true) {
-		}
-		else {
+		} else {
 			notTest = (APIData) apiData; 
 			notTest.refresh(apiInput);
 		}
 	}
 
+	// Method to update the API data
 	public void updateTilesVars() {
 		if (test == true) {
 			caloriesOut = (int) apiData.getCaloriesOut().getValue();
@@ -125,8 +115,7 @@ public class SingleBox{
 			distanceDailyOut = (int) apiData.getDistance().getValue();
 			distanceBestOut = (int) apiData.getBestDistance().getValue();
 			distanceTotalOut = (int) apiData.getTotalDistance().getValue();
-		}
-		else {
+		} else {
 			caloriesOut = (int) notTest.getCaloriesOut().getValue();
 			floorDailyOut = (int) notTest.getFloors().getValue();
 			floorBestOut = (int) notTest.getBestFloors().getValue();
@@ -150,32 +139,27 @@ public class SingleBox{
 		if (kindBox == 0) {
 			calString.setText(String.valueOf(caloriesOut));
 		}
-
 		if (kindBox == 1) {
-
 			floorDailyString.setText(String.valueOf(floorDailyOut));
 			floorBestString.setText(String.valueOf(floorBestOut));
 			floorTotalString.setText(String.valueOf(floorTotalOut));
 		}
-
 		if (kindBox == 2) {		
 			stepDailyString.setText(String.valueOf(stepDailyOut));
 			stepBestString.setText(String.valueOf(stepBestOut));
 			stepTotalString.setText(String.valueOf(stepTotalOut));
 		}
-
 		if (kindBox == 3) {
 			activeString.setText(String.valueOf(activeOut));
 			sedString.setText(String.valueOf(sedOut));
 		}
-
 		if (kindBox == 4) {
 			distanceDailyString.setText(String.valueOf(distanceDailyOut));
 			distanceBestString.setText(String.valueOf(distanceBestOut));
 			distanceTotalString.setText(String.valueOf(distanceTotalOut));
 		}
-
 	}
+
 	/**
 	 * Method will create a box with Calories information
 	 * @return JPanel with Calories
@@ -274,6 +258,8 @@ public class SingleBox{
 		paneName.setBackground(Color.WHITE);
 		paneName.setVisible(true);
 
+		// Adding action when x button is pressed
+		// Close the pane when pressed
 		xSignButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
@@ -281,6 +267,7 @@ public class SingleBox{
 				BaseDashBoard.addClosedTile("Active Minutes");
 			}
 		});
+
 		// Add labels and button to the pane
 		paneName.add(nameLabelA, SwingConstants.CENTER);
 		paneName.add(nameLabelS, SwingConstants.CENTER);
@@ -305,12 +292,14 @@ public class SingleBox{
 		JLabel lifeTime = new JLabel("LIFE TIME:");
 		JLabel daily = new JLabel("DAILY:");
 
+		// Setup the x button 
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
+		// Setup the label
 		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(25,-12,500,50);
@@ -357,6 +346,8 @@ public class SingleBox{
 		paneName.add(lifeTime);
 		paneName.add(daily);
 
+		// Adding action when x button is pressed
+		// Close the pane when pressed
 		xSignButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
@@ -374,6 +365,7 @@ public class SingleBox{
 	 */
 	public JPanel createFloorBox() {
 
+		// Declare variables
 		JLabel nameLabel = new JLabel("Floors");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
@@ -381,12 +373,14 @@ public class SingleBox{
 		JLabel lifeTime = new JLabel("LIFE TIME:");
 		JLabel daily = new JLabel("DAILY:");
 
+		// Setup the x button
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
+		// Setup the labels
 		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(25,-12,500,50);
@@ -433,6 +427,8 @@ public class SingleBox{
 		paneName.add(lifeTime);
 		paneName.add(daily);
 
+		// Adding action when x button is pressed
+		// Close the pane when pressed
 		xSignButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
@@ -450,6 +446,7 @@ public class SingleBox{
 	 */
 	public JPanel createStepBox() {
 
+		// Declare variables
 		JLabel nameLabel = new JLabel("Steps");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
@@ -457,12 +454,14 @@ public class SingleBox{
 		JLabel lifeTime = new JLabel("LIFE TIME:");
 		JLabel daily = new JLabel("DAILY:");
 
+		// Setup the x button
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
+		// Setup the labels
 		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
 		nameLabel.setBounds(25,-12,500,50);
@@ -509,8 +508,9 @@ public class SingleBox{
 		paneName.add(lifeTime);
 		paneName.add(daily);
 
+		// Adding action when x button is pressed
+		// Close the pane when pressed
 		xSignButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				paneName.setVisible(false);
 				BaseDashBoardUI.getFrame().remove(paneName);
