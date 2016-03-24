@@ -62,6 +62,15 @@ public class BaseDashBoard implements Serializable{
 	 * @return the current time and date
 	 */
 	public String getCurrentTimeAndDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		String fullCurDate = dateFormat.format(cal.getTime());{
+		
+			curYear = fullCurDate.substring(0,4);
+			curMonth = fullCurDate.substring(5,7);
+			curDay = fullCurDate.substring(8,10);
+			
+		}
 		return fullCurDate;
 	}
 	/**

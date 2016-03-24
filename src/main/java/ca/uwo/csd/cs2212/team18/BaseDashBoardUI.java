@@ -153,6 +153,8 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
+	JLabel currentDate = new JLabel();
+	JLabel currentDatetxt = new JLabel();
 
 	JButton fitCalcButton = new JButton("FitCalc");
 	JButton dailyGoalsButton = new JButton("Daily Goals");
@@ -179,6 +181,7 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
+	private boolean startUp = true;
 	private JFrame itself = this;
 	private Data data;
 	private boolean testOrNot;
@@ -264,6 +267,21 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelUserTextRefresh.setFont(font3);
 		sidePanelUserTextRefresh.setForeground(blueColour);
 		sidePanelUserTextRefresh.setBounds(5,120,250,40);
+		sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
+		
+		currentDatetxt.setFont(font);
+		currentDatetxt.setForeground(blueColour);
+		currentDatetxt.setBounds(5,25,250,40);
+		currentDatetxt.setText("Currently selected date: ");
+		
+		currentDate.setFont(font);
+		currentDate.setForeground(blueColour);
+		currentDate.setBounds(5,50,250,40);
+		currentDate.setText(basedashboard.getCurrentDate());
+		
+		sidePanelUser.add(currentDatetxt);
+		sidePanelUser.add(currentDate);
+		
 		sidePanelUser.setLayout(null);
 		sidePanelUser.add(sidePanelUserText);
 		sidePanelUser.add(sidePanelUserTextRefresh);
@@ -397,6 +415,14 @@ public class BaseDashBoardUI extends JFrame{
 						singleFirstBox.modifyString(2);
 						singleFirstBox.modifyString(3);
 						singleFirstBox.modifyString(4);
+						
+						if (startUp == true) {
+							currentDate.setText(basedashboard.getCurrentDate());	
+						}
+						else {
+							currentDate.setText(basedashboard.getSelectedDate());	
+						}						
+						sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 					}
 				}				
 				sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
@@ -478,7 +504,7 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent event) {
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
-
+							startUp = false;
 							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
 							singleFirstBox.updateTilesVars();
 							singleFirstBox.modifyString(0);
@@ -487,6 +513,8 @@ public class BaseDashBoardUI extends JFrame{
 							singleFirstBox.modifyString(3);
 							singleFirstBox.modifyString(4);
 							dateDialog.dispose();
+							currentDate.setText(basedashboard.getSelectedDate());											
+							sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 						}
 						else {
 							JOptionPane.showMessageDialog(dateDialog,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
@@ -621,6 +649,10 @@ public class BaseDashBoardUI extends JFrame{
 							basedashboard.readdedSelectedTile("Steps");
 						}
 						plusButton.dispose();
+						plusSign.setFont(font2);
+						plusSign.setLayout(null);
+						plusSign.setForeground(Color.WHITE);
+						plusSign.setBorder(null);
 					}
 				});
 				// Add button and combo to Pane
