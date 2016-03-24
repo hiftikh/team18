@@ -284,7 +284,6 @@ public class DailyGoalsUI extends JDialog {
 							okButton.addActionListener(new ActionListener(){
 								final Goal goal = new Goal("", 0, year, month, day);
 
-			
 								public void actionPerformed(ActionEvent evt){
 									String userMessage = DailyGoals.checkMeasureInput(txtReps.getText());
 
@@ -324,9 +323,9 @@ public class DailyGoalsUI extends JDialog {
 											}
 											else{
 												int m = Integer.parseInt(txtReps.getText());
-
 												goal.setMeasure(m);
 												userMessage = goalll.add(goal);
+
 
 												if(test == true){
 													text.setText(goalll.toString(year,month,day, dat));
@@ -370,7 +369,7 @@ public class DailyGoalsUI extends JDialog {
 
 							cancelButton.addActionListener(new ActionListener(){
 
-			
+
 								public void actionPerformed(ActionEvent evt){
 
 									if(goalll.valid(year, month, day)){
@@ -399,7 +398,6 @@ public class DailyGoalsUI extends JDialog {
 		layeredPane.add(btnSwitchDate);
 		btnSwitchDate.addActionListener(new ActionListener(){
 
-			
 			public void actionPerformed(ActionEvent evt){
 				final JFrame goals2 = new JFrame();
 				goals2.setVisible(true);
@@ -535,6 +533,7 @@ public class DailyGoalsUI extends JDialog {
 
 		btnRemoveGoal.addActionListener(new ActionListener(){
 
+
 			public void actionPerformed(ActionEvent evt){
 				final JDialog goals3 = new JDialog();
 				goals3.setVisible(true);
@@ -575,6 +574,7 @@ public class DailyGoalsUI extends JDialog {
 						okButton.addActionListener(new ActionListener(){
 
 							public void actionPerformed(ActionEvent evt){
+
 
 								String userMessage = "";
 								if(comboBox.getSelectedItem().equals("Steps")){
@@ -630,6 +630,7 @@ public class DailyGoalsUI extends JDialog {
 						buttonPane.add(cancelButton);
 						cancelButton.setVisible(true);
 						cancelButton.addActionListener(new ActionListener(){
+
 
 							public void actionPerformed(ActionEvent evt){
 

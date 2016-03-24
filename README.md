@@ -26,5 +26,7 @@ If you don't want to run in test mode
 java -jar target/team18-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-
+Our UI was developed and is optimized to run on Mac OS.
+It will run on Windows; however, the UI will not look the same 
+as there will be graphical issues.
 
