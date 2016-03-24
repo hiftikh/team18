@@ -1,4 +1,4 @@
-package main.java.ca.uwo.csd.cs2212.team18;
+package ca.uwo.csd.cs2212.team18;
 
 //Import 
 import java.util.ArrayList;
