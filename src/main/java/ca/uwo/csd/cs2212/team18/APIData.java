@@ -12,6 +12,7 @@ import java.io.IOException;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.exceptions.OAuthConnectionException;
 import com.github.scribejava.core.model.*;
 
 import org.json.JSONException;
@@ -61,6 +62,8 @@ public class APIData extends Data{
 	private String refreshToken = null;
 	private Long expiresIn = null;
 	private String rawResponse = null;
+	private boolean errorConnection = false;
+
 
 	/**
 	 * This constructor allows a date to be used as a parameter in order to access the Fitbit's 
@@ -98,19 +101,55 @@ public class APIData extends Data{
 
 
 	private void createRequests(String date){
-		// Builds the strings to request for specific information from the API
-		requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
-		requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
-		requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
-		requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
-		// Calls methods that will pull information from the API and store them
-		// in the appropriate attributes
-		setActivities();
-		setBestLife();
-		setHeartRate();
-		setRecentActivity();
-		save();
 
+
+		try {
+			// Builds the strings to request for specific information from the API
+			requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
+			requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
+			requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
+			requestUrlRecentActivities = REQUEST_URL_PREFIX + "activities/recent.json";
+
+
+			// Calls methods that will pull information from the API and store them
+			// in the appropriate attributes
+			setActivities();
+			setBestLife();
+			setHeartRate();
+			setRecentActivity();
+			save();
+		}catch(OAuthConnectionException e){
+			connectionError();
+		}
+	}
+
+	//TODO make it so that even if some of the API requests 
+	//work if one of them doesn't then they all fail
+	private void connectionError(){
+		errorConnection = true;
+		caloriesOut.setValue(-1);
+		floors.setValue(-1);
+		steps.setValue(-1);
+		actMin.setValue(-1);
+		sedMin.setValue(-1);
+		distance.setValue(-1);
+		restingHeartRate.setValue(-1);
+		bestDistance.setValue(-1);
+		bestDistance.setDate("Not Available");
+		bestFloors.setValue(-1);
+		bestFloors.setDate("Not Available");
+		bestSteps.setValue(-1);
+		bestSteps.setDate("Not Available");
+		totalDistance.setValue(-1);
+		totalFloors.setValue(-1);
+		totalSteps.setValue(-1);
+		outOfRange.setValue(-1);
+		fatBurn.setValue(-1);
+		cardio.setValue(-1);
+		peak.setValue(-1);
+		for (int i = 0; i < recentActivities.length; i++){
+			//TODO: set recent activities values to not available
+		}
 	}
 
 
@@ -296,6 +335,7 @@ public class APIData extends Data{
 		 */
 		switch(statusCode){
 		case 200:
+			errorConnection = false;
 			System.out.println("Success");
 			break;
 		case 400:
@@ -311,9 +351,12 @@ public class APIData extends Data{
 			break;
 		case 429:
 			System.out.println("Rate limit exceeded");
+			errorConnection = true;
 			break;
 		}
+
 	}
+
 
 	/**
 	 * The setActivites method is a private helper method that will parse through
@@ -339,7 +382,6 @@ public class APIData extends Data{
 			jsonObj = jsonArray.getJSONObject(0);
 			distance.setValue((int)jsonObj.getDouble("distance"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -356,6 +398,7 @@ public class APIData extends Data{
 		// appropriate attributes
 		try {
 			api(requestUrlBestLife);
+
 			JSONObject jsonBest, jsonLife, jsonDistance, jsonSteps, jsonFloors;
 			JSONObject jsonObj = new JSONObject(response.getBody());
 			jsonBest = jsonObj;
@@ -378,8 +421,8 @@ public class APIData extends Data{
 			totalFloors.setValue(jsonLife.getInt("floors"));
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			connectionError();
 		}
 	}
 
@@ -478,13 +521,22 @@ public class APIData extends Data{
 	 * @return The current time in the format of HH:mm:ss in order to indicate
 	 * the time that a refresh for new information was requested
 	 */
-	protected String refresh(String date){
+	public String refresh(String date) {
 
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
 		createRequests(date);
 
 		return super.refresh();
+	}
+
+	public boolean isErrorConnection() {
+		return errorConnection;
+	}
+	public static void main(String args[]){
+		APIData api = new APIData("2016-03-23");
+		api.refresh("2016-03-23");
+		System.out.println(api.isErrorConnection());
 	}
 }
 

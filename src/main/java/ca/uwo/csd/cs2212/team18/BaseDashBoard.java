@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -29,14 +30,40 @@ public class BaseDashBoard implements Serializable{
 	/**
 	 * String representing the api input
 	 */
+
 	private String apiInput = "";
+	private static String curDate = "";
+	private static String curYear = "";
+	private static String curMonth = "";
+	private static String curDay = "";
+	
+	/*
+	 * Get the Current Date and Time variables
+	 */
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Calendar cal = Calendar.getInstance();
+	String fullCurDate = dateFormat.format(cal.getTime());{
+	
+		curYear = fullCurDate.substring(0,4);
+		curMonth = fullCurDate.substring(5,7);
+		curDay = fullCurDate.substring(8,10);
+		
+	}
+
 
 	/**
 	 * constructor to make an instance of BaseDashBoard
 	 */
 	public BaseDashBoard() {
 	}	
-
+	
+	/**
+	 * Gets the variable that displays the current time and date
+	 * @return the current time and date
+	 */
+	public String getCurrentTimeAndDate() {
+		return fullCurDate;
+	}
 	/**
 	 * Converts the ArrayList<String> into String[]
 	 * @return an array containing the contents of the ArrayList
@@ -100,9 +127,9 @@ public class BaseDashBoard implements Serializable{
 		//get current date time with Date()
 		Date date = new Date();
 		String fulldate = dateFormat.format(date);
-		String curYear = fulldate.substring(0,4);
-		String curMonth = fulldate.substring(4,6);
-		String curDay = fulldate.substring(6,8);
+		curYear = fulldate.substring(0,4);
+		curMonth = fulldate.substring(4,6);
+		curDay = fulldate.substring(6,8);
 
 		if (Integer.parseInt(curYear) < Integer.parseInt(year)) {
 			return "We can't look at data on a future date... yet. In the meantime input a date in the past";
@@ -126,6 +153,19 @@ public class BaseDashBoard implements Serializable{
 
 		//ApiData apidata = new ApiData(apiInput)
 		return "";
+	}
+	
+	/**
+	 * Gets the date in api format
+	 * @return the Current Date in the api spcific format
+	 */
+	public static String getCurrentDate() {
+		curDate = curDate.concat(curYear);
+		curDate = curDate.concat("-");
+		curDate = curDate.concat(curMonth);
+		curDate = curDate.concat("-");
+		curDate = curDate.concat(curDay);
+		return curDate;
 	}
 
 	/**
@@ -199,5 +239,5 @@ public class BaseDashBoard implements Serializable{
 				closedTileNames.remove(i);
 			}
 		}
-	}		
+	}
 }
