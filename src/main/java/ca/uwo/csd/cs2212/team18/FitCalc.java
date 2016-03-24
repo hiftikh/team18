@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FitCalc {
+	//Initialize some variables
 	private int calorieGoal;
 	private int caloriesBurned;
 	private int calorieDifference;
@@ -12,12 +13,6 @@ public class FitCalc {
 	private boolean negativeDifference;
 	private int numberOfFitbitActivities;
 	private int weightKg;
-	private int suggest1;
-	private int suggest2;
-	private int suggest3;
-	private String activity1;
-	private String activity2;
-	private String activity3;
 	private String[][] displayActivities= new String[3][6];
 	private String[][] displayDefaultActivities = new String[3][6];
 	
@@ -41,10 +36,21 @@ public class FitCalc {
 	
 	private Data data;
 	
+	/**
+	 * Constructor for the class
+	 * @param datas
+	 * @param testOrNot
+	 */
 	public FitCalc(Data datas, boolean testOrNot) {		
 		data = datas;
 		
 	}
+	
+	/**
+	 * Method that checks if the calorie input is valid
+	 * @param input
+	 * @return String depending on whether or not input valid
+	 */
 	public String checkCaloriesInput(String input) {
 		//Checks if user has inputed something
 		if (input.length() == 0) {
@@ -61,13 +67,18 @@ public class FitCalc {
 		}
 		return "";
 	}
-	
+	/**
+	 * Sets the calorie goal into private variable
+	 * @param input
+	 */
 	public void setCalorieGoal(int input) {
 		calorieGoal = input;
 	}
 	
-	/*
-	 * Called only once and 
+	/**
+	 * Sets various String[][] which hold text and label Strings which will appear on the FitCalcUI2
+	 * @param testBool
+	 * @return String depending on whether or not can successfully get data from fitbit
 	 */
 	
 	public String calculate(boolean testBool) {
@@ -135,10 +146,15 @@ public class FitCalc {
 			return "The app is unable to access fitbit activities";
 		}
 
-		return "";
-		
-	
+		return "";	
 	}
+	
+	/**
+	 * Calculates the suggestions based off of the METS and weight
+	 * @param METS
+	 * @param weight
+	 * @return The minutes that one should spend doing a specific activity
+	 */
 	public int caloriesCalculation(int METS, int weight) {
 		int multiply = METS * weight;
 		double time = (double) calorieDifference/ (double) multiply;
@@ -147,9 +163,11 @@ public class FitCalc {
 		return realMins;
 	}
 	
-	public void generateDisplayStrings() {
-		
-	}
+	/**
+	 * Returns a String[][] based on whether or not in test mode 
+	 * @param defaultActivities
+	 * @return a String[][] with values for the labels and textfields in FitCalcUI2
+	 */
 	
 	public String[][] getDisplayStrings(boolean defaultActivities) {
 		if (defaultActivities == true) {
@@ -157,6 +175,8 @@ public class FitCalc {
 		}
 		return displayActivities;
 	}
+	
+	//Setters and Getters
 	public int getNumberOfFitbitActivities() {
 		return numberOfFitbitActivities;
 	}

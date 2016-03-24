@@ -35,12 +35,22 @@ public class HeartRateUI extends JDialog {
 	private APIData api;
 	private Boolean test;
 	private BaseDashBoard basedashboard;
+	
+	/**
+	 * Public constructor of HeartRateUI
+	 * @param data1
+	 * @param testOrNot
+	 */
 	public HeartRateUI(Data data1, boolean testOrNot) {
 		data = data1;
 		test = testOrNot;
 		initHeartRateUI();
 	}
 
+	/**
+	 * Method enables the JDialog to be referenced inside ActionListeners
+	 * @return the JDialog
+	 */
 	private JDialog getDialog() {
 		return this;
 	}
@@ -195,6 +205,8 @@ public class HeartRateUI extends JDialog {
 		layeredPane_1.add(textField_4, gbc_textField_4);
 		textField_4.setColumns(10);
 		
+		
+		//Sets the text based on whether or not in test mode
 		if (test == true) {
 			textField.setText(Integer.toString(data.getRestingHeartRate().getValue()));
 			textField_1.setText(Integer.toString(data.getOutOfRange().getValue()) + " mins");

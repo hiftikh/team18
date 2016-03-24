@@ -223,7 +223,7 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
-	private JFrame itself = new JFrame();
+	private JFrame itself = this;
 
 	private Data data;
 	private boolean testOrNot;
@@ -274,6 +274,12 @@ public class BaseDashBoardUI extends JFrame{
 		singleFirstBox.modifyString(2);
 		singleFirstBox.modifyString(3);
 		singleFirstBox.modifyString(4);
+		if (testOrNot == false) {
+			APIData api = (APIData) data;
+			if (api.isErrorConnection() == true) {
+				JOptionPane.showMessageDialog(this,"Could not establish conneciton with FitBit Server! Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
+			}
+		}
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -495,6 +501,12 @@ public class BaseDashBoardUI extends JFrame{
 							singleFirstBox.modifyString(2);
 							singleFirstBox.modifyString(3);
 							singleFirstBox.modifyString(4);
+							if (testOrNot == false) {
+								APIData api = (APIData) data;
+								if (api.isErrorConnection() == true) {
+									JOptionPane.showMessageDialog(itself,"Could not establish conneciton with FitBit Server! Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
+								}
+							}
 
 							dateDialog.dispose();
 						}

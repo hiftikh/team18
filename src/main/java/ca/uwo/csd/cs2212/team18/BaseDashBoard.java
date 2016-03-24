@@ -37,6 +37,9 @@ public class BaseDashBoard implements Serializable{
 	private static String curMonth = "";
 	private static String curDay = "";
 	
+	/*
+	 * Get the Current Date and Time variables
+	 */
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	Calendar cal = Calendar.getInstance();
 	String fullCurDate = dateFormat.format(cal.getTime());{
@@ -54,6 +57,10 @@ public class BaseDashBoard implements Serializable{
 	public BaseDashBoard() {
 	}	
 	
+	/**
+	 * Gets the variable that displays the current time and date
+	 * @return the current time and date
+	 */
 	public String getCurrentTimeAndDate() {
 		return fullCurDate;
 	}
@@ -148,12 +155,17 @@ public class BaseDashBoard implements Serializable{
 		return "";
 	}
 	
+	/**
+	 * Gets the date in api format
+	 * @return the Current Date in the api spcific format
+	 */
 	public static String getCurrentDate() {
 		curDate = curDate.concat(curYear);
 		curDate = curDate.concat("-");
 		curDate = curDate.concat(curMonth);
 		curDate = curDate.concat("-");
 		curDate = curDate.concat(curDay);
+		System.out.println(curDate);
 		return curDate;
 	}
 
@@ -228,8 +240,5 @@ public class BaseDashBoard implements Serializable{
 				closedTileNames.remove(i);
 			}
 		}
-	}
-	public void updateLastModified() {
-		
 	}
 }
