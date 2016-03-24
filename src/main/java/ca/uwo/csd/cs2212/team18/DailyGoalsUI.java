@@ -42,8 +42,15 @@ import java.awt.Point;
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * Class that displays the contents of daily goals component 
+ * including creating a goal, switching the date, and removing a goal
+ * @author Team 18
+ *
+ */
 public class DailyGoalsUI extends JDialog {
 	//Private variables 
+
 	/**
 	 * JPanel that contains the contents of the program
 	 */
@@ -58,7 +65,6 @@ public class DailyGoalsUI extends JDialog {
 	 * JtextField that displays goals information
 	 */
 	private JTextField txtReps;
-
 
 	/**
 	 * String to change the date to user's preference 
@@ -81,17 +87,17 @@ public class DailyGoalsUI extends JDialog {
 	private String day;
 
 	/**
-	 * Year value of the date
+	 * Fake year value of the date (Used for comparison)
 	 */
 	private String fYear;
 
 	/**
-	 * Month value of the date
+	 * Fake month value of the date (Used for comparison)
 	 */
 	private String fMonth;
 
 	/**
-	 * Day value of the date
+	 * Fake day value of the date (Used for comparison)
 	 */
 	private String fDay;
 
@@ -100,7 +106,7 @@ public class DailyGoalsUI extends JDialog {
 	static APIData notTest;
 
 	/**
-	 * Constructor to create the frame
+	 * Constructor to create the UI for Daily Goals
 	 * @param dat Data to be used
 	 * @param t Boolean to determine what type of data to use
 	 */
@@ -109,9 +115,9 @@ public class DailyGoalsUI extends JDialog {
 	}
 
 	/**
-	 * init method that creates the window
-	 * User has access to several features
-	 * Creating a goal, switching the date, and removing a goal
+	 * init method that creates the window 
+	 * User has access to several features 
+	 * Creating a goal, switching the date, and removing a goal 
 	 * the user is also able to view the goals they set on a particular day
 	 * @param data The Data to be used 
 	 * @param test Boolean used to determine whether to use test data
@@ -317,41 +323,41 @@ public class DailyGoalsUI extends JDialog {
 												JOptionPane.showMessageDialog(goals, "Enter a smaller measure","Input warning",JOptionPane.WARNING_MESSAGE);
 											}
 											else{
-											int m = Integer.parseInt(txtReps.getText());
-											
-											goal.setMeasure(m);
-											userMessage = goalll.add(goal);
+												int m = Integer.parseInt(txtReps.getText());
 
-											if(test == true){
-												text.setText(goalll.toString(year,month,day, dat));
-											}
+												goal.setMeasure(m);
+												userMessage = goalll.add(goal);
 
-											else{
-												text.setText(goalll.toString(year, month, day, notTest));
-											}
-
-											text.revalidate();
-											text.repaint();
-
-											if (userMessage.equals("")) {
-
-												if(goalll.valid(year, month, day)){
-													setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+												if(test == true){
+													text.setText(goalll.toString(year,month,day, dat));
 												}
 
 												else{
-													setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													text.setText(goalll.toString(year, month, day, notTest));
 												}
 
-												goals.dispose();
-											}
+												text.revalidate();
+												text.repaint();
 
-											else {
-												JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+												if (userMessage.equals("")) {
+
+													if(goalll.valid(year, month, day)){
+														setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+													}
+
+													else{
+														setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													}
+
+													goals.dispose();
+												}
+
+												else {
+													JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+												}
 											}
 										}
 									}
-								}
 								}
 							});
 						}

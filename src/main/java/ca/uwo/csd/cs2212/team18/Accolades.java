@@ -1,4 +1,11 @@
 package ca.uwo.csd.cs2212.team18;
+
+/**
+ * Accolades class used for determining which accolades have been met, 
+ * and which accolades have not been met. 
+ * @author Team 18
+ *
+ */
 public class Accolades {
 
 	/**
@@ -10,7 +17,7 @@ public class Accolades {
 
 
 	/**
-	 * Complete method that checks to see which accolades have been met.
+	 * Complete method that checks to see which accolades have been met. 
 	 * @param dat The Data to be used for the checks
 	 * @param test Boolean value that determines whether test data or dat data is used
 	 * @return A Boolean array which has elements set to true if the goal was met, elements set to false otherwise
