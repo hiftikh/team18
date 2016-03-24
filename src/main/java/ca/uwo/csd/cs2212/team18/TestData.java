@@ -1,16 +1,30 @@
 package ca.uwo.csd.cs2212.team18;
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+/**
+ * The purpose of this class is to create objects that will access the
+ * the text file Data.txt and store the various values for each of the object's attributes
+ * @author Team 18 (Sam Ali-mirsalari)
+ *
+ */
 
 public class TestData extends Data{
 
+	/**
+	 * Constructor for the Test Data object
+	 */
 	public TestData(){
 		load();
 	}
 	
+	/**
+	 * private method that will load the data.txt file and add it's values to the
+	 * appropriate attributes
+	 */
 	private void load(){
 		BufferedReader bR = null;
 		try {
@@ -48,14 +62,12 @@ public class TestData extends Data{
 		}
 		// Handles exception if the file is not found
 		catch(FileNotFoundException ex) {
-			System.out.println(
-					"Unable to open file\n"+ex.getMessage());
+
 			System.exit(1);
 		}
 		// Handles exception if the file's text formating is incorrect
 		catch(IOException ex) {
-			System.out.println(
-					"Error reading/write file\n"+ex.getMessage());  
+  
 			System.exit(1);
 		}
 		finally{
@@ -65,8 +77,7 @@ public class TestData extends Data{
 					bR.close(); 
 			}
 			catch(Exception e){
-				System.out.println(
-						"Error closing file\n"+e.getMessage()); 
+
 			}
 		}
 	}

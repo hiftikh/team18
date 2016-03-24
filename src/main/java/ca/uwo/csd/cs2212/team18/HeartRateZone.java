@@ -1,5 +1,12 @@
 package ca.uwo.csd.cs2212.team18;
 
+/**
+ * Extends the activity class for 
+ * HeartRateZone objects by adding descriptions,
+ * minutes, and minimum and maximum values
+ * @author Team 18 (Sam Ali-mirsalari)
+ *
+ */
 public class HeartRateZone extends Activity{
 
 	/* private variable */

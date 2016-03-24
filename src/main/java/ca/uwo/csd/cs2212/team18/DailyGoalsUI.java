@@ -50,7 +50,7 @@ import javax.swing.ScrollPaneConstants;
  */
 public class DailyGoalsUI extends JDialog {
 	//Private variables 
-	
+
 	/**
 	 * JPanel that contains the contents of the program
 	 */
@@ -323,41 +323,41 @@ public class DailyGoalsUI extends JDialog {
 												JOptionPane.showMessageDialog(goals, "Enter a smaller measure","Input warning",JOptionPane.WARNING_MESSAGE);
 											}
 											else{
-											int m = Integer.parseInt(txtReps.getText());
-											
-											goal.setMeasure(m);
-											userMessage = goalll.add(goal);
+												int m = Integer.parseInt(txtReps.getText());
 
-											if(test == true){
-												text.setText(goalll.toString(year,month,day, dat));
-											}
+												goal.setMeasure(m);
+												userMessage = goalll.add(goal);
 
-											else{
-												text.setText(goalll.toString(year, month, day, notTest));
-											}
-
-											text.revalidate();
-											text.repaint();
-
-											if (userMessage.equals("")) {
-
-												if(goalll.valid(year, month, day)){
-													setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+												if(test == true){
+													text.setText(goalll.toString(year,month,day, dat));
 												}
 
 												else{
-													setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													text.setText(goalll.toString(year, month, day, notTest));
 												}
 
-												goals.dispose();
-											}
+												text.revalidate();
+												text.repaint();
 
-											else {
-												JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+												if (userMessage.equals("")) {
+
+													if(goalll.valid(year, month, day)){
+														setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+													}
+
+													else{
+														setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+													}
+
+													goals.dispose();
+												}
+
+												else {
+													JOptionPane.showMessageDialog(goals,userMessage,"Input warning",JOptionPane.WARNING_MESSAGE);
+												}
 											}
 										}
 									}
-								}
 								}
 							});
 						}
@@ -664,6 +664,7 @@ public class DailyGoalsUI extends JDialog {
 	 * @param test Boolean value to determine what type of data to use
 	 * @return If test is true, then TestData; otherwise, APIData
 	 */
+
 	private Data test(Data dat, Boolean test){
 
 		// If test is true then use TestData
