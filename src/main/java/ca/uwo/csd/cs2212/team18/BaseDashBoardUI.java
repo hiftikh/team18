@@ -1,4 +1,4 @@
-package ca.uwo.csd.cs2212.team18;
+package main.java.ca.uwo.csd.cs2212.team18;
 
 //Import 
 import java.util.ArrayList;
@@ -75,13 +75,14 @@ public class BaseDashBoardUI extends JFrame{
 	BaseDashBoard basedashboard = new BaseDashBoard();
 	Font font = new Font("Arial", Font.PLAIN, 18);
 	Font font2 = new Font("Arial", Font.BOLD, 48);
+	Font font3 = new Font("Arial", Font.BOLD, 12);
+	
 	Color blueColour = Color.decode("#45C2C5");
 
 	JLabel logoImage = new JLabel(new ImageIcon("src/main/resources/images/FitByte Logo.png"));
 	JLabel awardA[] = new JLabel[20];
 	JLabel awardD[] = new JLabel[20];
 	
-
 	{
 		awardA[0] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/burj.png"));
 		awardA[1] =  new JLabel(new ImageIcon("src/main/resources/images/awards/Activate/10_days.png"));		
@@ -124,7 +125,6 @@ public class BaseDashBoardUI extends JFrame{
 		awardA[17].setToolTipText("<html><body>Those shoes must be getting pretty comfy (1000 steps).</body></html>");
 		awardA[18].setToolTipText("<html><body>You visited friends at Fanshawe<br> and then walked to Western for class (6.2 km).</body></html>");
 		awardA[19].setToolTipText("<html><body>Masonville was not good enough for you, <br>so you decided to walk 12 km to go to White Oaks(12.2 km).</body></html>");
-
 	}
 	
 	{
@@ -195,6 +195,8 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel sidePanelLogo = new JPanel();
 	JPanel sidePanelUser = new JPanel();
 	JLabel sidePanelUserText = new JLabel("Hello Beth");
+	JLabel sidePanelUserTextRefresh = new JLabel("Last Updated:");
+	JLabel updateString = new JLabel();
 	JPanel sidePanelAward = new JPanel();
 	JLabel sidePanelAwardText = new JLabel("Awards");
 	JPanel sidePanelAwardBox = new JPanel(new GridLayout());
@@ -203,7 +205,7 @@ public class BaseDashBoardUI extends JFrame{
 	JButton dailyGoalsButton = new JButton("Daily Goals");
 	JButton heartRateButton = new JButton("Heart Rate");
 	JButton dateButton = new JButton("Date");
-	JButton resetButton = new JButton("Reset");
+	JButton refreshButton = new JButton("Refresh");
 	JPanel buttonPanel = new JPanel();
 	JPanel datePanel = new JPanel();
 
@@ -223,7 +225,7 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
-	private JFrame itself = this;
+	private JFrame itself = new JFrame();
 
 	private Data data;
 	private boolean testOrNot;
@@ -274,12 +276,6 @@ public class BaseDashBoardUI extends JFrame{
 		singleFirstBox.modifyString(2);
 		singleFirstBox.modifyString(3);
 		singleFirstBox.modifyString(4);
-		if (testOrNot == false) {
-			APIData api = (APIData) data;
-			if (api.isErrorConnection() == true) {
-				JOptionPane.showMessageDialog(this,"Could not establish conneciton with FitBit Server! Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
-			}
-		}
 
 		/*
 		 * When user exits the app, app will try to create a new files that saves the configuration that was set by the user
@@ -308,7 +304,13 @@ public class BaseDashBoardUI extends JFrame{
 		// Setup how side panel looks like
 		sidePanelUserText.setFont(font);
 		sidePanelUserText.setForeground(blueColour);
+		sidePanelUserText.setBounds(75,0,250,40);
+		sidePanelUserTextRefresh.setFont(font3);
+		sidePanelUserTextRefresh.setForeground(blueColour);
+		sidePanelUserTextRefresh.setBounds(5,120,250,40);
+		sidePanelUser.setLayout(null);
 		sidePanelUser.add(sidePanelUserText);
+		sidePanelUser.add(sidePanelUserTextRefresh);
 		sidePanelUser.setBounds(this.getWidth()-250, 81, 250, 150);
 		sidePanelUser.setBackground(Color.WHITE);
 		sidePanelUser.setVisible(true);
@@ -415,16 +417,16 @@ public class BaseDashBoardUI extends JFrame{
 		dateButton.setForeground(blueColour);
 		dateButton.setVisible(true);
 		
-		resetButton.setFont(font);
-		resetButton.setForeground(blueColour);
-		resetButton.setVisible(true);
+		refreshButton.setFont(font);
+		refreshButton.setForeground(blueColour);
+		refreshButton.setVisible(true);
 		
 		datePanel.setVisible(true);
 		datePanel.setBounds(-20,30,this.getWidth()-250,40);
 		datePanel.setBackground(blueColour);
 		
 		datePanel.add(dateButton);
-		datePanel.add(resetButton);
+		datePanel.add(refreshButton);
 
 		// Check what happens when date button is pressed
 		dateButton.addActionListener(new ActionListener() {
@@ -501,12 +503,6 @@ public class BaseDashBoardUI extends JFrame{
 							singleFirstBox.modifyString(2);
 							singleFirstBox.modifyString(3);
 							singleFirstBox.modifyString(4);
-							if (testOrNot == false) {
-								APIData api = (APIData) data;
-								if (api.isErrorConnection() == true) {
-									JOptionPane.showMessageDialog(itself,"Could not establish conneciton with FitBit Server! Try again later.","Input warning",JOptionPane.WARNING_MESSAGE);
-								}
-							}
 
 							dateDialog.dispose();
 						}

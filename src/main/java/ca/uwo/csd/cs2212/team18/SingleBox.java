@@ -1,4 +1,4 @@
-package ca.uwo.csd.cs2212.team18;
+package main.java.ca.uwo.csd.cs2212.team18;
 
 // Import needed files
 import java.awt.Color;
@@ -27,9 +27,8 @@ public class SingleBox{
 	// Initialize fonts and color
 	Font font = new Font("Arial", Font.PLAIN, 18);
 	Font font2 = new Font("Arial", Font.BOLD, 12);
-	Font font3 = new Font("Arial", Font.BOLD, 14);
+	Font font3 = new Font("Arial", Font.BOLD, 13);
 	Font apiFont = new Font("Arial", Font.BOLD, 34);
-	Font plusFont = new Font("Arial", Font.BOLD, 48);
 	Color blueColour = Color.decode("#45C2C5");
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -64,7 +63,6 @@ public class SingleBox{
 	static JLabel stepBestString = new JLabel();
 	static JLabel stepTotalString = new JLabel();
 
-
 	// Constructor
 	public SingleBox(){
 	} 
@@ -75,8 +73,6 @@ public class SingleBox{
 	/**
 	 * Set new string for activities
 	 */
-
-	
 	static int caloriesOut;
 	static int floorDailyOut;
 	static int floorBestOut;
@@ -89,14 +85,14 @@ public class SingleBox{
 	static int distanceDailyOut;
 	static int distanceBestOut;
 	static int distanceTotalOut;
-	
+
 	/**
 	 * Set new string for activities
 	 */
 	static Data apiData;
 	static APIData notTest;
 	private static boolean test;
-	
+
 	public void setTestOrNot(boolean testorNot) {
 		test = testorNot;
 	}
@@ -107,75 +103,75 @@ public class SingleBox{
 		if (test == true) {
 		}
 		else {
-		notTest = (APIData) apiData; 
-		notTest.refresh(apiInput);
+			notTest = (APIData) apiData; 
+			notTest.refresh(apiInput);
 		}
 	}
-	
+
 	public void updateTilesVars() {
 		if (test == true) {
-		caloriesOut = (int) apiData.getCaloriesOut().getValue();
-		floorDailyOut = (int) apiData.getFloors().getValue();
-		floorBestOut = (int) apiData.getBestFloors().getValue();
-		floorTotalOut = (int) apiData.getTotalFloors().getValue();
-		stepDailyOut = (int) apiData.getSteps().getValue();
-		stepBestOut = (int) apiData.getBestSteps().getValue();
-		stepTotalOut = (int) apiData.getTotalSteps().getValue();
-		activeOut = (int) apiData.getActMin().getValue();
-		sedOut = (int) apiData.getSedMin().getValue();
-		distanceDailyOut = (int) apiData.getDistance().getValue();
-		distanceBestOut = (int) apiData.getBestDistance().getValue();
-		distanceTotalOut = (int) apiData.getTotalDistance().getValue();
+			caloriesOut = (int) apiData.getCaloriesOut().getValue();
+			floorDailyOut = (int) apiData.getFloors().getValue();
+			floorBestOut = (int) apiData.getBestFloors().getValue();
+			floorTotalOut = (int) apiData.getTotalFloors().getValue();
+			stepDailyOut = (int) apiData.getSteps().getValue();
+			stepBestOut = (int) apiData.getBestSteps().getValue();
+			stepTotalOut = (int) apiData.getTotalSteps().getValue();
+			activeOut = (int) apiData.getActMin().getValue();
+			sedOut = (int) apiData.getSedMin().getValue();
+			distanceDailyOut = (int) apiData.getDistance().getValue();
+			distanceBestOut = (int) apiData.getBestDistance().getValue();
+			distanceTotalOut = (int) apiData.getTotalDistance().getValue();
 		}
 		else {
-		caloriesOut = (int) notTest.getCaloriesOut().getValue();
-		floorDailyOut = (int) notTest.getFloors().getValue();
-		floorBestOut = (int) notTest.getBestFloors().getValue();
-		floorTotalOut = (int) notTest.getTotalFloors().getValue();
-		stepDailyOut = (int) notTest.getSteps().getValue();
-		stepBestOut = (int) notTest.getBestSteps().getValue();
-		stepTotalOut = (int) notTest.getTotalSteps().getValue();
-		activeOut = (int) notTest.getActMin().getValue();
-		sedOut = (int) notTest.getSedMin().getValue();
-		distanceDailyOut = (int) notTest.getDistance().getValue();
-		distanceBestOut = (int) notTest.getBestDistance().getValue();
-		distanceTotalOut = (int) notTest.getTotalDistance().getValue();
+			caloriesOut = (int) notTest.getCaloriesOut().getValue();
+			floorDailyOut = (int) notTest.getFloors().getValue();
+			floorBestOut = (int) notTest.getBestFloors().getValue();
+			floorTotalOut = (int) notTest.getTotalFloors().getValue();
+			stepDailyOut = (int) notTest.getSteps().getValue();
+			stepBestOut = (int) notTest.getBestSteps().getValue();
+			stepTotalOut = (int) notTest.getTotalSteps().getValue();
+			activeOut = (int) notTest.getActMin().getValue();
+			sedOut = (int) notTest.getSedMin().getValue();
+			distanceDailyOut = (int) notTest.getDistance().getValue();
+			distanceBestOut = (int) notTest.getBestDistance().getValue();
+			distanceTotalOut = (int) notTest.getTotalDistance().getValue();
+		}
 	}
-	}
-	
-	
+
+
 	/**
 	 *  Method used to produce API Data
 	 */
 	public void modifyString(int kindBox) {
 		if (kindBox == 0) {
-		calString.setText(String.valueOf(caloriesOut));
+			calString.setText(String.valueOf(caloriesOut));
 		}
-		
+
 		if (kindBox == 1) {
-		
-		floorDailyString.setText(String.valueOf(floorDailyOut));
-		floorBestString.setText(String.valueOf(floorBestOut));
-		floorTotalString.setText(String.valueOf(floorTotalOut));
+
+			floorDailyString.setText(String.valueOf(floorDailyOut));
+			floorBestString.setText(String.valueOf(floorBestOut));
+			floorTotalString.setText(String.valueOf(floorTotalOut));
 		}
-		
+
 		if (kindBox == 2) {		
-		stepDailyString.setText(String.valueOf(stepDailyOut));
-		stepBestString.setText(String.valueOf(stepBestOut));
-		stepTotalString.setText(String.valueOf(stepTotalOut));
+			stepDailyString.setText(String.valueOf(stepDailyOut));
+			stepBestString.setText(String.valueOf(stepBestOut));
+			stepTotalString.setText(String.valueOf(stepTotalOut));
 		}
-		
+
 		if (kindBox == 3) {
-		activeString.setText(String.valueOf(activeOut));
-		sedString.setText(String.valueOf(sedOut));
+			activeString.setText(String.valueOf(activeOut));
+			sedString.setText(String.valueOf(sedOut));
 		}
 
 		if (kindBox == 4) {
-		distanceDailyString.setText(String.valueOf(distanceDailyOut));
-		distanceBestString.setText(String.valueOf(distanceBestOut));
-		distanceTotalString.setText(String.valueOf(distanceTotalOut));
+			distanceDailyString.setText(String.valueOf(distanceDailyOut));
+			distanceBestString.setText(String.valueOf(distanceBestOut));
+			distanceTotalString.setText(String.valueOf(distanceTotalOut));
 		}
-		
+
 	}
 	/**
 	 * Method will create a box with Calories information
@@ -193,17 +189,17 @@ public class SingleBox{
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
-		xSignButton.setBounds(1,1,30,30);
+		xSignButton.setBounds(1,1,20,20);
 
 		// Setup how label will look like
-		nameLabel.setFont(font2);
+		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
-		nameLabel.setBounds(30,-8,500,50);
+		nameLabel.setBounds(25,-12,500,50);
 
 		// Setup how calString will look like
 		calString.setFont(apiFont);
 		calString.setForeground(blueColour);
-		calString.setBounds(10,50,500,50);
+		calString.setBounds(40,70,500,50);
 
 		// Setup how pane box will look like
 		paneName.setLayout(null);
@@ -244,14 +240,14 @@ public class SingleBox{
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
-		xSignButton.setBounds(1,1,30,30);
+		xSignButton.setBounds(1,1,20,20);
 
-		nameLabel.setFont(font2);
+		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
-		nameLabel.setBounds(30,-8,500,50);
+		nameLabel.setBounds(25,-12,500,50);
 
 		// Setup how Active label looks like
-		nameLabelA.setFont(font3);
+		nameLabelA.setFont(font2);
 		nameLabelA.setForeground(blueColour);
 		nameLabelA.setBounds(10,30,500,50);
 
@@ -261,7 +257,7 @@ public class SingleBox{
 		activeString.setBounds(10,52,500,50);
 
 		// Setup how Sedentary looks like
-		nameLabelS.setFont(font3);
+		nameLabelS.setFont(font2);
 		nameLabelS.setForeground(blueColour);
 		nameLabelS.setBounds(10,72,500,50);
 
@@ -299,7 +295,7 @@ public class SingleBox{
 	public JPanel createDistanceBox() {
 
 		// Initilize Variables
-		JLabel nameLabel = new JLabel("Distance");
+		JLabel nameLabel = new JLabel("Distance(km)");
 		JButton xSignButton = new JButton("x");
 		final JPanel paneName = new JPanel();
 		JLabel bestDay = new JLabel("BEST DAY:");
@@ -310,13 +306,13 @@ public class SingleBox{
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
-		xSignButton.setBounds(1,1,30,30);
+		xSignButton.setBounds(1,1,20,20);
 
-		nameLabel.setFont(font2);
+		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
-		nameLabel.setBounds(30,-8,500,50);
+		nameLabel.setBounds(25,-12,500,50);
 
-		daily.setFont(font3);
+		daily.setFont(font2);
 		daily.setLayout(null);
 		daily.setForeground(blueColour);
 		daily.setBounds(10,13,100,50);
@@ -326,7 +322,7 @@ public class SingleBox{
 		distanceDailyString.setForeground(blueColour);
 		distanceDailyString.setBounds(10,33,500,50);
 
-		bestDay.setFont(font3);
+		bestDay.setFont(font2);
 		bestDay.setLayout(null);
 		bestDay.setForeground(blueColour);
 		bestDay.setBounds(10,55,100,50);
@@ -336,7 +332,7 @@ public class SingleBox{
 		distanceBestString.setForeground(blueColour);
 		distanceBestString.setBounds(10,75,500,50);
 
-		lifeTime.setFont(font3);
+		lifeTime.setFont(font2);
 		lifeTime.setLayout(null);
 		lifeTime.setForeground(blueColour);
 		lifeTime.setBounds(10,97,100,50);
@@ -386,13 +382,13 @@ public class SingleBox{
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
-		xSignButton.setBounds(1,1,30,30);
+		xSignButton.setBounds(1,1,20,20);
 
-		nameLabel.setFont(font2);
+		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
-		nameLabel.setBounds(30,-8,500,50);
+		nameLabel.setBounds(25,-12,500,50);
 
-		daily.setFont(font3);
+		daily.setFont(font2);
 		daily.setLayout(null);
 		daily.setForeground(blueColour);
 		daily.setBounds(10,13,100,50);
@@ -402,7 +398,7 @@ public class SingleBox{
 		floorDailyString.setForeground(blueColour);
 		floorDailyString.setBounds(10,33,500,50);
 
-		bestDay.setFont(font3);
+		bestDay.setFont(font2);
 		bestDay.setLayout(null);
 		bestDay.setForeground(blueColour);
 		bestDay.setBounds(10,55,100,50);
@@ -412,7 +408,7 @@ public class SingleBox{
 		floorBestString.setForeground(blueColour);
 		floorBestString.setBounds(10,75,500,50);
 
-		lifeTime.setFont(font3);
+		lifeTime.setFont(font2);
 		lifeTime.setLayout(null);
 		lifeTime.setForeground(blueColour);
 		lifeTime.setBounds(10,97,100,50);
@@ -462,13 +458,13 @@ public class SingleBox{
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
 		xSignButton.setBorder(null);
-		xSignButton.setBounds(1,1,30,30);
+		xSignButton.setBounds(1,1,20,20);
 
-		nameLabel.setFont(font2);
+		nameLabel.setFont(font3);
 		nameLabel.setForeground(blueColour);
-		nameLabel.setBounds(30,-8,500,50);
+		nameLabel.setBounds(25,-12,500,50);
 
-		daily.setFont(font3);
+		daily.setFont(font2);
 		daily.setLayout(null);
 		daily.setForeground(blueColour);
 		daily.setBounds(10,13,100,50);
@@ -478,7 +474,7 @@ public class SingleBox{
 		stepDailyString.setForeground(blueColour);
 		stepDailyString.setBounds(10,33,500,50);
 
-		bestDay.setFont(font3);
+		bestDay.setFont(font2);
 		bestDay.setLayout(null);
 		bestDay.setForeground(blueColour);
 		bestDay.setBounds(10,55,100,50);
@@ -488,7 +484,7 @@ public class SingleBox{
 		stepBestString.setForeground(blueColour);
 		stepBestString.setBounds(10,75,500,50);
 
-		lifeTime.setFont(font3);
+		lifeTime.setFont(font2);
 		lifeTime.setLayout(null);
 		lifeTime.setForeground(blueColour);
 		lifeTime.setBounds(10,97,100,50);
