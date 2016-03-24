@@ -96,8 +96,11 @@ public class SingleBox{
 	public void setTestOrNot(boolean testorNot) {
 		test = testorNot;
 	}
-	public void passAPI(Data api) {
+	public void passAPI(Data api, boolean testorNot) {
 		apiData = api;
+		if (testorNot == false) {
+			notTest = (APIData) apiData;
+		}
 	}
 	public void updateAPI(String dateInput) {
 		if (test == true) {

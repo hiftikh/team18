@@ -225,7 +225,8 @@ public class BaseDashBoardUI extends JFrame{
 	JPanel emptyBox = new JPanel();
 	JButton plusSign = new JButton("+");
 
-
+	private JFrame itself = this;
+	
 	private Data data;
 	private boolean testOrNot;
 	private APIData api;
@@ -269,7 +270,8 @@ public class BaseDashBoardUI extends JFrame{
 		setResizable(false);
 		getContentPane().setLayout(null);
 		
-		singleFirstBox.passAPI(data);
+		singleFirstBox.passAPI(data,testOrNot);
+			
 		singleFirstBox.updateTilesVars();
 		singleFirstBox.modifyString(0);
 		singleFirstBox.modifyString(1);
@@ -425,7 +427,7 @@ public class BaseDashBoardUI extends JFrame{
 				if (testOrNot == false) {
 					api = (APIData) data;
 					if (api.isErrorConnection() == true) {
-						
+						JOptionPane.showMessageDialog(itself,"Could not establish connection with FitBit Server! Try again later","Connection warning",JOptionPane.WARNING_MESSAGE);
 					}
 					else {
 						singleFirstBox.updateAPI(basedashboard.getSelectedDate());
@@ -435,7 +437,7 @@ public class BaseDashBoardUI extends JFrame{
 						singleFirstBox.modifyString(2);
 						singleFirstBox.modifyString(3);
 						singleFirstBox.modifyString(4);
-					}					
+					}
 				}				
 				sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 			}
@@ -515,7 +517,6 @@ public class BaseDashBoardUI extends JFrame{
 					public void actionPerformed(ActionEvent event) {
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
-
 							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
 							singleFirstBox.updateTilesVars();
 							singleFirstBox.modifyString(0);
