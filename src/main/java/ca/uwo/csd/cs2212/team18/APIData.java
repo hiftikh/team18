@@ -70,7 +70,7 @@ public class APIData extends Data{
 	 * @param date The String parameter date is used to choose the date that the APIData class will
 	 * access from Fitbit API servers in order to fill the object's attributes
 	 */
-	public APIData(String date) throws OAuthConnectionException{
+	public APIData(String date){
 		readFiles();
 
 		//  Create the Fitbit service - you will ask this to ask for access/refresh pairs
@@ -101,7 +101,8 @@ public class APIData extends Data{
 
 	private void createRequests(String date){
 
-		try{// Builds the strings to request for specific information from the API
+		try {
+			// Builds the strings to request for specific information from the API
 			requestUrlActivities = REQUEST_URL_PREFIX + "activities/date/" + date + ".json";
 			requestUrlHeartRate = REQUEST_URL_PREFIX + "activities/heart/date/" + date + "/1d.json";
 			requestUrlBestLife = REQUEST_URL_PREFIX + "activities.json";
@@ -115,7 +116,6 @@ public class APIData extends Data{
 			setHeartRate();
 			setRecentActivity();
 			save();
-
 		}catch(OAuthConnectionException e){
 			connectionError();
 		}
@@ -332,6 +332,7 @@ public class APIData extends Data{
 		 */
 		switch(statusCode){
 		case 200:
+			errorConnection = false;
 			System.out.println("Success");
 			break;
 		case 400:
@@ -350,6 +351,7 @@ public class APIData extends Data{
 			errorConnection = true;
 			break;
 		}
+
 	}
 
 
@@ -516,7 +518,7 @@ public class APIData extends Data{
 	 * @return The current time in the format of HH:mm:ss in order to indicate
 	 * the time that a refresh for new information was requested
 	 */
-	protected String refresh(String date){
+	protected String refresh(String date) {
 
 		// Calls the methods that will pull information and store them in the
 		// appropriate attributes
@@ -530,6 +532,7 @@ public class APIData extends Data{
 	}
 	public static void main(String args[]){
 		APIData api = new APIData("2016-03-23");
+		api.refresh("2016-03-23");
 		System.out.println(api.isErrorConnection());
 	}
 }
