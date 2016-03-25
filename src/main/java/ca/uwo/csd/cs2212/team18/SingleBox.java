@@ -13,7 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-// Create SingleBox Class
+/**
+ * Class that creates various tiles that are on the basedashboard
+ * @author Team18
+ *
+ */
 public class SingleBox{
 
 	// Initialize fonts and color
@@ -99,6 +103,9 @@ public class SingleBox{
 			notTest.refresh(apiInput);
 		}
 	}
+	public Data returnAPI() {
+		return notTest;
+	}
 
 	// Method to update the API data
 	public void updateTilesVars() {
@@ -175,7 +182,7 @@ public class SingleBox{
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
-		xSignButton.setBorder(null);
+		//xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
 		// Setup how label will look like
@@ -226,7 +233,7 @@ public class SingleBox{
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
-		xSignButton.setBorder(null);
+		//xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
 		nameLabel.setFont(font3);
@@ -296,7 +303,7 @@ public class SingleBox{
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
-		xSignButton.setBorder(null);
+		//xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
 		// Setup the label
@@ -377,7 +384,7 @@ public class SingleBox{
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
-		xSignButton.setBorder(null);
+		//xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
 		// Setup the labels
@@ -458,7 +465,7 @@ public class SingleBox{
 		xSignButton.setFont(font);
 		xSignButton.setLayout(null);
 		xSignButton.setForeground(blueColour);
-		xSignButton.setBorder(null);
+		//xSignButton.setBorder(null);
 		xSignButton.setBounds(1,1,20,20);
 
 		// Setup the labels

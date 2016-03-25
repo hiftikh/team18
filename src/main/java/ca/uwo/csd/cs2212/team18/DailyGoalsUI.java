@@ -2,9 +2,11 @@ package ca.uwo.csd.cs2212.team18;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -24,6 +26,7 @@ import javax.swing.JDialog;
 import javax.swing.AbstractListModel;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +42,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Stack;
 import java.awt.Point;
+
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
 
@@ -124,7 +128,7 @@ public class DailyGoalsUI extends JDialog {
 	 */
 	public void initDailyGoalsUI(final Data data, final Boolean test){
 		final Data dat = this.test(data, test);
-
+		setTitle("Daily Goals");
 		if(test == false){
 			notTest = (APIData) dat;
 		}
@@ -145,6 +149,12 @@ public class DailyGoalsUI extends JDialog {
 			}
 		});
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
+		//Modal
+		getDialog().setModal(true);
+		getDialog().setMinimumSize(new Dimension(419,235));
+		getDialog().setResizable(false);
+		
 
 		setBounds(100, 100, 419, 235);
 		contentPane = new JPanel();
@@ -192,13 +202,22 @@ public class DailyGoalsUI extends JDialog {
 		btnCreateAGoal.setBounds(25, 155, 117, 29);
 		layeredPane.add(btnCreateAGoal);
 		btnCreateAGoal.setVisible(true);
+		
+		//Display in the center
+		getDialog().setLocationRelativeTo(null);
 
 		btnCreateAGoal.addActionListener(new ActionListener(){
 	
 			public void actionPerformed(ActionEvent evt){
 
 				final JDialog goals = new JDialog();
-				goals.setVisible(true);
+				
+				//Modal
+				goals.setModal(true);
+				goals.setMinimumSize(new Dimension(350, 286));
+				
+				
+				//goals.setVisible(true);
 				goals.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				goals.setBounds(100, 100, 350, 286);
 
@@ -387,6 +406,10 @@ public class DailyGoalsUI extends JDialog {
 						}
 					}
 				}
+				
+				//Display in the center
+				goals.setLocationRelativeTo(null);
+				goals.setVisible(true);
 			}
 
 			private Object dispose() {
@@ -399,10 +422,18 @@ public class DailyGoalsUI extends JDialog {
 		btnSwitchDate.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent evt){
-				final JFrame goals2 = new JFrame();
-				goals2.setVisible(true);
+				final JDialog goals2 = new JDialog();
+				//goals2.setVisible(true);
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				goals2.setBounds(100, 100, 442, 237);
+				
+				//Modal
+				goals2.setModal(true);
+				goals2.setMinimumSize(new Dimension(442, 237));
+				goals2.setResizable(false);
+				
+				//Display in the center
+				goals2.setLocationRelativeTo(null);
 
 				JPanel contentPanel = new JPanel();
 				getContentPane().setLayout(new BorderLayout());
@@ -459,6 +490,14 @@ public class DailyGoalsUI extends JDialog {
 
 				JButton btnOk = new JButton("OK");
 				layeredPane_3.add(btnOk);
+				
+				JButton exitDate = new JButton("Exit");
+				exitDate.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent event) {
+						goals2.dispose();
+					}
+				});
+				layeredPane_3.add(exitDate);
 
 				btnOk.setVisible(true);
 				btnOk.addActionListener(new ActionListener(){
@@ -524,6 +563,9 @@ public class DailyGoalsUI extends JDialog {
 						text.repaint();
 					}
 				});
+				
+				//set visible
+				goals2.setVisible(true);
 			}
 		});
 
@@ -536,9 +578,17 @@ public class DailyGoalsUI extends JDialog {
 
 			public void actionPerformed(ActionEvent evt){
 				final JDialog goals3 = new JDialog();
-				goals3.setVisible(true);
+				//goals3.setVisible(true);
 				goals3.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				goals3.setBounds(100, 100, 199, 179);
+				
+				//Modal
+				goals3.setModal(true);
+				goals3.setMinimumSize(new Dimension(199, 179));
+				goals3.setResizable(false);
+				
+				//Display in the center
+				goals3.setLocationRelativeTo(null);
 
 				JPanel contentPanel = new JPanel();
 				getContentPane().setLayout(new BorderLayout());
@@ -647,6 +697,9 @@ public class DailyGoalsUI extends JDialog {
 						});
 					}
 				}
+				
+				//set visible
+				goals3.setVisible(true);
 			}});
 		JScrollPane jScroll = new JScrollPane(text);
 		jScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -654,6 +707,11 @@ public class DailyGoalsUI extends JDialog {
 		layeredPane.add(jScroll);
 		jScroll.setPreferredSize(new Dimension(60,60));
 
+	}
+
+	private Dialog getDialog() {
+		// TODO Auto-generated method stub
+		return this;
 	}
 
 	/**
