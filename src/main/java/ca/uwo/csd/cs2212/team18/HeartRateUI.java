@@ -1,22 +1,36 @@
 package ca.uwo.csd.cs2212.team18;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLayeredPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Insets;
+
 import javax.swing.JTextField;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
+
+/**
+ * Creates the HeartRateUI
+ * @author Team18
+ *
+ */
 
 public class HeartRateUI extends JDialog {
 	Color blueColour = Color.decode("#45C2C5");
@@ -60,6 +74,12 @@ public class HeartRateUI extends JDialog {
 	public void initHeartRateUI() {
 		setTitle("Heart Rate Zone");
 		setBounds(100, 100, 450, 355);
+		
+		//Modal
+		getDialog().setModal(true);
+		getDialog().setMinimumSize(new Dimension(450, 355));
+		getDialog().setResizable(false);
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(blueColour);
 		
@@ -215,14 +235,17 @@ public class HeartRateUI extends JDialog {
 			textField_4.setText(Integer.toString(data.getPeak().getValue()) + " mins");
 		}
 		else {
-			api = (APIData) data; 
-			api.refresh(basedashboard.getCurrentDate());
-			
-			textField.setText(Integer.toString(api.getRestingHeartRate().getValue()));
-			textField_1.setText(Integer.toString(api.getOutOfRange().getValue()) + " mins");
-			textField_2.setText(Integer.toString(api.getFatBurn().getValue()) + " mins");
-			textField_3.setText(Integer.toString(api.getCardio().getValue()) + " mins");
-			textField_4.setText(Integer.toString(api.getPeak().getValue()) + " mins");
+			api = (APIData) data; 			
+			if (api.isErrorConnection() == true) {
+				JOptionPane.showMessageDialog(getDialog(),"Could not establish connection with FitBit Server! Try again later","Connection warning",JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				textField.setText(Integer.toString(api.getRestingHeartRate().getValue()));
+				textField_1.setText(Integer.toString(api.getOutOfRange().getValue()) + " mins");
+				textField_2.setText(Integer.toString(api.getFatBurn().getValue()) + " mins");
+				textField_3.setText(Integer.toString(api.getCardio().getValue()) + " mins");
+				textField_4.setText(Integer.toString(api.getPeak().getValue()) + " mins");
+			}
 		}
 		
 		JButton btnNewButton = new JButton("Exit");
@@ -232,5 +255,9 @@ public class HeartRateUI extends JDialog {
 			}
 		});
 		layeredPane.add(btnNewButton);
+		
+		//Display in the center
+		getDialog().setLocationRelativeTo(null);
+		getDialog().setVisible(false);
 	}
 }

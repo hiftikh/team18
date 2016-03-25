@@ -6,12 +6,23 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+/**
+ * Class that handles all the text that the FitCalcUI2 displays
+ * @author Team18
+ *
+ */
 
 public class FitCalcDisplayActivities {
 
 	
 	
-	
+	/**
+	 * When given certain parameters, creates all the appropriate fields for the FitCalcUI2
+	 * @param fitCalculator
+	 * @param defaultActivities
+	 * @param numberOfActivity
+	 * @return Textfields and Labels that are on the FitCalcUi2
+	 */
 	public static JPanel createActivity(FitCalc fitCalculator, boolean defaultActivities, int numberOfActivity) {
 		FitCalc fitCalc = fitCalculator;
 		String[][] displayArray = fitCalc.getDisplayStrings(defaultActivities);

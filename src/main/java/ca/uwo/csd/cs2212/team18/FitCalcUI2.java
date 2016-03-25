@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team18;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -28,9 +29,14 @@ import java.awt.Insets;
 import javax.swing.JLayeredPane;
 
 
+
 import java.awt.Color;
 import java.awt.CardLayout;
-
+/**
+ * Creates the UI for the second window of FitCalc
+ * @author Team18
+ *
+ */
 
 //UI class for the second window of the FitCalc
 public class FitCalcUI2 extends JDialog {
@@ -87,6 +93,11 @@ public class FitCalcUI2 extends JDialog {
 		setTitle("FitCalc Results");
 		setResizable(false);
 		setBounds(100, 100, 984, 425);
+		
+		//Modal
+		getDialog().setModal(true);
+		getDialog().setMinimumSize(new Dimension(984, 425));
+		
 		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 450, 20));	
 		getContentPane().setBackground(blueColour);
 		
@@ -221,7 +232,7 @@ public class FitCalcUI2 extends JDialog {
 					
 					//Else display the custom suggestions
 					else {
-					defaultOrCustomActivities.setText("Activities listed are from fitbit");
+					defaultOrCustomActivities.setText("Activities listed are from Fitbit");
 
 					SuggestionsPanelContainer.remove(FirstActivity);
 					SuggestionsPanelContainer.remove(SecondActivity);
@@ -287,7 +298,6 @@ public class FitCalcUI2 extends JDialog {
 		String success = fitCalc.calculate(false);
 		//If Calorie Difference is negative, only show the NOSUGGESTIONS card 
 		if (fitCalc.getNegativeDifference() == true) {
-			System.out.println("UINegDiff");
 			CardLayout cardLayout = (CardLayout) CardLayoutPanel.getLayout();
 			cardLayout.show(CardLayoutPanel, "NOSUGGESTIONS");
 			defaultOrCustomActivities.setText("No Activities to show");
@@ -335,5 +345,9 @@ public class FitCalcUI2 extends JDialog {
 				}
 			});				
 			buttonPane2.add(Exit);		
+			
+			//Display in the center
+			getDialog().setLocationRelativeTo(null);
+			getDialog().setVisible(false);
 	}
 }

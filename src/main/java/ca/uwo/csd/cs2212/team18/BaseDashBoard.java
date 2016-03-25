@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team18;
 
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -11,7 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Handles the backend for the BaseDashBoard
+ * @author Team18
+ *
+ */
 
 //BaseDasbBoard UI will create an instance of BaseDashBoard class to handle all logical operations
 public class BaseDashBoard implements Serializable{
@@ -150,7 +155,7 @@ public class BaseDashBoard implements Serializable{
 			return "We can't look at data on a future date... yet. In the meantime input a date in the past";
 		}
 
-
+		apiInput = "";
 
 		apiInput = apiInput.concat(year);
 		apiInput = apiInput.concat("-");
@@ -169,6 +174,7 @@ public class BaseDashBoard implements Serializable{
 	 * @return the Current Date in the api spcific format
 	 */
 	public static String getCurrentDate() {
+		curDate = "";
 		curDate = curDate.concat(curYear);
 		curDate = curDate.concat("-");
 		curDate = curDate.concat(curMonth);
@@ -191,7 +197,6 @@ public class BaseDashBoard implements Serializable{
 	 */	
 	public static void addClosedTile(String string) {
 		closedTileNames.add(string);
-		System.out.println(string);
 	}
 	/**
 	 * Stores list of tiles that have been closed by the user into an external file
@@ -222,17 +227,10 @@ public class BaseDashBoard implements Serializable{
 		String[] stringArray = closedTileNames.toArray(new String[closedTileNames.size()]);
 		if (closedTileNames.size() == 0) {
 			return null;
-			/*
-            JOptionPane.showMessageDialog(theFrame,"All the tiles are open already; Use this button when you want to maximize removed tiles"
-            		,"Input warning",JOptionPane.ERROR_MESSAGE);
-			 */
+
 		}
 		else {
-			/*JDialog dialog = new JDialog(theFrame);
-			JComboBox<String> tileList = new JComboBox<String>(stringArray);
-			dialog.add(tileList);
-			dialog.setVisible(true);
-			 */
+
 			return stringArray;
 		}
 	}
@@ -244,7 +242,6 @@ public class BaseDashBoard implements Serializable{
 		//String selected = closedTileNames.getSelectedIndex();
 		for (int i = 0; i < closedTileNames.size(); i++) {
 			if (closedTileNames.get(i).equals(selectedTile)) {
-				System.out.println("Removed");
 				closedTileNames.remove(i);
 			}
 		}

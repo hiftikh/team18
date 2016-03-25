@@ -3,6 +3,7 @@ package ca.uwo.csd.cs2212.team18;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -26,7 +27,11 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 
 import javax.swing.JTextPane;
-
+/**
+ * Creates the first window of the FitCalcUI
+ * @author Team18
+ *
+ */
 
 //UI for the first window that is part of the FitCalc
 public class FitCalcUI extends JDialog {
@@ -61,6 +66,11 @@ public class FitCalcUI extends JDialog {
 		
 		//Visuals of FitCalcUI
 		final FitCalc fitCalc = new FitCalc(data,testOrNot);
+		
+		//Modal
+		getDialog().setModal(true);
+		getDialog().setMinimumSize(new Dimension(450, 340));
+		
 		setTitle("FitCalc");
 		setResizable(false);
 		setBounds(100, 100, 450, 340);
@@ -140,10 +150,15 @@ public class FitCalcUI extends JDialog {
 			getContentPane().add(txtrTheFitcalcWill, BorderLayout.NORTH);
 			txtrTheFitcalcWill.setColumns(45);
 			txtrTheFitcalcWill.setLineWrap(true);
+			txtrTheFitcalcWill.setBackground(null);
 			txtrTheFitcalcWill.setWrapStyleWord(true);
 			txtrTheFitcalcWill.setText("The FitCalc will check whether you are meeting your inputted calorie goal and will provide suggestions if you are not meeting your goals");
 		}
 		panel.setBackground(null);
+		
+		//Display in the center
+		getDialog().setLocationRelativeTo(null);
+		getDialog().setVisible(false);
 	}
 
 }

@@ -44,9 +44,11 @@ public class BaseDashBoardUI extends JFrame{
 
 	// Initialize Variables
 	BaseDashBoard basedashboard = new BaseDashBoard();
-	Font font = new Font("Arial", Font.PLAIN, 18);
+	Font font = new Font("Arial", Font.PLAIN, 14);
 	Font font2 = new Font("Arial", Font.BOLD, 48);
 	Font font3 = new Font("Arial", Font.BOLD, 12);
+	Font dateFont = new Font("Arial", Font.BOLD, 16);
+	Font helloBeth = new Font("Arial", Font.BOLD, 20);
 	Color blueColour = Color.decode("#45C2C5");
 
 	// Import images
@@ -261,22 +263,22 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelLogo.setVisible(true);
 
 		// Setup how side panel looks like
-		sidePanelUserText.setFont(font);
+		sidePanelUserText.setFont(helloBeth);
 		sidePanelUserText.setForeground(blueColour);
-		sidePanelUserText.setBounds(75,0,250,40);
+		sidePanelUserText.setBounds(80,0,250,40);
 		sidePanelUserTextRefresh.setFont(font3);
 		sidePanelUserTextRefresh.setForeground(blueColour);
-		sidePanelUserTextRefresh.setBounds(5,120,250,40);
+		sidePanelUserTextRefresh.setBounds(30,120,250,40);
 		sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 		
 		currentDatetxt.setFont(font);
 		currentDatetxt.setForeground(blueColour);
-		currentDatetxt.setBounds(5,25,250,40);
+		currentDatetxt.setBounds(50,50,250,40);
 		currentDatetxt.setText("Currently selected date: ");
 		
-		currentDate.setFont(font);
+		currentDate.setFont(dateFont);
 		currentDate.setForeground(blueColour);
-		currentDate.setBounds(5,50,250,40);
+		currentDate.setBounds(85,70,250,40);
 		currentDate.setText(basedashboard.getCurrentDate());
 		
 		sidePanelUser.add(currentDatetxt);
@@ -375,8 +377,14 @@ public class BaseDashBoardUI extends JFrame{
 			// Checks if the button has been pressed and the actions it will do if pressed
 			public void actionPerformed(ActionEvent event){
 				try {
-					HeartRateUI HRUI = new HeartRateUI(data, testOrNot);
-					HRUI.setVisible(true);
+					if (testOrNot == false && startUp == false) {
+							HeartRateUI HRUI = new HeartRateUI(singleFirstBox.returnAPI(), testOrNot);
+							HRUI.setVisible(true);
+					}
+					else {
+						HeartRateUI HRUI = new HeartRateUI(data, testOrNot);
+						HRUI.setVisible(true);
+					}					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -416,6 +424,7 @@ public class BaseDashBoardUI extends JFrame{
 						singleFirstBox.modifyString(3);
 						singleFirstBox.modifyString(4);
 						
+						//Startup app, get current date, otherwise get the selected Date
 						if (startUp == true) {
 							currentDate.setText(basedashboard.getCurrentDate());	
 						}
@@ -440,6 +449,11 @@ public class BaseDashBoardUI extends JFrame{
 
 				// Declare variables
 				final JDialog dateDialog = new JDialog();
+				//Modal
+				dateDialog.setModal(true);
+				dateDialog.setMinimumSize(new Dimension(442,237));
+				dateDialog.setResizable(false);
+				
 				JPanel contentPane = new JPanel();
 				JLayeredPane layeredPane = new JLayeredPane();
 				Component layeredPane_1 = new JLayeredPane();
@@ -457,7 +471,7 @@ public class BaseDashBoardUI extends JFrame{
 				JButton btnOk = new JButton("OK");
 
 				// Create new date UI
-				dateDialog.setVisible(true);
+				//dateDialog.setVisible(true);
 				dateDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				dateDialog.setBounds(100, 100, 442, 237);
 				contentPane.setBackground(new Color(69, 194, 197));
@@ -498,6 +512,14 @@ public class BaseDashBoardUI extends JFrame{
 				contentPane.add(layeredPane_3);
 				layeredPane_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				layeredPane_3.add(btnOk);
+				
+				JButton exitDate = new JButton("Exit");
+				exitDate.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent event) {
+						dateDialog.dispose();
+					}
+				});
+				layeredPane_3.add(exitDate);
 
 				// Checks when the button is pressed and the actions
 				btnOk.addActionListener(new ActionListener() {
@@ -505,13 +527,25 @@ public class BaseDashBoardUI extends JFrame{
 						String userMessage = basedashboard.checkDateInput(textField.getText(),textField_1.getText(),textField_2.getText());
 						if (userMessage == "") {
 							startUp = false;
-							singleFirstBox.updateAPI(basedashboard.getSelectedDate());
-							singleFirstBox.updateTilesVars();
-							singleFirstBox.modifyString(0);
-							singleFirstBox.modifyString(1);
-							singleFirstBox.modifyString(2);
-							singleFirstBox.modifyString(3);
-							singleFirstBox.modifyString(4);
+							if (testOrNot == false) {
+								api = (APIData) data;
+								if (api.isErrorConnection() == true) {
+									JOptionPane.showMessageDialog(itself,"Could not establish connection with FitBit Server! Try again later","Connection warning",JOptionPane.WARNING_MESSAGE);
+								}
+								else {
+									
+
+									System.out.println(basedashboard.getSelectedDate());
+									singleFirstBox.updateAPI(basedashboard.getSelectedDate());
+									singleFirstBox.updateTilesVars();
+									singleFirstBox.modifyString(0);
+									singleFirstBox.modifyString(1);
+									singleFirstBox.modifyString(2);
+									singleFirstBox.modifyString(3);
+									singleFirstBox.modifyString(4);
+								}
+							}
+							
 							dateDialog.dispose();
 							currentDate.setText(basedashboard.getSelectedDate());											
 							sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
@@ -521,6 +555,10 @@ public class BaseDashBoardUI extends JFrame{
 						}
 					}
 				});
+				
+				//Display
+				dateDialog.setLocationRelativeTo(null);
+				dateDialog.setVisible(true);
 			}});
 
 		// Create empty Box
@@ -715,10 +753,8 @@ public class BaseDashBoardUI extends JFrame{
 			}
 		}
 		catch (IOException e) {
-			System.out.println("Loading Error");
 		}
 		catch (Exception e) {
-			System.out.println("Other Error");
 		}
 	}
 

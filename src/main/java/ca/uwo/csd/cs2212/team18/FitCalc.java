@@ -3,7 +3,11 @@ package ca.uwo.csd.cs2212.team18;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * Handles all the FitCalc backend for both UIs
+ * @author Team18
+ *
+ */
 public class FitCalc {
 	//Initialize some variables
 	private int calorieGoal;
