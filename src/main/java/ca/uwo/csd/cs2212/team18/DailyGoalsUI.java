@@ -108,6 +108,8 @@ public class DailyGoalsUI extends JDialog {
 
 	//static Data apiData;
 	static APIData notTest;
+	
+	private JDialog itself = this;
 
 	/**
 	 * Constructor to create the UI for Daily Goals
@@ -202,6 +204,16 @@ public class DailyGoalsUI extends JDialog {
 		btnCreateAGoal.setBounds(25, 155, 117, 29);
 		layeredPane.add(btnCreateAGoal);
 		btnCreateAGoal.setVisible(true);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBounds(145,180,117,29);
+		layeredPane.add(btnExit);
+		btnCreateAGoal.setVisible(true);
+		btnExit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				itself.dispose();				
+			}
+		});
 		
 		//Display in the center
 		getDialog().setLocationRelativeTo(null);

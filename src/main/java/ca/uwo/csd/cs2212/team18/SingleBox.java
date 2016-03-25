@@ -100,7 +100,7 @@ public class SingleBox{
 		if (test == true) {
 		} else {
 			notTest = (APIData) apiData; 
-			notTest.refresh(apiInput);
+			notTest.refresh(dateInput);
 		}
 	}
 	public Data returnAPI() {

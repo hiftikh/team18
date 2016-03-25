@@ -44,9 +44,11 @@ public class BaseDashBoardUI extends JFrame{
 
 	// Initialize Variables
 	BaseDashBoard basedashboard = new BaseDashBoard();
-	Font font = new Font("Arial", Font.PLAIN, 18);
+	Font font = new Font("Arial", Font.PLAIN, 14);
 	Font font2 = new Font("Arial", Font.BOLD, 48);
 	Font font3 = new Font("Arial", Font.BOLD, 12);
+	Font dateFont = new Font("Arial", Font.BOLD, 16);
+	Font helloBeth = new Font("Arial", Font.BOLD, 20);
 	Color blueColour = Color.decode("#45C2C5");
 
 	// Import images
@@ -261,22 +263,22 @@ public class BaseDashBoardUI extends JFrame{
 		sidePanelLogo.setVisible(true);
 
 		// Setup how side panel looks like
-		sidePanelUserText.setFont(font);
+		sidePanelUserText.setFont(helloBeth);
 		sidePanelUserText.setForeground(blueColour);
-		sidePanelUserText.setBounds(75,0,250,40);
+		sidePanelUserText.setBounds(80,0,250,40);
 		sidePanelUserTextRefresh.setFont(font3);
 		sidePanelUserTextRefresh.setForeground(blueColour);
-		sidePanelUserTextRefresh.setBounds(5,120,250,40);
+		sidePanelUserTextRefresh.setBounds(30,120,250,40);
 		sidePanelUserTextRefresh.setText("Last Updated: " + basedashboard.getCurrentTimeAndDate());
 		
 		currentDatetxt.setFont(font);
 		currentDatetxt.setForeground(blueColour);
-		currentDatetxt.setBounds(5,25,250,40);
+		currentDatetxt.setBounds(50,50,250,40);
 		currentDatetxt.setText("Currently selected date: ");
 		
-		currentDate.setFont(font);
+		currentDate.setFont(dateFont);
 		currentDate.setForeground(blueColour);
-		currentDate.setBounds(5,50,250,40);
+		currentDate.setBounds(85,70,250,40);
 		currentDate.setText(basedashboard.getCurrentDate());
 		
 		sidePanelUser.add(currentDatetxt);
@@ -531,6 +533,9 @@ public class BaseDashBoardUI extends JFrame{
 									JOptionPane.showMessageDialog(itself,"Could not establish connection with FitBit Server! Try again later","Connection warning",JOptionPane.WARNING_MESSAGE);
 								}
 								else {
+									
+
+									System.out.println(basedashboard.getSelectedDate());
 									singleFirstBox.updateAPI(basedashboard.getSelectedDate());
 									singleFirstBox.updateTilesVars();
 									singleFirstBox.modifyString(0);
@@ -748,10 +753,8 @@ public class BaseDashBoardUI extends JFrame{
 			}
 		}
 		catch (IOException e) {
-			System.out.println("Loading Error");
 		}
 		catch (Exception e) {
-			System.out.println("Other Error");
 		}
 	}
 

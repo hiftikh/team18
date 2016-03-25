@@ -232,7 +232,7 @@ public class FitCalcUI2 extends JDialog {
 					
 					//Else display the custom suggestions
 					else {
-					defaultOrCustomActivities.setText("Activities listed are from fitbit");
+					defaultOrCustomActivities.setText("Activities listed are from Fitbit");
 
 					SuggestionsPanelContainer.remove(FirstActivity);
 					SuggestionsPanelContainer.remove(SecondActivity);
