@@ -151,8 +151,7 @@ public class APIData extends Data{
 		cardio.setValue(-1);
 		peak.setValue(-1);
 		for (int i = 0; i < recentActivities.length; i++){
-			recentActivities[i].setMets(-1);
-			recentActivities[i].setType("Not Available");
+			recentActivities[i] = new FitCalcActivity("Not Available", -1);
 			recentActivities[i].setValue(-1);
 		}
 	}
