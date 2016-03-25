@@ -211,7 +211,14 @@ public class DailyGoalsUI extends JDialog {
 		btnCreateAGoal.setVisible(true);
 		btnExit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
-				itself.dispose();				
+                DailyGoals.save(goalll);
+                if(!goalll.valid(year, month, day)){
+                    JOptionPane.showMessageDialog(itself,"You need at least 4 goals","Input warning",JOptionPane.WARNING_MESSAGE);
+                    
+                }
+                else{
+                    itself.dispose();
+                }
 			}
 		});
 		
