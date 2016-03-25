@@ -249,7 +249,6 @@ public class BaseDashBoardUI extends JFrame{
                     basedashboard.storeClosedTileList();
                 }
                 catch (Exception e) {
-                    System.out.println("Failed to save configurations");
                 }
                 wind.getWindow().dispose();
             }
@@ -755,10 +754,8 @@ public class BaseDashBoardUI extends JFrame{
             }
         }
         catch (IOException e) {
-            System.out.println("Loading Error");
         }
         catch (Exception e) {
-            System.out.println("Other Error");
         }
     }
     
