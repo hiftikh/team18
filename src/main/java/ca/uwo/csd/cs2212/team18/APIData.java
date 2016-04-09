@@ -308,7 +308,7 @@ public class APIData extends Data{
 			}
 		}
 	}
-	
+
 	/**
 	 * The api method is a private helper method that will access the Fitbit's API
 	 * via OAuthentication and will store the JSON objects that are returned
@@ -431,6 +431,7 @@ public class APIData extends Data{
 	private void setHeartRate(){
 		// Parses through the JSON text and save the values in the
 		// appropriate attributes
+
 		try {
 			api(requestUrlHeartRate);
 			JSONObject jsonObj = new JSONObject(response.getBody());
@@ -439,13 +440,21 @@ public class APIData extends Data{
 			jsonArray = jsonObj.getJSONArray("activities-heart");
 			jsonObj = jsonArray.getJSONObject(0);
 			jsonObj = jsonObj.getJSONObject("value");
-			restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
-			jsonArray = jsonObj.getJSONArray("heartRateZones");
+			try{
+				restingHeartRate.setValue(jsonObj.getInt("restingHeartRate"));
+				jsonArray = jsonObj.getJSONArray("heartRateZones");
+			}
+			catch(JSONException e) {
+				restingHeartRate.setValue(-1);
+			}
 			jsonOutOfRange = jsonArray.getJSONObject(0);
+			setHRObject(outOfRange, jsonOutOfRange );
 			jsonFatBurn = jsonArray.getJSONObject(1);
+			setHRObject(fatBurn, jsonFatBurn);
 			jsonCardio = jsonArray.getJSONObject(2);
+			setHRObject(cardio, jsonCardio);
 			jsonPeak = jsonArray.getJSONObject(3);
-
+			setHRObject(peak, jsonPeak);
 
 		} catch (JSONException e) {
 			restingHeartRate.setValue(-1);
@@ -507,7 +516,8 @@ public class APIData extends Data{
 			obj.setValue(jsonObj.getInt("minutes"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			obj.setValue(-1);
 		}
 	}
 

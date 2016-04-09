@@ -1,29 +1,29 @@
--1
--1
--1
--1
--1
--1
--1
-Not Available
--1
-Not Available
--1
-Not Available
--1
--1
--1
--1
--1
--1
--1
--1
-Not Available
--1
-0.0
-Not Available
--1
-0.0
-Not Available
--1
-0.0
+2721
+34
+14726
+233
+1207
+12
+12
+2016-03-01
+41
+2016-03-16
+14709
+2016-03-01
+323
+936
+431480
+72
+577
+89
+46
+11
+Elliptical
+20047
+8.0
+Sport
+15000
+4.0
+Outdoor Bike
+1071
+4.0
